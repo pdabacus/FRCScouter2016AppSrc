@@ -17,10 +17,10 @@ import org.ncfrcteams.frcscoutinghub2016.ui.CustomViewPager;
 import java.util.ArrayList;
 
 public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsListener,
-         HubCreateFragment.HubCreateFragListener, HubListFragment.HubListFragListener, HubContentsFragment.HubContentsFragListener {
+         HubCreateFragment.HubCreateFragListener, HubListFragment.HubListFragListener{
 
     private CustomViewPager hubViewPager;
-    private ArrayList<Fragment> fragments;
+    private CustomPageAdapter myPageAdapter;
     private String user = "test";
     private String pass = "test";
     private boolean inDetailFrag = false;
@@ -35,17 +35,16 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
         hubViewPager.setPagingEnabled(false);
         setSupportActionBar(toolbar);
 
-        fragments = new ArrayList<>();
+        ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(HubCreateFragment.newInstance());
         fragments.add(HubListFragment.newInstance());
-        fragments.add(HubContentsFragment.newInstance("Details"));
 
         ArrayList<String> fragTitles = new ArrayList<>();
         fragTitles.add("Create");
         fragTitles.add("Schedule");
         fragTitles.add("Details");
 
-        CustomPageAdapter myPageAdapter = new CustomPageAdapter(getSupportFragmentManager(), fragments, fragTitles);
+        myPageAdapter = new CustomPageAdapter(getSupportFragmentManager(), fragments, fragTitles);
         hubViewPager.setAdapter(myPageAdapter);
         hubViewPager.setCurrentItem(1);
 
@@ -87,7 +86,7 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
                     user = "4828";
                     pass = "RoboEagles4828";
                 }
-                sendPostRequest(user, pass, ((HubListFragment) fragments.get(1)).getDatabase());
+                sendPostRequest(user, pass, ((HubListFragment) myPageAdapter.fragments.get(1)).getDatabase());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -97,6 +96,8 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
     @Override
     public void onBackPressed() {
         if(inDetailFrag){
+            ((HubContentsFragment) myPageAdapter.fragments.get(2)).killMe();
+            myPageAdapter.fragments.remove(2);
             hubViewPager.setCurrentItem(1);
             inDetailFrag = false;
         } else {
@@ -116,17 +117,18 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
 
     @Override
     public void autopush() {
-        Toast.makeText(this, "autopush?", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "autopush?", Toast.LENGTH_SHORT).show(); //TODO push to server
     }
 
     @Override
     public void switchToDetails(int matchId){
         inDetailFrag = true;
+        myPageAdapter.fragments.set(2, HubContentsFragment.newInstance(matchId));
         hubViewPager.setCurrentItem(2);
     }
 
     @Override
     public void addNewMatch(int[] teams, int matchnum, boolean isQual, String phonenum) {
-        ((HubListFragment)fragments.get(1)).addNewMatch(teams, matchnum, isQual, phonenum);
+        ((HubListFragment) myPageAdapter.fragments.get(1)).addNewMatch(teams, matchnum, isQual, phonenum);
     }
 }

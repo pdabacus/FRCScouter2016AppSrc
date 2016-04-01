@@ -85,8 +85,7 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
 
     @Override
     public void onListChange() {
-        //called whenever ANYTHING changes
-        mListener.autopush(); //TODO auto push to server?
+        mListener.autopush();
     }
 
     @Override
@@ -96,7 +95,7 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
 
     @Override
     public void setMatchFromId(int matchId, Match match) {
-        myListAdapter.setItem(matchId, match); // TODO Add method in DatabaseAdapter
+        //myListAdapter.setItem(matchId, match); //TODO Add method in DatabaseAdapter
     }
 
     public void addNewMatch(int[] teams, int matchnum, boolean isQual, String phonenum){

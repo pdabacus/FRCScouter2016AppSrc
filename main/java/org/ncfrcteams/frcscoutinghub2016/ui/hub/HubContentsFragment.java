@@ -34,6 +34,7 @@ public class HubContentsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             matchId = getArguments().getInt(ARG_PARAM1);
+            match = mListener.getMatchFromId(matchId); //I checked, and OnAttach happens before OnCreate
         }
     }
 
@@ -51,7 +52,6 @@ public class HubContentsFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof HubContentsFragListener) {
             mListener = (HubContentsFragListener) context;
-            match = mListener.getMatchFromId(matchId);
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement HubContentsFragListener");
@@ -63,6 +63,11 @@ public class HubContentsFragment extends Fragment {
         super.onDetach();
         mListener.setMatchFromId(matchId, match);
         mListener = null;
+    }
+
+    //called by activity when back button is pressed
+    public void killMe(){
+        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
     }
 
     public interface HubContentsFragListener {

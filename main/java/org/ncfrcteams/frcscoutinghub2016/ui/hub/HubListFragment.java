@@ -96,12 +96,11 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
 
     @Override
     public void setMatchFromId(int matchId, Match match) {
-        myListAdapter.setItem(matchId, match);
+        myListAdapter.setItem(matchId, match); // TODO Add method in DatabaseAdapter
     }
 
     public void addNewMatch(int[] teams, int matchnum, boolean isQual, String phonenum){
-        mySchedule.add(new MatchDescriptor(getContext(), matchnum, teams));
-        //TODO add isQual Boolean and phonenum String
+        mySchedule.add(new MatchDescriptor(getContext(), matchnum, teams, isQual, phonenum));
     }
 
     public String getDatabase() {

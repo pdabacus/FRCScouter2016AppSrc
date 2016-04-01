@@ -104,9 +104,8 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
         int[] nums = match.getTeams();
 
         for(int i=0;i<teamNumbers.length;i++) {
-            teamNumbers[i].setText(nums[i]);
+            teamNumbers[i].setText(String.valueOf(nums[i]));
         }
-
 
         Obstacle[] obstacles = match.getObstacles();
 
@@ -125,6 +124,10 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View v) {
         int id = v.getId();
+
+        if(id == R.id.contentsSubmitButton) {
+            mListener.saveContents(1);
+        }
 
         selection = match.getObstacles();
 
@@ -155,14 +158,9 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
         }
     }
 
-    public void submit(View view) {
-        save();
-        HubActivity activity = (HubActivity) getActivity();
-        activity.switchAwayFromDetailFrag(1);
-    }
-
     public interface HubContentsFragListener {
         Match getMatchFromId(int matchId);
+        void saveContents(int i);
     }
 
 }

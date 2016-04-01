@@ -155,8 +155,14 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
         return ((HubListFragment) myPageAdapter.fragments.get(1)).getMatchFromId(matchId);
     }
 
+    @Override
+    public void saveContents(int i) {
+        switchAwayFromDetailFrag(i);
+    }
+
     public void switchAwayFromDetailFrag(int i){
         inDetailFrag = false;
+        ((HubContentsFragment) myPageAdapter.fragments.get(2)).save();
         hubViewPager.setCurrentItem(i);
     }
 

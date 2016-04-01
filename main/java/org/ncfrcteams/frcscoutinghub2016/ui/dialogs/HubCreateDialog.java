@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
 
@@ -24,7 +25,7 @@ public class HubCreateDialog implements View.OnClickListener {
     private Dialog dialog;
     private View view;
 
-    public HubCreateDialog(Context context, HubCreateDialogListener listener) {
+    public HubCreateDialog(final Context context, HubCreateDialogListener listener) {
 
         final AlertDialog.Builder alert = new AlertDialog.Builder(context);
         final HubCreateDialog thisDialog = this;
@@ -41,7 +42,7 @@ public class HubCreateDialog implements View.OnClickListener {
             public void onClick(DialogInterface dialog, int id) {
                 int[] newteams = {1000,2000,3000,4000,5000,6000};
                 thisDialog.teams = newteams;
-                thisDialog.matchnum = 2;
+                thisDialog.matchnum = 1;
                 thisDialog.isQual = true;
                 dialogListener.onNewMatchCreate(thisDialog.teams, thisDialog.matchnum,
                         thisDialog.isQual, thisDialog.phonenum.getText().toString());
@@ -50,7 +51,7 @@ public class HubCreateDialog implements View.OnClickListener {
 
         DialogInterface.OnClickListener negativeListener = new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-
+                Toast.makeText(context, "Cancelled Match Creation", Toast.LENGTH_SHORT).show();
             }
         };
 

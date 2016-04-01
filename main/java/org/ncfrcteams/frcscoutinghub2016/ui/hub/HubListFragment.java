@@ -21,7 +21,7 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
 
     private boolean theTimeIsRight;
     private HubListFragListener mListener;
-    public static Schedule mySchedule;
+    public Schedule mySchedule;
     public DatabaseAdapter myListAdapter;
     ListView hubListView;
 

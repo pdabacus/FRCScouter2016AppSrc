@@ -58,9 +58,8 @@ public class HubCreateFragment extends Fragment implements View.OnClickListener,
     public void onClick(View view){
         switch(view.getId()){
             case R.id.createMatch:
-                //TODO get matchtitles
-                ArrayList<String> matchtitles = new ArrayList<>();
-                new HubCreateDialog(getContext(), this, matchtitles).show();
+                ArrayList<String> matchTitles = mListener.getMatchTitles();
+                new HubCreateDialog(getContext(), this, matchTitles).show();
                 break;
             default:
                 break;
@@ -74,5 +73,6 @@ public class HubCreateFragment extends Fragment implements View.OnClickListener,
 
     public interface HubCreateFragListener {
         void addNewMatch(int[] teams, int matchnum, boolean isQual, String phonenum);
+        ArrayList<String> getMatchTitles();
     }
 }

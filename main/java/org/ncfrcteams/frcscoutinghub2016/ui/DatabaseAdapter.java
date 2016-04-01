@@ -13,7 +13,6 @@ import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Match;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Schedule;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by pavan on 3/30/16.
@@ -61,7 +60,7 @@ public class DatabaseAdapter extends ArrayAdapter<Match> implements Schedule.Sch
     }
 
     @Override
-    public synchronized void notifyScheduleChanges(List<Match> matches) {
+    public synchronized void notifyScheduleChanges(ArrayList<Match> matches) {
         this.clear();
         this.addAll(matches);
     }

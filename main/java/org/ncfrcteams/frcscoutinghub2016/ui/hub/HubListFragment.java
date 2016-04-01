@@ -11,12 +11,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
+import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Match;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.MatchDescriptor;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Schedule;
 import org.ncfrcteams.frcscoutinghub2016.ui.DatabaseAdapter;
 
 public class HubListFragment extends Fragment implements AdapterView.OnItemClickListener,
-        AdapterView.OnItemLongClickListener, DatabaseAdapter.DatabaseListener {
+        AdapterView.OnItemLongClickListener, DatabaseAdapter.DatabaseListener,
+        HubContentsFragment.HubContentsFragListener {
 
     private HubListFragListener mListener;
     public static Schedule mySchedule;
@@ -55,7 +57,7 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
         String item = myListAdapter.getItem(position).getText();
         Toast.makeText(getActivity(), item, Toast.LENGTH_SHORT).show();
-        mListener.switchToDetails();
+        mListener.switchToDetails(position);
     }
 
     @Override
@@ -87,6 +89,16 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
         mListener.autopush(); //TODO auto push to server?
     }
 
+    @Override
+    public Match getMatchFromId(int matchId) {
+        return myListAdapter.getItem(matchId);
+    }
+
+    @Override
+    public void setMatchFromId(int matchId, Match match) {
+        myListAdapter.setItem(matchId, match);
+    }
+
     public void addNewMatch(int[] teams, int matchnum, boolean isQual, String phonenum){
         mySchedule.add(new MatchDescriptor(getContext(), matchnum, teams));
         //TODO add isQual Boolean and phonenum String
@@ -98,7 +110,7 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
 
     public interface HubListFragListener {
         void autopush();
-        void switchToDetails();
+        void switchToDetails(int matchId);
     }
 
 }

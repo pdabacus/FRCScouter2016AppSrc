@@ -9,20 +9,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
+import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Match;
 
 public class HubContentsFragment extends Fragment {
     private static final String ARG_PARAM1 = "title";
-    private String title;
+    private int matchId;
     private TextView hubfrag1;
+    private Match match;
     private HubContentsFragListener mListener;
 
     public HubContentsFragment() {
     }
 
-    public static HubContentsFragment newInstance(String title) {
+    public static HubContentsFragment newInstance(int matchId) {
         HubContentsFragment fragment = new HubContentsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, title);
+        args.putInt(ARG_PARAM1, matchId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -31,7 +33,7 @@ public class HubContentsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            title = getArguments().getString(ARG_PARAM1);
+            matchId = getArguments().getInt(ARG_PARAM1);
         }
     }
 
@@ -39,7 +41,7 @@ public class HubContentsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.h_frag_contents, container, false);
         hubfrag1 = (TextView) view.findViewById(R.id.hubfrag1);
-        hubfrag1.setText(title);
+        hubfrag1.setText(matchId);
         //TODO Make this entire edit Match show QR fragment
         return view;
     }
@@ -49,6 +51,7 @@ public class HubContentsFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof HubContentsFragListener) {
             mListener = (HubContentsFragListener) context;
+            match = mListener.getMatchFromId(matchId);
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement HubContentsFragListener");
@@ -58,10 +61,12 @@ public class HubContentsFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+        mListener.setMatchFromId(matchId, match);
         mListener = null;
     }
 
     public interface HubContentsFragListener {
-
+        Match getMatchFromId(int matchId);
+        void setMatchFromId(int matchId, Match match);
     }
 }

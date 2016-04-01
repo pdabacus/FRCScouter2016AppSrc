@@ -120,7 +120,7 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
     }
 
     @Override
-    public void switchToDetails(){
+    public void switchToDetails(int matchId){
         inDetailFrag = true;
         hubViewPager.setCurrentItem(2);
     }

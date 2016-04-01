@@ -17,8 +17,7 @@ import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Schedule;
 import org.ncfrcteams.frcscoutinghub2016.ui.DatabaseAdapter;
 
 public class HubListFragment extends Fragment implements AdapterView.OnItemClickListener,
-        AdapterView.OnItemLongClickListener, DatabaseAdapter.DatabaseListener,
-        HubContentsFragment.HubContentsFragListener {
+        AdapterView.OnItemLongClickListener, DatabaseAdapter.DatabaseListener {
 
     private HubListFragListener mListener;
     public static Schedule mySchedule;
@@ -88,14 +87,8 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
         mListener.autopush();
     }
 
-    @Override
     public Match getMatchFromId(int matchId) {
         return myListAdapter.getItem(matchId);
-    }
-
-    @Override
-    public void setMatchFromId(int matchId, Match match) {
-        //myListAdapter.setItem(matchId, match); //TODO Add method in DatabaseAdapter
     }
 
     public void addNewMatch(int[] teams, int matchnum, boolean isQual, String phonenum){

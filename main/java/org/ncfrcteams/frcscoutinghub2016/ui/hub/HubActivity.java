@@ -11,13 +11,15 @@ import android.widget.Toast;
 import org.ncfrcteams.frcscoutinghub2016.R;
 import org.ncfrcteams.frcscoutinghub2016.communication.http.PostClass;
 import org.ncfrcteams.frcscoutinghub2016.communication.sms_server.SmsReceiver;
+import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Match;
 import org.ncfrcteams.frcscoutinghub2016.ui.CustomPageAdapter;
 import org.ncfrcteams.frcscoutinghub2016.ui.CustomViewPager;
 
 import java.util.ArrayList;
 
 public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsListener,
-         HubCreateFragment.HubCreateFragListener, HubListFragment.HubListFragListener{
+         HubCreateFragment.HubCreateFragListener, HubListFragment.HubListFragListener,
+        HubContentsFragment.HubContentsFragListener{
 
     private CustomViewPager hubViewPager;
     private CustomPageAdapter myPageAdapter;
@@ -96,10 +98,11 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
     @Override
     public void onBackPressed() {
         if(inDetailFrag){
+            inDetailFrag = false;
+            hubViewPager.setCurrentItem(1);
             ((HubContentsFragment) myPageAdapter.fragments.get(2)).killMe();
             myPageAdapter.fragments.remove(2);
-            hubViewPager.setCurrentItem(1);
-            inDetailFrag = false;
+            myPageAdapter.notifyDataSetChanged();
         } else {
             super.onBackPressed();
         }
@@ -123,12 +126,18 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
     @Override
     public void switchToDetails(int matchId){
         inDetailFrag = true;
-        myPageAdapter.fragments.set(2, HubContentsFragment.newInstance(matchId));
+        myPageAdapter.fragments.add(2, HubContentsFragment.newInstance(matchId));
+        myPageAdapter.notifyDataSetChanged();
         hubViewPager.setCurrentItem(2);
     }
 
     @Override
     public void addNewMatch(int[] teams, int matchnum, boolean isQual, String phonenum) {
         ((HubListFragment) myPageAdapter.fragments.get(1)).addNewMatch(teams, matchnum, isQual, phonenum);
+    }
+
+    @Override
+    public Match getMatchFromId(int matchId) {
+        return ((HubListFragment) myPageAdapter.fragments.get(1)).getMatchFromId(matchId);
     }
 }

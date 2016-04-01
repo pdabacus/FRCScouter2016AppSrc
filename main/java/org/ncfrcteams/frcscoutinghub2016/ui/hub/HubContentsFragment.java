@@ -61,17 +61,15 @@ public class HubContentsFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener.setMatchFromId(matchId, match);
         mListener = null;
     }
 
-    //called by activity when back button is pressed
+    //called by activity. dont use this, instead call getActivity.bac
     public void killMe(){
         getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
     }
 
     public interface HubContentsFragListener {
         Match getMatchFromId(int matchId);
-        void setMatchFromId(int matchId, Match match);
     }
 }

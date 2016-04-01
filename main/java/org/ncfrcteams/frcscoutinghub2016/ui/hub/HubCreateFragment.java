@@ -10,7 +10,8 @@ import android.view.ViewGroup;
 import org.ncfrcteams.frcscoutinghub2016.R;
 import org.ncfrcteams.frcscoutinghub2016.ui.dialogs.HubCreateDialog;
 
-public class HubCreateFragment extends Fragment implements View.OnClickListener, HubCreateDialog.HubCreateDialogListener{
+public class HubCreateFragment extends Fragment implements View.OnClickListener,
+        HubCreateDialog.HubCreateDialogListener{
 
     private HubCreateFragListener mListener;
     public HubCreateFragment() {

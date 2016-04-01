@@ -48,18 +48,20 @@ public class MatchDescriptor implements Serializable, Comparable {
         String[] parts = s.split(",");
         int matchNum = Integer.parseInt(parts[0]);
         int[] teams = new int[6];
-        for(int i=1; i<parts.length; i++) {
+        for(int i=1; i < 7; i++) {
             teams[i-1] = Integer.parseInt(parts[i]);
         }
-        return new MatchDescriptor(context,matchNum,teams);
+        boolean isQual = (Integer.parseInt(parts[7]) == 1);
+        String phonenum = parts[8];
+        return new MatchDescriptor(context, matchNum, teams, isQual, phonenum);
     }
 
     public String toString(Team t) {
         StringBuilder s = new StringBuilder();
 
-        s.append((t.getValue() > 2)? "B" : "R");
+        s.append((t.getValue() > 2) ? "B" : "R");
         s.append(",");
-        s.append(isQual?"Qual":"Elim");
+        s.append(isQual ? "Qual" : "Elim");
         s.append(",");
         s.append(matchNum);
         s.append(",");

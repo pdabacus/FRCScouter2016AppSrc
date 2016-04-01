@@ -9,6 +9,7 @@ public class Match {
     private int matchStatus;
     private boolean isQual;
     private MatchDescriptor matchDescriptor;
+    private String[][] matchRecords = new String[6][2];
 
     public Match(int matchnum, int matchStatus, boolean isQual, MatchDescriptor matchDescriptor){
         this.matchnum = matchnum;
@@ -44,6 +45,13 @@ public class Match {
             default:
                 return 0xffffffff; //black = done (all data back)
         }
+    }
+
+    public String getDataFromPair(String[] pair) {
+        String[] fullRecord = pair[0].split(">");
+        String[] fullComment = pair[1].split(">");
+
+        return "asdf";
     }
 
 }

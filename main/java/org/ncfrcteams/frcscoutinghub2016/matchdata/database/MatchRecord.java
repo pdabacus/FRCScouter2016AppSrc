@@ -13,6 +13,7 @@ public class MatchRecord extends SuperMap<String, Integer>{
     private int color;
     private int orientation;
     private int isQual;
+    private String comment;
     private int[] barriers = {0,0,0,0,0,0,0,0,0,0};
     private String phonenum;
 
@@ -110,6 +111,14 @@ public class MatchRecord extends SuperMap<String, Integer>{
         return phonenum;
     }
 
+    public synchronized String getComment(){
+        return comment;
+    }
+
+    public synchronized void setComment(String newcomment){
+        comment = newcomment;
+    }
+
     public synchronized void put(String s, int i){
         switch(s){
             case "Mode":
@@ -194,7 +203,7 @@ public class MatchRecord extends SuperMap<String, Integer>{
         }
     }
 
-    public synchronized String getData(){
+    public synchronized String[] toStringPair(){
         List <Integer> smallnums = new ArrayList<>();
         String[] strings = {"Shoot High Auto","Shoot High Auto Total","Shoot Low Auto","Shoot Low Auto Total",
                 "Shoot High Tele","Shoot High Tele Total","Shoot Low Tele","Shoot Low Tele Total",
@@ -219,7 +228,10 @@ public class MatchRecord extends SuperMap<String, Integer>{
             data.append(smallnums.get(i)).append(",");
         }
 
-        return data.substring(0, data.length()-1);
+        String header = (get("isQual") == 1 ? "Q" : "E") + get("Match Number") + "," + get("Team Number") + ",";
+        String[] result = {"<frc:d>" + header + data.substring(0, data.length()-1) , "<frc:c>" + header + getComment()};
+
+        return result;
     }
 
     /*

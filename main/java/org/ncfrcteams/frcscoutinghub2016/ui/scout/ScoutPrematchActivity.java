@@ -112,7 +112,6 @@ public class ScoutPrematchActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Failed Scan", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     public void launchHub(View view){

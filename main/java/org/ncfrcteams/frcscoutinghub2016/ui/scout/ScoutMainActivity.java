@@ -33,7 +33,6 @@ public class ScoutMainActivity extends AppCompatActivity implements ScoutFragLef
     public ArrayList<Fragment> fragments = new ArrayList<>();
     public ArrayList<String> fragtitles = new ArrayList<>();
     public int[] colors = {0xffe9ff8f, 0xff30a050};  //yellow and green
-    public String comment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +62,6 @@ public class ScoutMainActivity extends AppCompatActivity implements ScoutFragLef
         myLayout.setBackgroundColor(colors[0]);
         viewPager.setCurrentItem(1);
 
-        comment = "";
     }
 
     @Override
@@ -93,7 +91,7 @@ public class ScoutMainActivity extends AppCompatActivity implements ScoutFragLef
                 return true;
             case R.id.save:
                 new ScoutPostMatchDialog(this, this, myMatchRecord.get("Challenged"),
-                        myMatchRecord.get("Climbed"), comment).show();
+                        myMatchRecord.get("Climbed"), myMatchRecord.getComment()).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -104,16 +102,14 @@ public class ScoutMainActivity extends AppCompatActivity implements ScoutFragLef
     public void onPostConfirm(int state, int newchallenge, int newclimb, String newcomment) {
         myMatchRecord.put("Challenged", newchallenge);
         myMatchRecord.put("Climbed", newclimb);
-        comment = newcomment;
+        myMatchRecord.setComment(newcomment);
 
         if(state == 1){
             String phonenum = myMatchRecord.getPhoneNum();
-            String data = myMatchRecord.getData();
-            String unique = (myMatchRecord.get("isQual") == 1 ? "Q" : "E") + myMatchRecord.get("Match Number") +
-                    "," + myMatchRecord.get("Team Number");
+            String[] messages = myMatchRecord.toStringPair();
 
             Toast.makeText(getApplicationContext(), "Sending Data to " + phonenum, Toast.LENGTH_LONG).show();
-            SendSms.send(phonenum, data, comment, unique);
+            SendSms.send(phonenum, messages);
 
             finish();
             Intent intent = new Intent(this, ScoutPrematchActivity.class);

@@ -61,4 +61,12 @@ public class Match {
         return result;
     }
 
+
+    public int[] getTeams() {
+        return matchDescriptor.getTeams();
+    }
+
+    public Obstacle[] getObstacles() {
+        return matchDescriptor.getObstacles();
+    }
 }

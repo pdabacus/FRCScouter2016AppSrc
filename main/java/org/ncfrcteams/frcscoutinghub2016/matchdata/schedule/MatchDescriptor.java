@@ -138,5 +138,8 @@ public class MatchDescriptor implements Serializable, Comparable {
         return obstacles.clone();
     }
 
+    public int[] getTeams() {
+        return teams;
+    }
 
 }

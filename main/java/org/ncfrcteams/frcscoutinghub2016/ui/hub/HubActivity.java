@@ -40,7 +40,7 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(HubCreateFragment.newInstance());
         fragments.add(HubListFragment.newInstance());
-        fragments.add(HubContentsFragment.newInstance(-1));
+        fragments.add(HubContentsFragment.newInstance());
 
         ArrayList<String> fragTitles = new ArrayList<>();
         fragTitles.add("Create");
@@ -78,10 +78,10 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.hubnew:
-                hubViewPager.setCurrentItem(0);
+                switchAwayFromDetailFrag(0);
                 return true;
             case R.id.hubview:
-                hubViewPager.setCurrentItem(1);
+                switchAwayFromDetailFrag(1);
                 return true;
             case R.id.hubpush:
                 if (user.equals("test")){
@@ -99,10 +99,7 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
     @Override
     public void onBackPressed() {
         if(inDetailFrag){
-            inDetailFrag = false;
-            hubViewPager.setCurrentItem(1);
-            ((HubContentsFragment) myPageAdapter.fragments.get(2)).killMe();
-            myPageAdapter.notifyDataSetChanged();
+            switchAwayFromDetailFrag(1);
         } else {
             super.onBackPressed();
         }
@@ -126,8 +123,7 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
     @Override
     public void switchToDetails(int matchId){
         inDetailFrag = true;
-        myPageAdapter.fragments.set(2, HubContentsFragment.newInstance(matchId));
-        myPageAdapter.notifyDataSetChanged();
+        ((HubContentsFragment) myPageAdapter.fragments.get(2)).setMatchId(matchId);
         hubViewPager.setCurrentItem(2);
     }
 
@@ -140,4 +136,10 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
     public Match getMatchFromId(int matchId) {
         return ((HubListFragment) myPageAdapter.fragments.get(1)).getMatchFromId(matchId);
     }
+
+    public void switchAwayFromDetailFrag(int i){
+        inDetailFrag = false;
+        hubViewPager.setCurrentItem(i);
+    }
+
 }

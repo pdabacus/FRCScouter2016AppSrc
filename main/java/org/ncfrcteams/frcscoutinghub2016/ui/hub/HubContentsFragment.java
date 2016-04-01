@@ -12,13 +12,17 @@ import org.ncfrcteams.frcscoutinghub2016.R;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Match;
 
 public class HubContentsFragment extends Fragment {
-    private static final String ARG_PARAM1 = "title";
+    private static final String ARG_PARAM1 = "matchId";
     private int matchId;
     private TextView hubfrag1;
     private Match match;
     private HubContentsFragListener mListener;
 
     public HubContentsFragment() {
+    }
+
+    public static HubContentsFragment newInstance() {
+        return new HubContentsFragment();
     }
 
     public static HubContentsFragment newInstance(int matchId) {
@@ -32,24 +36,23 @@ public class HubContentsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        matchId = 0;
         if (getArguments() != null) {
             matchId = getArguments().getInt(ARG_PARAM1);
-            if (matchId != -1) {
-                match = mListener.getMatchFromId(matchId); //I checked, and OnAttach happens before OnCreate
-            }
+            match = mListener.getMatchFromId(matchId); //I checked, and OnAttach happens before OnCreate
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.h_frag_contents, container, false);
+
         hubfrag1 = (TextView) view.findViewById(R.id.hubfrag1);
-        hubfrag1.setText("Match " + matchId);
 
-        if (matchId != -1) {
+        //TODO load default views
 
-            //TODO Make this entire fragment
-
+        if (matchId != 0) {
+            reset(match);
         }
 
         return view;
@@ -72,9 +75,13 @@ public class HubContentsFragment extends Fragment {
         mListener = null;
     }
 
-    //called by activity. dont use this, instead call getActivity.bac
-    public void killMe(){
-        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+    public void reset(Match match){
+        //TODO Make this entire fragment. Load views based on match.
+    }
+
+    public void setMatchId(int newMatchId){
+        matchId = newMatchId;
+        match = mListener.getMatchFromId(matchId);
     }
 
     public interface HubContentsFragListener {

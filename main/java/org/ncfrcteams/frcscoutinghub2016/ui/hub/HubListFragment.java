@@ -56,7 +56,7 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
         String item = myListAdapter.getItem(position).getText();
         Toast.makeText(getActivity(), item, Toast.LENGTH_SHORT).show();
-        mListener.switchToDetails(position);
+        mListener.switchToDetails(position + 1);
     }
 
     @Override
@@ -88,7 +88,7 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
     }
 
     public Match getMatchFromId(int matchId) {
-        return myListAdapter.getItem(matchId);
+        return myListAdapter.getItem(matchId - 1);
     }
 
     public void addNewMatch(int[] teams, int matchnum, boolean isQual, String phonenum){

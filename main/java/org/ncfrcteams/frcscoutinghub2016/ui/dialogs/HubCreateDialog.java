@@ -20,10 +20,11 @@ public class HubCreateDialog{
 
     private static final String POSITIVE_TEXT = "Create";
     private static final String NEGATIVE_TEXT = "Cancel";
+    private int[] matchenums;
     private Dialog dialog;
     private View view;
 
-    public HubCreateDialog(final Context context, HubCreateDialogListener listener) {
+    public HubCreateDialog(final Context context, final HubCreateDialogListener listener) { //TODO get matchnums array
 
         final AlertDialog.Builder alert = new AlertDialog.Builder(context);
         final HubCreateDialog thisDialog = this;
@@ -50,9 +51,35 @@ public class HubCreateDialog{
                 boolean isQual = ((RadioButton) view.findViewById(R.id.qual)).isChecked();
                 String phonenum = ((EditText) view.findViewById(R.id.phonenum)).getText().toString();
 
-                dialogListener.onNewMatchCreate(teams, matchnum, isQual, phonenum);
-                Toast.makeText(context, (isQual ? "Qual " : "Elim ") + matchnum + " Created", Toast.LENGTH_SHORT).show();
+                if(repeatsIn(teams) || arrayContains(teams, 0) || arrayContains(thisDialog.matchenums, matchnum) ||
+                        matchnum == 0 || phonenum.equals("")){
+                    Toast.makeText(context, "Invalid Match Setup", Toast.LENGTH_SHORT).show();
+                } else{
+                    dialogListener.onNewMatchCreate(teams, matchnum, isQual, phonenum);
+                    Toast.makeText(context, (isQual ? "Qual " : "Elim ") + matchnum + " Created", Toast.LENGTH_SHORT).show();
+                }
             }
+
+            private boolean repeatsIn(int[] teams) {
+                for(int i = 0; i < teams.length; i++){
+                    for(int j = i + 1; j < teams.length; j++){
+                        if (i != j && teams[i] == teams[j]){
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+
+            private boolean arrayContains(int[] array, int item){
+                for (int val : array) {
+                    if(val == item){
+                        return true;
+                    }
+                }
+                return false;
+            }
+
         };
 
         DialogInterface.OnClickListener negativeListener = new DialogInterface.OnClickListener() {

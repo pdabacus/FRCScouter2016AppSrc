@@ -87,11 +87,7 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
             positions[i] = (ImageView) view.findViewById(id);
             positions[i].setOnClickListener(this);
         }
-
-        if (matchId != 0) {
-            reset(match);
-        }
-
+        
         return view;
     }
 
@@ -108,8 +104,6 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
         int[] nums = match.getTeams();
 
         for(int i=0;i<teamNumbers.length;i++) {
-            Toast.makeText(getContext(), teamNumbers.toString(), Toast.LENGTH_SHORT ).show();
-            Log.d("asdfasdfasdf", teamNumbers.toString());
             teamNumbers[i].setText(String.valueOf(nums[i]));
         }
 

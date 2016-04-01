@@ -73,7 +73,7 @@ public class MatchDescriptor implements Serializable, Comparable {
 
         s.append((t.getValue() > 2) ? "B" : "R");
         s.append(",");
-        s.append(isQual ? "Qual" : "Elim");
+        s.append(isQual ? "1" : "0");
         s.append(",");
         s.append(matchNum);
         s.append(",");

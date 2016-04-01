@@ -36,13 +36,13 @@ public class Match {
     public int getColor(){
         switch(matchStatus){
             case 0:
-                return 0xff0000; //red = incomplete
+                return 0xffff0000; //red = incomplete
             case 1:
-                return 0x00ff00; //green = ready for scouting
+                return 0xff00ff00; //green = ready for scouting
             case 2:
-                return 0xffff00; //yellow = scouting in progress
+                return 0xffffff00; //yellow = scouting in progress
             default:
-                return 0xffffff; //black = done (all data back)
+                return 0xffffffff; //black = done (all data back)
         }
     }
 

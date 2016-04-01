@@ -118,49 +118,50 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
         }
     }
 
-    @Override
-    public void smsReceived(String number, String message) {
-        Toast.makeText(this, "sms from "+ number + ":\n\n" + message, Toast.LENGTH_LONG).show();
-    }
-
     public void sendPostRequest(String user, String pass, String data) {
         String urlstring = "http://pavanec2.us.to/frc/database/update/view/index.php";
         new PostClass(this, urlstring, user, pass, data, true).execute();
     }
 
     @Override
-    public void autopush() {
+    public void smsReceived(String number, String message) { //launched from smsReceiver
+        Toast.makeText(this, "sms from "+ number + ":\n\n" + message, Toast.LENGTH_LONG).show();
+        //TODO call hublistfrag.myschedule.addsms( message )
+    }
+
+    @Override
+    public void autopush() { //launched from hubListFragment
         Toast.makeText(this, "autopush", Toast.LENGTH_SHORT).show(); //TODO auto push to server
     }
 
     @Override
-    public void switchToDetails(int matchId){
+    public void switchToDetails(int matchId){ //launched from hubListFragment
         inDetailFrag = true;
         ((HubContentsFragment) myPageAdapter.fragments.get(2)).setMatchId(matchId);
         hubViewPager.setCurrentItem(2);
     }
 
-    @Override
+    @Override                                //launched from hubCreateFragment
     public void addNewMatch(int[] teams, int matchnum, boolean isQual, String phonenum) {
         ((HubListFragment) myPageAdapter.fragments.get(1)).addNewMatch(teams, matchnum, isQual, phonenum);
     }
 
     @Override
-    public ArrayList<String> getMatchTitles() {
+    public ArrayList<String> getMatchTitles() { //launched from hubCreateFragment
         return ((HubListFragment) myPageAdapter.fragments.get(1)).mySchedule.getMatchTitles();
     }
 
     @Override
-    public Match getMatchFromId(int matchId) {
+    public Match getMatchFromId(int matchId) { //launched from hubContentsFragment
         return ((HubListFragment) myPageAdapter.fragments.get(1)).getMatchFromId(matchId);
     }
 
     @Override
-    public void saveContents(int i) {
+    public void saveContents(int i) { //launched from hubContentsFragment
         switchAwayFromDetailFrag(i);
     }
 
-    public void switchAwayFromDetailFrag(int i){
+    public void switchAwayFromDetailFrag(int i){ //called by saveContents(), back button, and viewpager
         inDetailFrag = false;
         ((HubContentsFragment) myPageAdapter.fragments.get(2)).save();
         hubViewPager.setCurrentItem(i);

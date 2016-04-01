@@ -56,14 +56,14 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-        String item = myListAdapter.getItem(position).getText();
+        String item = myListAdapter.getItem(position).getTitle();
         Toast.makeText(getActivity(), item, Toast.LENGTH_SHORT).show();
         mListener.switchToDetails(position + 1);
     }
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        String item = myListAdapter.getItem(position).getText();
+        String item = myListAdapter.getItem(position).getTitle();
         Toast.makeText(getActivity(), item + " long", Toast.LENGTH_SHORT).show();
         return true;
     }

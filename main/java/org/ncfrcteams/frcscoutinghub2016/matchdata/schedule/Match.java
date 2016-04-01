@@ -30,7 +30,7 @@ public class Match {
         return matchDescriptor == null;
     }
 
-    public String getText(){
+    public String getTitle(){
         return (isQual ? "Qual " : "Elim ") + matchnum;
     }
 

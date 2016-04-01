@@ -57,6 +57,14 @@ public class Schedule {
         return new ArrayList<>(matches);
     }
 
+    public synchronized List<String> getMatchTitles() {
+        ArrayList<String> titles = new ArrayList<>();
+        for(Match match : matches) {
+            titles.add(match.getTitle());
+        }
+        return titles;
+    }
+
     private void update() {
         Collections.sort(matchDescriptorList);
         matches.clear();

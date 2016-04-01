@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import org.ncfrcteams.frcscoutinghub2016.R;
 import org.ncfrcteams.frcscoutinghub2016.ui.dialogs.HubCreateDialog;
 
+import java.util.ArrayList;
+
 public class HubCreateFragment extends Fragment implements View.OnClickListener,
         HubCreateDialog.HubCreateDialogListener{
 
@@ -56,7 +58,9 @@ public class HubCreateFragment extends Fragment implements View.OnClickListener,
     public void onClick(View view){
         switch(view.getId()){
             case R.id.createMatch:
-                new HubCreateDialog(getContext(), this).show();
+                //TODO get matchtitles
+                ArrayList<String> matchtitles = new ArrayList<>();
+                new HubCreateDialog(getContext(), this, matchtitles).show();
                 break;
             default:
                 break;

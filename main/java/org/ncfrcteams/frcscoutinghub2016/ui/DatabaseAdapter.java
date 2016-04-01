@@ -49,7 +49,7 @@ public class DatabaseAdapter extends ArrayAdapter<Match> implements Schedule.Sch
 
         Match match = getItem(position);
         TextView listViewText = (TextView) view.findViewById(R.id.listViewText);
-        listViewText.setText(match.getText());
+        listViewText.setText(match.getTitle());
         listViewText.setTextColor(match.getColor());
 
         boolean inSearchIndex = false;

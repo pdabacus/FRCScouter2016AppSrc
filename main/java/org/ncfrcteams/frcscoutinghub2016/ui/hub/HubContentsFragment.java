@@ -25,22 +25,10 @@ public class HubContentsFragment extends Fragment {
         return new HubContentsFragment();
     }
 
-    public static HubContentsFragment newInstance(int matchId) { //constructor never used
-        HubContentsFragment fragment = new HubContentsFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_PARAM1, matchId);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         matchId = 0;
-        if (getArguments() != null) { //if statement never called
-            matchId = getArguments().getInt(ARG_PARAM1);
-            match = mListener.getMatchFromId(matchId);
-        }
     }
 
     @Override
@@ -76,7 +64,7 @@ public class HubContentsFragment extends Fragment {
     }
 
     public void reset(Match match) {
-        hubfrag1.setText(match.getText());
+        hubfrag1.setText(match.getTitle());
         //TODO Make this entire fragment. Load views based on match.
     }
 

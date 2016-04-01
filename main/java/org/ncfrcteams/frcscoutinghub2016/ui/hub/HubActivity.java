@@ -23,6 +23,7 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
     private ArrayList<Fragment> fragments;
     private String user = "test";
     private String pass = "test";
+    private boolean inDetailFrag = false;
     private SmsReceiver smsReceiver;
 
     @Override
@@ -47,6 +48,8 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
         CustomPageAdapter myPageAdapter = new CustomPageAdapter(getSupportFragmentManager(), fragments, fragTitles);
         hubViewPager.setAdapter(myPageAdapter);
         hubViewPager.setCurrentItem(1);
+
+        inDetailFrag = false;
 
         smsReceiver = new SmsReceiver(this);
         smsReceiver.register();
@@ -92,6 +95,16 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
     }
 
     @Override
+    public void onBackPressed() {
+        if(inDetailFrag){
+            hubViewPager.setCurrentItem(1);
+            inDetailFrag = false;
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
     public void smsReceived(String number, String message) {
         Toast.makeText(this, "sms from "+ number + ":\n\n" + message, Toast.LENGTH_LONG).show();
     }
@@ -104,6 +117,12 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
     @Override
     public void autopush() {
         Toast.makeText(this, "autopush?", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void switchToDetails(){
+        inDetailFrag = true;
+        hubViewPager.setCurrentItem(2);
     }
 
     @Override

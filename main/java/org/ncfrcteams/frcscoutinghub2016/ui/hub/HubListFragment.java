@@ -55,14 +55,13 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
         String item = myListAdapter.getItem(position).getText();
         Toast.makeText(getActivity(), item, Toast.LENGTH_SHORT).show();
+        mListener.switchToDetails();
     }
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         String item = myListAdapter.getItem(position).getText();
         Toast.makeText(getActivity(), item + " long", Toast.LENGTH_SHORT).show();
-        int[] teams = {1991,22,45553,5134,643,833};
-        mySchedule.add(new MatchDescriptor(getContext(), 5, teams));
         return true;
     }
 
@@ -89,7 +88,8 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
     }
 
     public void addNewMatch(int[] teams, int matchnum, boolean isQual, String phonenum){
-        mySchedule.add(new MatchDescriptor(getContext(), matchnum, teams)); //TODO add isQual Boolean and phonenum String
+        mySchedule.add(new MatchDescriptor(getContext(), matchnum, teams));
+        //TODO add isQual Boolean and phonenum String
     }
 
     public String getDatabase() {
@@ -98,6 +98,7 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
 
     public interface HubListFragListener {
         void autopush();
+        void switchToDetails();
     }
 
 }

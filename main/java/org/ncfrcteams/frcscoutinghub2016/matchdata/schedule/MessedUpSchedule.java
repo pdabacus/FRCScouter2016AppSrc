@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by Kyle Brown on 3/16/2016.
  */
-public class Schedule {
+public class MessedUpSchedule {
     private List<MatchDescriptor> matchDescriptorList;
     private List<ScheduleEntry> scheduleEntries;
     private List<ScheduleEntry> validEntries;
@@ -19,7 +19,7 @@ public class Schedule {
     /**
      * Creates and initializes a new Schedule object
      */
-    public Schedule() {
+    public MessedUpSchedule() {
         matchDescriptorList = new ArrayList<>();
         scheduleEntries = new ArrayList<>();
         validEntries = new ArrayList<>();

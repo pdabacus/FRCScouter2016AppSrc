@@ -57,7 +57,25 @@ public class Schedule {
         return new ArrayList<>(matches);
     }
 
-    public synchronized Match getMatch(int matchNum, boolean isQual) {
+    public String addSMS(String message) {
+        if(!message.substring(0,3).equals("<frc")) {
+            return "";
+        }
+
+        String[] pair = message.substring(7).split(">"); // { "<frc:D,Q22,4828" , "0,0,0,0..." }
+        String[] head = pair[0].split(","); // { "<frc:D" , "Q22" , "4828" }
+
+        Match match = getMatch(Integer.parseInt(head[1].substring(1)),head[1].charAt(0) == 'Q');
+
+        if(head[0].charAt(5) == 'D') {
+            match.addData(Integer.parseInt(head[2]),pair[1]);
+        } else {
+            match.addComment(Integer.parseInt(head[2]),pair[1]);
+        }
+        return match.getTitle() + " has been updated";
+    }
+
+    private Match getMatch(int matchNum, boolean isQual) {
         for(Match match : matches) {
             if(match.getMatchNum() == matchNum && match.isQual() == isQual)
                 return match;

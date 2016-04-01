@@ -47,11 +47,18 @@ public class Match {
         }
     }
 
-    public String getDataFromPair(String[] pair) {
-        String[] fullRecord = pair[0].split(">");
-        String[] fullComment = pair[1].split(">");
+    public Object[] parseMessage(String message) {
+        String[] pair = message.substring(7).split(">"); // { "<frc:D,Q22,4828" , "0,0,0,0..." }
+        String[] head = pair[0].split(","); // { "<frc:D" , "Q22" , "4828" }
 
-        return "asdf";
+        Object[] result = new Object[5];
+        result[0] = head[1].charAt(0) == 'Q'; //boolean isQual
+        result[1] = Integer.parseInt(head[1].substring(1)); //int matchNum
+        result[2] = Integer.parseInt(head[2]); //int teamNum
+        result[3] = (head[0].charAt(5) == 'D'); //boolean isRecord
+        result[4] = pair[1]; //String contents
+
+        return result;
     }
 
 }

@@ -228,64 +228,10 @@ public class MatchRecord extends SuperMap<String, Integer>{
             data.append(smallnums.get(i)).append(",");
         }
 
-        String header = (get("isQual") == 1 ? "Q" : "E") + get("Match Number") + "," + get("Team Number") + ",";
-        String[] result = {"<frc:d>" + header + data.substring(0, data.length()-1) , "<frc:c>" + header + getComment()};
+        String header = (get("isQual") == 1 ? "Q" : "E") + get("Match Number") + "," + get("Team Number") + ">";
+        String[] result = {"<frc:D," + header + data.substring(0, data.length()-1) , "<frc:C," + header + getComment()};
 
         return result;
     }
-
-    /*
-
-    public synchronized String getCompressed(){
-        List <Integer> smallnums = new ArrayList<>();
-        String[] strings = {"Shoot High Auto","Shoot High Auto Total","Shoot Low Auto","Shoot Low Auto Total",
-                "Shoot High Tele","Shoot High Tele Total","Shoot Low Tele","Shoot Low Tele Total",
-                "Block High Auto","Block High Auto Total","Block Low Auto","Block Low Auto Total",
-                "Block High Tele","Block High Tele Total","Block Low Tele","Block Low Tele Total"};
-        for (String item:strings) {
-            smallnums.add(get(item));
-        }
-
-        for(int i=0; i < 9; i++) {
-            smallnums.add(get("Barrier " + i + " Auto"));
-            smallnums.add(get("Barrier " + i + " Auto Total"));
-            smallnums.add(get("Barrier " + i + " Tele"));
-            smallnums.add(get("Barrier " + i + " Tele Total"));
-        }
-
-        smallnums.add(get("Challenged"));
-        smallnums.add(get("Climbed"));
-
-        int team1 = (get("Team Number") & 0xff00) >> 8;
-        int team2 = get("Team Number") & 0x00ff;
-        String team = Character.toString((char) team1) + Character.toString((char) team2);
-        String match = Character.toString((char) (int) get("Match Number"));
-        String compressed = team + match;
-
-        for (int i=0; i<54; i+=2){
-            byte b = (byte)(((byte)(smallnums.get(i) & 0x0f) << 4) | (byte)(smallnums.get(i+1) & 0x0f));
-            compressed += Character.toString((char) b);
-        }
-
-        return compressed;
-    }
-
-    public String getExtracted(String compressed){
-        char[] cs = compressed.toCharArray();
-
-        int team = cs[0] << 8 | cs[1];
-        int match = (byte) cs[2];
-        String extracted = team + "," + match + ",";
-
-        for (int i=3; i<29; i++) { //use 30 to include "0,0," for challenge and climb
-            byte b = (byte) cs[i];
-            int num1 = (byte) (b >> 4) & (byte) 0x0f;
-            int num2 = b & (byte) 0x0f;
-            extracted += num1 + "," + num2 + ",";
-        }
-        return extracted;
-    }
-
-    */
 
 }

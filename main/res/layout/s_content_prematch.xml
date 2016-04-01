@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".scouter.ScoutPrematchActivity"
+    tools:showIn="@layout/s_activity_prematch">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Select an Orientation"
+                    android:layout_margin="20dp"/>
+
+                <ImageView
+                    android:layout_width="300dp"
+                    android:layout_height="170dp"
+                    android:id="@+id/orientation1"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/orientation1"
+                    android:clickable="true"
+                    android:onClick="orientation1Selected"
+                    android:alpha="1.0" />
+
+                <ImageView
+                    android:layout_width="300dp"
+                    android:layout_height="170dp"
+                    android:id="@+id/orientation2"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/orientation2"
+                    android:clickable="true"
+                    android:onClick="orientation2Selected"
+                    android:alpha="0.6"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Scan QR Code"
+                        android:layout_margin="20dp"
+                        android:onClick="launchScouter"/>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Launch Hub"
+                        android:layout_margin="20dp"
+                        android:onClick="launchHub"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

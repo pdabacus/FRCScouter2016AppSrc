@@ -4,9 +4,11 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
+import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
@@ -14,14 +16,10 @@ import org.ncfrcteams.frcscoutinghub2016.R;
 /**
  * Created by pavan on 3/31/16.
  */
-public class HubCreateDialog implements View.OnClickListener {
+public class HubCreateDialog{
 
     private static final String POSITIVE_TEXT = "Create";
     private static final String NEGATIVE_TEXT = "Cancel";
-    private int[] teams;
-    private int matchnum;
-    private boolean isQual;
-    private EditText phonenum;
     private Dialog dialog;
     private View view;
 
@@ -33,19 +31,27 @@ public class HubCreateDialog implements View.OnClickListener {
         view = LayoutInflater.from(context).inflate(R.layout.h_dialog_create, null);
         alert.setView(view);
 
-        //view.findViewById(R.id.pickfile).setOnClickListener(thisDialog);
-        thisDialog.phonenum = (EditText) view.findViewById(R.id.phonenum);
+        String phonenum = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getLine1Number();
+        ((EditText) view.findViewById(R.id.blue3)).setText(phonenum);
 
         final HubCreateDialogListener dialogListener = listener;
 
         DialogInterface.OnClickListener positiveListener = new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                int[] newteams = {1000,2000,3000,4000,5000,6000};
-                thisDialog.teams = newteams;
-                thisDialog.matchnum = 1;
-                thisDialog.isQual = true;
-                dialogListener.onNewMatchCreate(thisDialog.teams, thisDialog.matchnum,
-                        thisDialog.isQual, thisDialog.phonenum.getText().toString());
+                int[] teams = {
+                        Integer.parseInt(((EditText) view.findViewById(R.id.red1)).getText().toString()),
+                        Integer.parseInt(((EditText) view.findViewById(R.id.red2)).getText().toString()),
+                        Integer.parseInt(((EditText) view.findViewById(R.id.red3)).getText().toString()),
+                        Integer.parseInt(((EditText) view.findViewById(R.id.blue1)).getText().toString()),
+                        Integer.parseInt(((EditText) view.findViewById(R.id.blue2)).getText().toString()),
+                        Integer.parseInt(((EditText) view.findViewById(R.id.blue3)).getText().toString()),
+                };
+                int matchnum = Integer.parseInt(((EditText) view.findViewById(R.id.matchnum)).getText().toString());
+                boolean isQual = ((RadioButton) view.findViewById(R.id.qual)).isChecked();
+                String phonenum = ((EditText) view.findViewById(R.id.phonenum)).getText().toString();
+
+                dialogListener.onNewMatchCreate(teams, matchnum, isQual, phonenum);
+                Toast.makeText(context, (isQual ? "Qual " : "Elim ") + matchnum + " Created", Toast.LENGTH_SHORT).show();
             }
         };
 
@@ -64,17 +70,6 @@ public class HubCreateDialog implements View.OnClickListener {
 
     public void show() {
         dialog.show();
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch(view.getId()){
-            case R.id.challengeNo:
-                teams[0] = 0;
-                break;
-            default:
-                break;
-        }
     }
 
     public interface HubCreateDialogListener{

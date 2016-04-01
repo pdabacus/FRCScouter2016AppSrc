@@ -1,5 +1,7 @@
 package org.ncfrcteams.frcscoutinghub2016.matchdata.schedule;
 
+import org.ncfrcteams.frcscoutinghub2016.matchdata.Obstacle;
+
 /**
  * Created by pavan on 3/30/16.
  */
@@ -60,7 +62,6 @@ public class Match {
 
         return result;
     }
-
 
     public int[] getTeams() {
         return matchDescriptor.getTeams();

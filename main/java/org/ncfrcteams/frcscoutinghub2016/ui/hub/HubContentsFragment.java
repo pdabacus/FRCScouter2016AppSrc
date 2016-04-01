@@ -25,7 +25,7 @@ public class HubContentsFragment extends Fragment {
         return new HubContentsFragment();
     }
 
-    public static HubContentsFragment newInstance(int matchId) {
+    public static HubContentsFragment newInstance(int matchId) { //constructor never used
         HubContentsFragment fragment = new HubContentsFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM1, matchId);
@@ -37,9 +37,9 @@ public class HubContentsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         matchId = 0;
-        if (getArguments() != null) {
+        if (getArguments() != null) { //if statement never called
             matchId = getArguments().getInt(ARG_PARAM1);
-            match = mListener.getMatchFromId(matchId); //I checked, and OnAttach happens before OnCreate
+            match = mListener.getMatchFromId(matchId);
         }
     }
 
@@ -76,6 +76,7 @@ public class HubContentsFragment extends Fragment {
     }
 
     public void reset(Match match){
+        hubfrag1.setText(match.getText());
         //TODO Make this entire fragment. Load views based on match.
     }
 

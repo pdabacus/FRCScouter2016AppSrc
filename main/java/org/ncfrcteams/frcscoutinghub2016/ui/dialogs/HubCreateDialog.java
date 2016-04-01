@@ -39,15 +39,26 @@ public class HubCreateDialog{
 
         DialogInterface.OnClickListener positiveListener = new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                int[] teams = {
-                        Integer.parseInt(((EditText) view.findViewById(R.id.red1)).getText().toString()),
-                        Integer.parseInt(((EditText) view.findViewById(R.id.red2)).getText().toString()),
-                        Integer.parseInt(((EditText) view.findViewById(R.id.red3)).getText().toString()),
-                        Integer.parseInt(((EditText) view.findViewById(R.id.blue1)).getText().toString()),
-                        Integer.parseInt(((EditText) view.findViewById(R.id.blue2)).getText().toString()),
-                        Integer.parseInt(((EditText) view.findViewById(R.id.blue3)).getText().toString()),
+                String[] teamsString = {
+                        ((EditText) view.findViewById(R.id.red1)).getText().toString(),
+                        ((EditText) view.findViewById(R.id.red2)).getText().toString(),
+                        ((EditText) view.findViewById(R.id.red3)).getText().toString(),
+                        ((EditText) view.findViewById(R.id.blue1)).getText().toString(),
+                        ((EditText) view.findViewById(R.id.blue2)).getText().toString(),
+                        ((EditText) view.findViewById(R.id.blue3)).getText().toString(),
                 };
-                int matchnum = Integer.parseInt(((EditText) view.findViewById(R.id.matchnum)).getText().toString());
+
+                int[] teams = new int[6];
+                for (int i = 0; i < teamsString.length; i++) {
+                    if (teamsString[i].equals("")){
+                        teams[i] = 0;
+                    } else{
+                        teams[i] = Integer.parseInt(teamsString[i]);
+                    }
+                }
+
+                String matchNumString = ((EditText) view.findViewById(R.id.matchnum)).getText().toString();
+                int matchnum = (matchNumString.equals("") ? 0 : Integer.parseInt(matchNumString));
                 boolean isQual = ((RadioButton) view.findViewById(R.id.qual)).isChecked();
                 String phonenum = ((EditText) view.findViewById(R.id.phonenum)).getText().toString();
 

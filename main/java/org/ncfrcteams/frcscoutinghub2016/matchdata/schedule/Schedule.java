@@ -57,6 +57,14 @@ public class Schedule {
         return new ArrayList<>(matches);
     }
 
+    public synchronized Match getMatch(int matchNum, boolean isQual) {
+        for(Match match : matches) {
+            if(match.getMatchNum() == matchNum && match.isQual() == isQual)
+                return match;
+        }
+        return null;
+    }
+
     public synchronized ArrayList<String> getMatchTitles() {
         ArrayList<String> titles = new ArrayList<>();
         for(Match match : matches) {

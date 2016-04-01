@@ -7,14 +7,14 @@ import org.ncfrcteams.frcscoutinghub2016.matchdata.Obstacle;
  */
 public class Match {
 
-    private int matchnum;
+    private int matchNum;
     private int matchStatus;
     private boolean isQual;
     private MatchDescriptor matchDescriptor;
     private String[][] matchRecords = new String[6][2];
 
-    public Match(int matchnum, int matchStatus, boolean isQual, MatchDescriptor matchDescriptor){
-        this.matchnum = matchnum;
+    public Match(int matchNum, int matchStatus, boolean isQual, MatchDescriptor matchDescriptor){
+        this.matchNum = matchNum;
         this.matchStatus = matchStatus;
         this.isQual = isQual;
         this.matchDescriptor = matchDescriptor;
@@ -33,7 +33,7 @@ public class Match {
     }
 
     public String getTitle(){
-        return (isQual ? "Qual " : "Elim ") + matchnum;
+        return (isQual ? "Qual " : "Elim ") + matchNum;
     }
 
     public int getColor(){
@@ -69,5 +69,13 @@ public class Match {
 
     public Obstacle[] getObstacles() {
         return matchDescriptor.getObstacles();
+    }
+
+    public int getMatchNum() {
+        return matchNum;
+    }
+
+    public boolean isQual() {
+        return isQual;
     }
 }

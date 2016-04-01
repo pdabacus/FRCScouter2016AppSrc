@@ -3,12 +3,14 @@ package org.ncfrcteams.frcscoutinghub2016.ui.hub;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.Obstacle;
@@ -16,6 +18,7 @@ import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Match;
 
 public class HubContentsFragment extends Fragment implements View.OnClickListener {
     private int matchId = 0;
+    private boolean isSaved = true;
     private Match match;
     private HubContentsFragListener mListener;
 
@@ -59,7 +62,7 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
         teamNumbers = new EditText[6];
 
         for(int i=0; i<teamNumbers.length; i++) {
-            name = "edit" + ((i<3)?"Red":"Blue") + (i+1);
+            name = "edit" + ((i<3)?"Red":"Blue") + String.valueOf(i + 1);
             id = getResources().getIdentifier(name, "id", getActivity().getPackageName());
 
             teamNumbers[i] = (EditText) view.findViewById(id);
@@ -84,15 +87,12 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
             positions[i] = (ImageView) view.findViewById(id);
             positions[i].setOnClickListener(this);
         }
-
-        if (matchId != 0) {
-            reset(match);
-        }
-
+        
         return view;
     }
 
     public void setMatchId(int newMatchId) {
+        isSaved = false;
         matchId = newMatchId;
         match = mListener.getMatchFromId(matchId);
         reset(match);
@@ -151,10 +151,12 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
     }
 
     public void save() {
-        int[] teams = match.getTeams();
+        if(! isSaved) {
+            int[] teams = match.getTeams();
 
-        for(int i=0; i<teamNumbers.length; i++) {
-            teams[i] = Integer.parseInt(teamNumbers.toString());
+            for (int i = 0; i < teamNumbers.length; i++) {
+                teams[i] = Integer.parseInt(teamNumbers[i].toString());
+            }
         }
     }
 

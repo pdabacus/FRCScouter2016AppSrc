@@ -49,9 +49,13 @@ public class DatabaseAdapter extends ArrayAdapter<Match> implements Schedule.Sch
 
         Match match = getItem(position);
         TextView listViewText = (TextView) view.findViewById(R.id.listViewText);
-        ImageView listViewImage = (ImageView) view.findViewById(R.id.listViewImage);
         listViewText.setText(match.getText());
         listViewText.setTextColor(match.getColor());
+
+        boolean inSearchIndex = false;
+        if(inSearchIndex) {
+            ((ImageView) view.findViewById(R.id.listViewImage)).setImageResource(R.drawable.hub_add);
+        }
 
         return view;
     }

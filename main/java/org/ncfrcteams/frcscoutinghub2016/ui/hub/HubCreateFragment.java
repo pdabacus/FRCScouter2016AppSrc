@@ -55,7 +55,7 @@ public class HubCreateFragment extends Fragment implements View.OnClickListener,
     public void onClick(View view){
         switch(view.getId()){
             case R.id.createClickMe:
-                //TODO create new match dialog
+                new HubCreateDialog(getContext(),this).show();
                 break;
             default:
                 break;

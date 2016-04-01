@@ -32,7 +32,7 @@ public class HubCreateDialog{
         alert.setView(view);
 
         String phonenum = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getLine1Number();
-        ((EditText) view.findViewById(R.id.blue3)).setText(phonenum);
+        ((EditText) view.findViewById(R.id.phonenum)).setText(phonenum);
 
         final HubCreateDialogListener dialogListener = listener;
 

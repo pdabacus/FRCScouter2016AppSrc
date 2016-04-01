@@ -65,7 +65,7 @@ public class HubCreateFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void onNewMatchCreate(int[] teams, int matchnum, boolean isQual, String phonenum) {
-        mListener.addNewMatch(teams, matchnum, true, phonenum);
+        mListener.addNewMatch(teams, matchnum, isQual, phonenum);
     }
 
     public interface HubCreateFragListener {

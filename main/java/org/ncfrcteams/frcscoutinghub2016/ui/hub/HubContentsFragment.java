@@ -87,12 +87,12 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
         return view;
     }
 
-    public void setMatchId(int newMatchId) {
-        isSaved = false;
-        matchId = newMatchId;
-        match = mListener.getMatchFromId(matchId);
-        reset(match);
-    }
+//    public void setMatchId(int newMatchId) {
+//        isSaved = false;
+//        matchId = newMatchId;
+//        match = mListener.getMatchFromId(matchId);
+//        reset(match);
+//    }
 
     public void reset(Match match) {
         title.setText(match.getTitle());
@@ -122,6 +122,7 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
         int id = v.getId();
 
         if(id == R.id.contentsSubmitButton) {
+            save();
             mListener.saveContents(1);
         }
 
@@ -157,8 +158,6 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
     }
 
     public interface HubContentsFragListener {
-        Match getMatchFromId(int matchId);
         void saveContents(int i);
     }
-
 }

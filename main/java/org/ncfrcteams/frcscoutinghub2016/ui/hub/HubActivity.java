@@ -29,6 +29,10 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
     private boolean backpress;
     private SmsReceiver smsReceiver;
 
+    private HubCreateFragment createFragment;
+    private HubContentsFragment contentsFragment;
+    private HubListFragment listFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,9 +43,13 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
         setSupportActionBar(toolbar);
 
         ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(HubCreateFragment.newInstance());
-        fragments.add(HubListFragment.newInstance());
-        fragments.add(HubContentsFragment.newInstance());
+        createFragment = HubCreateFragment.newInstance();
+        contentsFragment = HubContentsFragment.newInstance();
+        listFragment = HubListFragment.newInstance();
+
+        fragments.add(createFragment);
+        fragments.add(contentsFragment);
+        fragments.add(contentsFragment);
 
         ArrayList<String> fragTitles = new ArrayList<>();
         fragTitles.add("Create");
@@ -125,7 +133,7 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
 
     @Override
     public void smsReceived(String number, String message) { //launched from smsReceiver
-        String result =((HubListFragment) myPageAdapter.fragments.get(1)).mySchedule.addSMS(message);
+        String result = listFragment.mySchedule.addSMS(message);
         Toast.makeText(this, number + " updated " + result, Toast.LENGTH_LONG).show();
     }
 
@@ -137,23 +145,18 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
     @Override
     public void switchToDetails(int matchId){ //launched from hubListFragment
         inDetailFrag = true;
-        ((HubContentsFragment) myPageAdapter.fragments.get(2)).setMatchId(matchId);
+        contentsFragment.reset(listFragment.getMatchFromId(matchId));
         hubViewPager.setCurrentItem(2);
     }
 
     @Override                                //launched from hubCreateFragment
     public void addNewMatch(int[] teams, int matchnum, boolean isQual, String phonenum) {
-        ((HubListFragment) myPageAdapter.fragments.get(1)).addNewMatch(teams, matchnum, isQual, phonenum);
+        listFragment.addNewMatch(teams, matchnum, isQual, phonenum);
     }
 
     @Override
     public ArrayList<String> getMatchTitles() { //launched from hubCreateFragment
-        return ((HubListFragment) myPageAdapter.fragments.get(1)).mySchedule.getMatchTitles();
-    }
-
-    @Override
-    public Match getMatchFromId(int matchId) { //launched from hubContentsFragment
-        return ((HubListFragment) myPageAdapter.fragments.get(1)).getMatchFromId(matchId);
+        return listFragment.mySchedule.getMatchTitles();
     }
 
     @Override
@@ -163,7 +166,7 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
 
     public void switchAwayFromDetailFrag(int i){ //called by saveContents(), back button, and viewpager
         inDetailFrag = false;
-        ((HubContentsFragment) myPageAdapter.fragments.get(2)).save();
+        contentsFragment.save();
         hubViewPager.setCurrentItem(i);
     }
 

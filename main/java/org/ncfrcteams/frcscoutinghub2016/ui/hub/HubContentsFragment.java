@@ -99,7 +99,7 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
     }
 
     public void reset(Match match) {
-        title.setText(match.getText());
+        title.setText(match.getTitle());
 
         int[] nums = match.getTeams();
 

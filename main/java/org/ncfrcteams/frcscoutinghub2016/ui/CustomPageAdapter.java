@@ -12,8 +12,8 @@ import java.util.List;
 
 public class CustomPageAdapter extends FragmentPagerAdapter{
 
-    private List<Fragment> fragments;
-    private List<String> fragtitles;
+    public List<Fragment> fragments;
+    public List<String> fragtitles;
 
     public CustomPageAdapter(FragmentManager fm, List<Fragment> fragments, List<String> fragtitles) {
         super(fm);
@@ -36,5 +36,7 @@ public class CustomPageAdapter extends FragmentPagerAdapter{
     public CharSequence getPageTitle(int position) {
         return this.fragtitles.get(position);
     }
+
+
 
 }

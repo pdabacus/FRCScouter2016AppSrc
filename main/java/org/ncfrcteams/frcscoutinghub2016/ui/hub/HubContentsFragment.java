@@ -9,20 +9,26 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
+import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Match;
 
 public class HubContentsFragment extends Fragment {
-    private static final String ARG_PARAM1 = "title";
-    private String title;
+    private static final String ARG_PARAM1 = "matchId";
+    private int matchId;
     private TextView hubfrag1;
+    private Match match;
     private HubContentsFragListener mListener;
 
     public HubContentsFragment() {
     }
 
-    public static HubContentsFragment newInstance(String title) {
+    public static HubContentsFragment newInstance() {
+        return new HubContentsFragment();
+    }
+
+    public static HubContentsFragment newInstance(int matchId) { //constructor never used
         HubContentsFragment fragment = new HubContentsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, title);
+        args.putInt(ARG_PARAM1, matchId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -30,17 +36,25 @@ public class HubContentsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            title = getArguments().getString(ARG_PARAM1);
+        matchId = 0;
+        if (getArguments() != null) { //if statement never called
+            matchId = getArguments().getInt(ARG_PARAM1);
+            match = mListener.getMatchFromId(matchId);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.h_frag_contents, container, false);
+
         hubfrag1 = (TextView) view.findViewById(R.id.hubfrag1);
-        hubfrag1.setText(title);
-        //TODO Make this entire edit Match show QR fragment
+
+        //TODO load default views
+
+        if (matchId != 0) {
+            reset(match);
+        }
+
         return view;
     }
 
@@ -61,7 +75,19 @@ public class HubContentsFragment extends Fragment {
         mListener = null;
     }
 
-    public interface HubContentsFragListener {
-
+    public void reset(Match match) {
+        hubfrag1.setText(match.getText());
+        //TODO Make this entire fragment. Load views based on match.
     }
+
+    public void setMatchId(int newMatchId) {
+        matchId = newMatchId;
+        match = mListener.getMatchFromId(matchId);
+        reset(match);
+    }
+
+    public interface HubContentsFragListener {
+        Match getMatchFromId(int matchId);
+    }
+
 }

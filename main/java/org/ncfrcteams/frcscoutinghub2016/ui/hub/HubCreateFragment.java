@@ -10,7 +10,8 @@ import android.view.ViewGroup;
 import org.ncfrcteams.frcscoutinghub2016.R;
 import org.ncfrcteams.frcscoutinghub2016.ui.dialogs.HubCreateDialog;
 
-public class HubCreateFragment extends Fragment implements View.OnClickListener, HubCreateDialog.HubCreateDialogListener{
+public class HubCreateFragment extends Fragment implements View.OnClickListener,
+        HubCreateDialog.HubCreateDialogListener{
 
     private HubCreateFragListener mListener;
     public HubCreateFragment() {
@@ -29,7 +30,7 @@ public class HubCreateFragment extends Fragment implements View.OnClickListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.h_frag_create, container, false);
 
-        view.findViewById(R.id.createClickMe).setOnClickListener(this);
+        view.findViewById(R.id.createMatch).setOnClickListener(this);
 
         return view;
     }
@@ -54,7 +55,7 @@ public class HubCreateFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onClick(View view){
         switch(view.getId()){
-            case R.id.createClickMe:
+            case R.id.createMatch:
                 new HubCreateDialog(getContext(), this).show();
                 break;
             default:
@@ -64,7 +65,7 @@ public class HubCreateFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void onNewMatchCreate(int[] teams, int matchnum, boolean isQual, String phonenum) {
-        mListener.addNewMatch(teams, matchnum, true, phonenum);
+        mListener.addNewMatch(teams, matchnum, isQual, phonenum);
     }
 
     public interface HubCreateFragListener {

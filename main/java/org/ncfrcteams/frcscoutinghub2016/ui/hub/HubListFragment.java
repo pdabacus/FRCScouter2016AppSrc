@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
+import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Match;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.MatchDescriptor;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Schedule;
 import org.ncfrcteams.frcscoutinghub2016.ui.DatabaseAdapter;
@@ -18,6 +19,7 @@ import org.ncfrcteams.frcscoutinghub2016.ui.DatabaseAdapter;
 public class HubListFragment extends Fragment implements AdapterView.OnItemClickListener,
         AdapterView.OnItemLongClickListener, DatabaseAdapter.DatabaseListener {
 
+    private boolean theTimeIsRight;
     private HubListFragListener mListener;
     public static Schedule mySchedule;
     public DatabaseAdapter myListAdapter;
@@ -36,6 +38,7 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
         myListAdapter = new DatabaseAdapter(getContext(), this);
         mySchedule = new Schedule();
         mySchedule.setScheduleChangeListener(myListAdapter);
+        theTimeIsRight = false;
     }
 
     @Override
@@ -55,7 +58,7 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
         String item = myListAdapter.getItem(position).getText();
         Toast.makeText(getActivity(), item, Toast.LENGTH_SHORT).show();
-        mListener.switchToDetails();
+        mListener.switchToDetails(position + 1);
     }
 
     @Override
@@ -82,14 +85,18 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
     }
 
     @Override
-    public void onListChange() {
-        //called whenever ANYTHING changes
-        mListener.autopush(); //TODO auto push to server?
+    public void onListChange() { //called 2x every time schedule is changed
+        if(theTimeIsRight) {
+            mListener.autopush();
+        }
+    }
+
+    public Match getMatchFromId(int matchId) {
+        return myListAdapter.getItem(matchId - 1);
     }
 
     public void addNewMatch(int[] teams, int matchnum, boolean isQual, String phonenum){
-        mySchedule.add(new MatchDescriptor(getContext(), matchnum, teams));
-        //TODO add isQual Boolean and phonenum String
+        mySchedule.add(new MatchDescriptor(getContext(), matchnum, teams, isQual, phonenum));
     }
 
     public String getDatabase() {
@@ -98,7 +105,7 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
 
     public interface HubListFragListener {
         void autopush();
-        void switchToDetails();
+        void switchToDetails(int matchId);
     }
 
 }

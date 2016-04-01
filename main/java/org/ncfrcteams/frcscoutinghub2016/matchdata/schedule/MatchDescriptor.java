@@ -36,22 +36,44 @@ public class MatchDescriptor implements Serializable, Comparable {
         returnAddress = tMgr.getLine1Number();
     }
 
+    public MatchDescriptor(Context context, int matchNum, int[] teams, boolean isQual, String phoneNum) {
+        this.matchNum = matchNum;
+        this.teams = teams;
+        this.isQual = isQual;
+
+        returnAddress = phoneNum;
+    }
+
     public static MatchDescriptor fromString(Context context, String s) {
         String[] parts = s.split(",");
         int matchNum = Integer.parseInt(parts[0]);
         int[] teams = new int[6];
-        for(int i=1; i<parts.length; i++) {
+
+        for(int i=1; i < 7; i++) {
             teams[i-1] = Integer.parseInt(parts[i]);
         }
-        return new MatchDescriptor(context,matchNum,teams);
+
+        boolean isQual = true;
+
+        if(parts.length > 7) {
+            isQual = (Integer.parseInt(parts[7]) == 1);
+        }
+
+        if(parts.length > 8) {
+            String phonenum = parts[8];
+            return new MatchDescriptor(context, matchNum, teams, isQual, phonenum);
+        } else{
+            return new MatchDescriptor(context, matchNum, teams, isQual);
+        }
+
     }
 
     public String toString(Team t) {
         StringBuilder s = new StringBuilder();
 
-        s.append((t.getValue() > 2)? "B" : "R");
+        s.append((t.getValue() > 2) ? "B" : "R");
         s.append(",");
-        s.append(isQual?"Qual":"Elim");
+        s.append(isQual ? "Q" : "E");
         s.append(",");
         s.append(matchNum);
         s.append(",");
@@ -83,7 +105,10 @@ public class MatchDescriptor implements Serializable, Comparable {
     public int compareTo(Object another) {
         MatchDescriptor other = (MatchDescriptor) another;
         if(this.isQual() == other.isQual()) {
-            return Integer.compare(this.getMatchNum(),other.getMatchNum());
+            int a = this.getMatchNum();
+            int b = other.getMatchNum();
+            return (a < b ? 1 : -1);
+            //return Integer.compare(this.getMatchNum(), other.getMatchNum());
         } else {
             if(this.isQual()) {
                 return 1;

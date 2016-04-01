@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
@@ -50,6 +51,11 @@ public class DatabaseAdapter extends ArrayAdapter<Match> implements Schedule.Sch
         TextView listViewText = (TextView) view.findViewById(R.id.listViewText);
         listViewText.setText(match.getText());
         listViewText.setTextColor(match.getColor());
+
+        boolean inSearchIndex = false;
+        if(inSearchIndex) {
+            ((ImageView) view.findViewById(R.id.listViewImage)).setImageResource(R.drawable.hub_add);
+        }
 
         return view;
     }

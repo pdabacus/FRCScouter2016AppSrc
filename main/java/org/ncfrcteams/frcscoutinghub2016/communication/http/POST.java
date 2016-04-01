@@ -22,27 +22,22 @@ import java.net.URL;
 /**
  * Created by pavan on 3/19/16.
  */
-public class PostClass extends AsyncTask<String, Void, Void> {
+public class POST extends AsyncTask<String, Void, Void> {
 
     private final Context context;
     private ProgressDialog progress;
     private String urlstring;
     private boolean pretty;
-    private String user;
-    private String pass;
-    private String data;
+    private String[][] POSTs;
+    private String[][] FILES;
     private String boundary = "===" + System.currentTimeMillis() + "===";
 
-    //TODO make constructor use arrays of POST vars and FILES
-
-    public PostClass(Context context, String urlstring, String user,
-                     String pass, String data, boolean pretty){
+    public POST(Context context, String urlstring, String[][] POSTs, String[][] FILES, boolean pretty){
         this.context = context;
         this.urlstring = urlstring;
         this.pretty = pretty;
-        this.user = user;
-        this.pass = pass;
-        this.data = data;
+        this.POSTs = POSTs;
+        this.FILES = FILES;
     }
 
     protected void onPreExecute(){
@@ -50,6 +45,21 @@ public class PostClass extends AsyncTask<String, Void, Void> {
         progress.setMessage("Uploading Data...");
         progress.setIndeterminate(true);
         progress.show();
+    }
+
+    private void addPOST(PrintWriter writer, String name, String value){
+        writer.append("--").append(boundary).append("\r\n");
+        writer.append("Content-Disposition: form-data; name=\"").append(name).append("\"\r\n");
+        writer.append("Content-Type: text/plain; charset=UTF-8").append("\r\n\r\n").append(value).append("\r\n");
+        writer.flush();
+    }
+
+    private void addFILE(PrintWriter writer, String name, String value){
+        writer.append("--").append(boundary).append("\r\n").append("Content-Disposition: form-data; name=\"");
+        writer.append(name).append("\"; filename=\"").append((new File(value)).getName()).append("\"\r\n");
+        writer.append("Content-Type: text/plain").append("\r\n").append("Content-Transfer-Encoding: binary");
+        writer.append("\r\n\r\n").append(value).append("\r\n");
+        writer.flush();
     }
 
     @Override
@@ -68,38 +78,14 @@ public class PostClass extends AsyncTask<String, Void, Void> {
             OutputStream outputStream = connection.getOutputStream();
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(outputStream, "UTF-8"), true);
 
-            //TODO use for each loops for all of the POST vars and FILES
-
-            //add team=user
-            writer.append("--").append(boundary).append("\r\n");
-            writer.append("Content-Disposition: form-data; name=\"team\"").append("\r\n");
-            writer.append("Content-Type: text/plain; charset=UTF-8").append("\r\n\r\n");
-            writer.append(user).append("\r\n");
-            writer.flush();
-
-            //add pass=pass
-            writer.append("--").append(boundary).append("\r\n");
-            writer.append("Content-Disposition: form-data; name=\"pass\"").append("\r\n");
-            writer.append("Content-Type: text/plain; charset=UTF-8").append("\r\n\r\n");
-            writer.append(pass).append("\r\n");
-            writer.flush();
-
-            //add pretty=detailed
-            writer.append("--").append(boundary).append("\r\n");
-            writer.append("Content-Disposition: form-data; name=\"pretty\"").append("\r\n");
-            writer.append("Content-Type: text/plain; charset=UTF-8").append("\r\n\r\n");
-            writer.append(pretty ? "true" : "false").append("\r\n");
-            writer.flush();
-
-            //add file=datafile
-            File datafile = new File(data);
-            String fileName = datafile.getName();
-            writer.append("--").append(boundary).append("\r\n");
-            writer.append("Content-Disposition: form-data; name=\"file\"; filename=\"").append(fileName);
-            writer.append("\"\r\n").append("Content-Type: text/plain");
-            writer.append("\r\n").append("Content-Transfer-Encoding: binary").append("\r\n\r\n");
-            writer.append(data).append("\r\n"); //if file type is plain text
-            writer.flush();
+            //add pretty, POSTs, and FILES
+            addPOST(writer, "pretty", (pretty ? "true" : "false"));
+            for(String[] pair : POSTs) {
+                addPOST(writer, pair[0], pair[1]);
+            }
+            for(String[] pair : FILES) {
+                addFILE(writer, pair[0], pair[1]);
+            }
 
             //close writer
             writer.append("\r\n").flush();

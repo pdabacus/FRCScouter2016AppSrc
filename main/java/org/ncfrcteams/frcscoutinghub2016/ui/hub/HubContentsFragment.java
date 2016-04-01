@@ -87,36 +87,6 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
         return view;
     }
 
-    public void setMatchId(int newMatchId) {
-        isSaved = false;
-        matchId = newMatchId;
-        match = mListener.getMatchFromId(matchId);
-        reset(match);
-    }
-
-    public void reset(Match match) {
-        title.setText(match.getTitle());
-
-        int[] nums = match.getTeams();
-
-        for(int i=0;i<teamNumbers.length;i++) {
-            teamNumbers[i].setText(String.valueOf(nums[i]));
-        }
-
-        Obstacle[] obstacles = match.getObstacles();
-
-        String name;
-        int id;
-        for(int i=0; i<positions.length; i++) {
-            name = "barrier" + obstacles[i].getValue();
-            id = getResources().getIdentifier(name, "drawable", getActivity().getPackageName());
-
-            positions[i].setImageResource(id);
-        }
-
-        selected = null;
-    }
-
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -146,6 +116,29 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
         }
     }
 
+    public void reset(Match match) {
+        isSaved = false;
+        title.setText(match.getTitle());
+        int[] nums = match.getTeams();
+
+        for(int i=0;i<teamNumbers.length;i++) {
+            teamNumbers[i].setText(String.valueOf(nums[i]));
+        }
+
+        Obstacle[] obstacles = match.getObstacles();
+
+        String name;
+        int id;
+        for(int i=0; i<positions.length; i++) {
+            name = "barrier" + obstacles[i].getValue();
+            id = getResources().getIdentifier(name, "drawable", getActivity().getPackageName());
+
+            positions[i].setImageResource(id);
+        }
+
+        selected = null;
+    }
+
     public void save() {
         if(! isSaved) {
             int[] teams = match.getTeams();
@@ -157,7 +150,6 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
     }
 
     public interface HubContentsFragListener {
-        Match getMatchFromId(int matchId);
         void saveContents(int i);
     }
 

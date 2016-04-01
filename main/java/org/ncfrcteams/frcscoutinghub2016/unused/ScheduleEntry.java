@@ -1,4 +1,6 @@
-package org.ncfrcteams.frcscoutinghub2016.matchdata.schedule;
+package org.ncfrcteams.frcscoutinghub2016.unused;
+
+import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.MatchDescriptor;
 
 /**
  * Created by pavan on 3/30/16.

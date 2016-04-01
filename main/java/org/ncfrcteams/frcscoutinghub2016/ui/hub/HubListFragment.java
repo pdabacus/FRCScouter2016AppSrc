@@ -14,7 +14,7 @@ import org.ncfrcteams.frcscoutinghub2016.R;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Match;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.MatchDescriptor;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Schedule;
-import org.ncfrcteams.frcscoutinghub2016.ui.DatabaseAdapter;
+import org.ncfrcteams.frcscoutinghub2016.ui.hub.support.DatabaseAdapter;
 
 public class HubListFragment extends Fragment implements AdapterView.OnItemClickListener,
         AdapterView.OnItemLongClickListener, DatabaseAdapter.DatabaseListener {
@@ -58,7 +58,7 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
         String item = myListAdapter.getItem(position).getTitle();
         Toast.makeText(getActivity(), item, Toast.LENGTH_SHORT).show();
-        mListener.switchToDetails(position + 1);
+        mListener.switchToDetails(myListAdapter.getItem(position));
     }
 
     @Override
@@ -91,10 +91,6 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
         }
     }
 
-    public Match getMatchFromId(int matchId) {
-        return myListAdapter.getItem(matchId - 1);
-    }
-
     public void addNewMatch(int[] teams, int matchnum, boolean isQual, String phonenum){
         mySchedule.add(new MatchDescriptor(getContext(), matchnum, teams, isQual, phonenum));
     }
@@ -105,7 +101,7 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
 
     public interface HubListFragListener {
         void autopush();
-        void switchToDetails(int matchId);
+        void switchToDetails(Match match);
     }
 
 }

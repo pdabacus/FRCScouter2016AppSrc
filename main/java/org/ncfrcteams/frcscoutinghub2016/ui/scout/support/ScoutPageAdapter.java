@@ -1,4 +1,4 @@
-package org.ncfrcteams.frcscoutinghub2016.ui;
+package org.ncfrcteams.frcscoutinghub2016.ui.scout.support;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,19 +10,18 @@ import java.util.List;
  * Created by Pavan Dayal on 3/18/2016.
  */
 
-public class CustomPageAdapter extends FragmentPagerAdapter{
+public class ScoutPageAdapter extends FragmentPagerAdapter{
 
     public List<Fragment> fragments;
     public List<String> fragtitles;
 
-    public CustomPageAdapter(FragmentManager fm, List<Fragment> fragments, List<String> fragtitles) {
+    public ScoutPageAdapter(FragmentManager fm, List<Fragment> fragments, List<String> fragtitles) {
         super(fm);
-        this.fragments = fragments;
+        this.fragments =  fragments;
         this.fragtitles = fragtitles;
     }
 
     @Override
-
     public Fragment getItem(int position) {
         return this.fragments.get(position);
     }
@@ -36,7 +35,5 @@ public class CustomPageAdapter extends FragmentPagerAdapter{
     public CharSequence getPageTitle(int position) {
         return this.fragtitles.get(position);
     }
-
-
 
 }

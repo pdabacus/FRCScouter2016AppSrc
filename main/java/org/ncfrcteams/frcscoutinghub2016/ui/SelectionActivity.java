@@ -1,4 +1,4 @@
-package org.ncfrcteams.frcscoutinghub2016.ui.scout;
+package org.ncfrcteams.frcscoutinghub2016.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,9 +15,10 @@ import com.google.zxing.integration.android.IntentResult;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
 import org.ncfrcteams.frcscoutinghub2016.ui.hub.HubActivity;
+import org.ncfrcteams.frcscoutinghub2016.ui.scout.ScoutMainActivity;
 
 
-public class ScoutPrematchActivity extends AppCompatActivity {
+public class SelectionActivity extends AppCompatActivity {
 
     private int orientation;
     private ImageView orientation1;

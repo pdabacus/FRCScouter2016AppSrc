@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
-import org.ncfrcteams.frcscoutinghub2016.ui.dialogs.HubCreateDialog;
+import org.ncfrcteams.frcscoutinghub2016.ui.hub.support.HubCreateDialog;
 
 import java.util.ArrayList;
 

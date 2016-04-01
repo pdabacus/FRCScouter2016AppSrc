@@ -1,4 +1,4 @@
-package org.ncfrcteams.frcscoutinghub2016.ui;
+package org.ncfrcteams.frcscoutinghub2016.ui.hub.support;
 
 import android.content.Context;
 import android.util.AttributeSet;

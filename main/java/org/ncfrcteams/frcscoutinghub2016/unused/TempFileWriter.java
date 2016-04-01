@@ -1,10 +1,8 @@
-package org.ncfrcteams.frcscoutinghub2016.communication.sms_server;
+package org.ncfrcteams.frcscoutinghub2016.unused;
 
 import android.content.Context;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.PrintWriter;

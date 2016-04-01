@@ -1,4 +1,4 @@
-package org.ncfrcteams.frcscoutinghub2016.matchdata.database;
+package org.ncfrcteams.frcscoutinghub2016.matchdata.matchrecord;
 
 import java.io.Serializable;
 import java.util.ArrayList;

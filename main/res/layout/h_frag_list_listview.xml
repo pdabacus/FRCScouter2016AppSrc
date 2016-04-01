@@ -19,7 +19,7 @@
         android:paddingRight="30dp"
         android:paddingBottom="10dp" />
 
-    <org.ncfrcteams.frcscoutinghub2016.ui.SquareImageView
+    <org.ncfrcteams.frcscoutinghub2016.ui.hub.support.SquareImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"

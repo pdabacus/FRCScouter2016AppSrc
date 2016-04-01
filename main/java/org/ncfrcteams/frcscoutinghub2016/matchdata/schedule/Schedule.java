@@ -1,5 +1,7 @@
 package org.ncfrcteams.frcscoutinghub2016.matchdata.schedule;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -58,20 +60,21 @@ public class Schedule {
     }
 
     public String addSMS(String message) {
-        if(!message.split(":")[0].equals("<frc")) {
+        if(!message.substring(0, 5).equals("<frc:")) {
             return "";
         }
 
-        String[] pair = message.substring(7).split(">"); // { "<frc:D,Q22,4828" , "0,0,0,0..." }
-        String[] head = pair[0].split(","); // { "<frc:D" , "Q22" , "4828" }
+        String[] pair = message.substring(5).split(">"); // { "<frc:D,Q22,4828" , "0,0,0,0..." }
+        String[] head = pair[0].split(","); // { "D" , "Q22" , "4828" }
 
         Match match = getMatch(Integer.parseInt(head[1].substring(1)),head[1].charAt(0) == 'Q');
-        if(match == null)
+        if(match == null) {
             return "";
+        }
 
-        if(head[0].charAt(5) == 'D')
+        if(head[0].equals("D")) {
             match.addData(Integer.parseInt(head[2]), pair[1]);
-        else {
+        } else {
             match.addComment(Integer.parseInt(head[2]), pair[1]);
         }
         
@@ -125,6 +128,29 @@ public class Schedule {
         if(scheduleChangeListener != null) {
             scheduleChangeListener.notifyScheduleChanges(getMatches());
         }
+    }
+
+    public String getDatabase() {
+        ArrayList<String> records = new ArrayList<>();
+        for(Match match : matches) {
+            String[] data = match.getData();
+            String[] comments = match.getComments();
+
+            for(int i = 0; i < 6; i++){
+                if(data[i] != null && comments[i] != null){
+                    records.add(data[i] + "," + comments[i]);
+                }
+            }
+        }
+
+        if (records.size() > 0) {
+            StringBuilder ret = new StringBuilder();
+            for (String record : records) {
+                ret.append(record).append(";\n");
+            }
+            return ret.substring(0, ret.length() - 2);
+        }
+        return "null";
     }
 
     public interface ScheduleChangeListener {

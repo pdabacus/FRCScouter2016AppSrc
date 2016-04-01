@@ -15,9 +15,10 @@ import android.widget.Toast;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
 import org.ncfrcteams.frcscoutinghub2016.communication.sms_server.SendSms;
-import org.ncfrcteams.frcscoutinghub2016.matchdata.database.MatchRecord;
-import org.ncfrcteams.frcscoutinghub2016.ui.CustomPageAdapter;
-import org.ncfrcteams.frcscoutinghub2016.ui.dialogs.ScoutPostMatchDialog;
+import org.ncfrcteams.frcscoutinghub2016.matchdata.matchrecord.MatchRecord;
+import org.ncfrcteams.frcscoutinghub2016.ui.SelectionActivity;
+import org.ncfrcteams.frcscoutinghub2016.ui.scout.support.ScoutPageAdapter;
+import org.ncfrcteams.frcscoutinghub2016.ui.scout.support.ScoutPostMatchDialog;
 
 import java.util.ArrayList;
 
@@ -29,7 +30,7 @@ public class ScoutMainActivity extends AppCompatActivity implements ScoutFragLef
     public RelativeLayout myLayout;
     public MenuItem toggleTele;
     public ViewPager viewPager;
-    public CustomPageAdapter myPageAdapter;
+    public ScoutPageAdapter myPageAdapter;
     public ArrayList<Fragment> fragments = new ArrayList<>();
     public ArrayList<String> fragtitles = new ArrayList<>();
     public int[] colors = {0xffe9ff8f, 0xff30a050};  //yellow and green
@@ -55,7 +56,7 @@ public class ScoutMainActivity extends AppCompatActivity implements ScoutFragLef
                 (myMatchRecord.get("Color") == 1 ? "Red" : "Blue") + ")");
         setSupportActionBar(toolbar);
 
-        myPageAdapter = new CustomPageAdapter(getSupportFragmentManager(), fragments, fragtitles);
+        myPageAdapter = new ScoutPageAdapter(getSupportFragmentManager(), fragments, fragtitles);
         viewPager.setAdapter(myPageAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
@@ -112,7 +113,7 @@ public class ScoutMainActivity extends AppCompatActivity implements ScoutFragLef
             SendSms.send(phonenum, messages);
 
             finish();
-            Intent intent = new Intent(this, ScoutPrematchActivity.class);
+            Intent intent = new Intent(this, SelectionActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }

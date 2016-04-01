@@ -50,7 +50,7 @@ public class Match {
         }
     }
 
-    public void addComment(int teamNum, String comment) {
+    public synchronized void addComment(int teamNum, String comment) {
         int[] teamNums = matchDescriptor.getTeams();
 
         for(int i=0; i<teamNums.length; i++) {
@@ -58,11 +58,9 @@ public class Match {
                 this.comments[i] = comment;
             }
         }
-
-        return;
     }
 
-    public void addData(int teamNum, String data) {
+    public synchronized void addData(int teamNum, String data) {
         int[] teamNums = matchDescriptor.getTeams();
 
         for(int i=0; i<teamNums.length; i++) {
@@ -70,11 +68,15 @@ public class Match {
                 this.data[i] = data;
             }
         }
-
-        return;
     }
-    
-    public int[] getTeams() {
+    public synchronized String[] getComments(){
+        return comments;
+    }
+    public synchronized String[] getData(){
+        return data;
+    }
+
+    public synchronized int[] getTeams() {
         return matchDescriptor.getTeams();
     }
 

@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import org.ncfrcteams.frcscoutinghub2016.ui.dialogs.ScoutConfirmDialog;
 import org.ncfrcteams.frcscoutinghub2016.R;
+import org.ncfrcteams.frcscoutinghub2016.ui.scout.support.ScoutConfirmDialog;
 
 import java.util.ArrayList;
 import java.util.List;

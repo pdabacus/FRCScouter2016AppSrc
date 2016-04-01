@@ -111,9 +111,9 @@ public class MatchDescriptor implements Serializable, Comparable {
             //return Integer.compare(this.getMatchNum(), other.getMatchNum());
         } else {
             if(this.isQual()) {
-                return 1;
-            } else {
                 return -1;
+            } else {
+                return 1;
             }
         }
     }

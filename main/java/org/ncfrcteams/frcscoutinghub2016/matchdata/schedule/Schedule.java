@@ -53,8 +53,16 @@ public class Schedule {
     /**
      * @return an up to date copy of the scheduleEntries list
      */
-    public synchronized List<Match> getMatches() {
+    public synchronized ArrayList<Match> getMatches() {
         return new ArrayList<>(matches);
+    }
+
+    public synchronized ArrayList<String> getMatchTitles() {
+        ArrayList<String> titles = new ArrayList<>();
+        for(Match match : matches) {
+            titles.add(match.getTitle());
+        }
+        return titles;
     }
 
     private void update() {
@@ -91,6 +99,6 @@ public class Schedule {
     }
 
     public interface ScheduleChangeListener {
-        void notifyScheduleChanges(List<Match> matches);
+        void notifyScheduleChanges(ArrayList<Match> matches);
     }
 }

@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
 
+import java.util.ArrayList;
+
 /**
  * Created by pavan on 3/31/16.
  */
@@ -20,11 +22,11 @@ public class HubCreateDialog{
 
     private static final String POSITIVE_TEXT = "Create";
     private static final String NEGATIVE_TEXT = "Cancel";
-    private int[] matchenums;
+    private ArrayList<String> matchtitles;
     private Dialog dialog;
     private View view;
 
-    public HubCreateDialog(final Context context, final HubCreateDialogListener listener) {
+    public HubCreateDialog(final Context context, final HubCreateDialogListener listener, ArrayList<String> matchtitles) {
 
         final AlertDialog.Builder alert = new AlertDialog.Builder(context);
         final HubCreateDialog thisDialog = this;
@@ -32,8 +34,7 @@ public class HubCreateDialog{
         view = LayoutInflater.from(context).inflate(R.layout.h_dialog_create, null);
         alert.setView(view);
 
-        //TODO get matchnums array
-        thisDialog.matchenums = new int[1];
+        thisDialog.matchtitles = matchtitles;
         String phonenum = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getLine1Number();
         ((EditText) view.findViewById(R.id.phonenum)).setText(phonenum);
 
@@ -64,8 +65,12 @@ public class HubCreateDialog{
                 boolean isQual = ((RadioButton) view.findViewById(R.id.qual)).isChecked();
                 String phonenum = ((EditText) view.findViewById(R.id.phonenum)).getText().toString();
 
-                if(repeatsIn(teams) || arrayContains(teams, 0) || arrayContains(thisDialog.matchenums, matchnum) ||
-                        matchnum == 0 || phonenum.equals("")){
+                if(repeatsIn(teams) ||
+                    arrayContains(teams, 0) ||
+                    arrayContains(thisDialog.matchtitles, (isQual ? "Qual " : "Elim ") + matchnum) ||
+                    matchnum == 0 ||
+                    phonenum.equals("")
+                    ){
                     Toast.makeText(context, "Invalid Match Setup", Toast.LENGTH_SHORT).show();
                 } else{
                     dialogListener.onNewMatchCreate(teams, matchnum, isQual, phonenum);
@@ -86,6 +91,15 @@ public class HubCreateDialog{
 
             private boolean arrayContains(int[] array, int item){
                 for (int val : array) {
+                    if(val == item){
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            private boolean arrayContains(ArrayList<String> array, String item){
+                for (String val : array) {
                     if(val == item){
                         return true;
                     }

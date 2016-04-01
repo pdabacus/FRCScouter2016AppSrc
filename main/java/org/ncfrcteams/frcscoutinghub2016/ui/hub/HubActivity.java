@@ -146,6 +146,11 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
     }
 
     @Override
+    public ArrayList<String> getMatchTitles() {
+        return ((HubListFragment) myPageAdapter.fragments.get(1)).mySchedule.getMatchTitles();
+    }
+
+    @Override
     public Match getMatchFromId(int matchId) {
         return ((HubListFragment) myPageAdapter.fragments.get(1)).getMatchFromId(matchId);
     }

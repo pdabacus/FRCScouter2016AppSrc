@@ -26,6 +26,7 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
     private String user = "test";
     private String pass = "test";
     private boolean inDetailFrag = false;
+    private boolean backpress;
     private SmsReceiver smsReceiver;
 
     @Override
@@ -56,6 +57,13 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
         smsReceiver = new SmsReceiver(this);
         smsReceiver.register();
         smsReceiver.setSmsListener(this);
+        backpress = false;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        backpress = false;
     }
 
     @Override
@@ -101,7 +109,12 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
         if(inDetailFrag){
             switchAwayFromDetailFrag(1);
         } else {
-            super.onBackPressed();
+            if(backpress) {
+                super.onBackPressed();
+            } else{
+                backpress = true;
+                Toast.makeText(this, "Press Back Again To Exit", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

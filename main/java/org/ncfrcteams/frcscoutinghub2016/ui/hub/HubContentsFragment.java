@@ -154,7 +154,7 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
         int[] teams = match.getTeams();
 
         for(int i=0; i<teamNumbers.length; i++) {
-            teams[i] = Integer.parseInt(teamNumbers.toString());
+            teams[i] = Integer.parseInt(teamNumbers[i].toString());
         }
     }
 

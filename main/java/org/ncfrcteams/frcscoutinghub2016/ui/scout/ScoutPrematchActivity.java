@@ -103,7 +103,7 @@ public class ScoutPrematchActivity extends AppCompatActivity {
 
         //TODO get result from another app
 
-        if(matchdata.split(",").length == 12){
+        if(matchdata.split(",").length == 13){
             Intent intent = new Intent(this, ScoutMainActivity.class);
             intent.putExtra("Match Setup", matchdata);
             intent.putExtra("Orientation", orientation);

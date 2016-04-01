@@ -71,11 +71,10 @@ public class HubPageAdapter extends FragmentPagerAdapter{
         Toast.makeText(context, "autopush", Toast.LENGTH_SHORT).show();
     }
 
-    //*********************************** Poster Methods ************************************
+    //*********************************** sms Methods ************************************
 
     public void addSMStoSchedule(String number, String message){
         String result = listView.mySchedule.addSMS(message);
-
         if (! result.equals("")) {
             Toast.makeText(context, number + " updated " + result, Toast.LENGTH_LONG).show();
         }

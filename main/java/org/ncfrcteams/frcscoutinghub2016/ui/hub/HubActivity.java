@@ -16,7 +16,7 @@ import org.ncfrcteams.frcscoutinghub2016.ui.hub.support.HubPageAdapter;
 import java.util.ArrayList;
 
 public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsListener,
-         HubCreateFragment.HubCreateFragListener, HubListFragment.HubListFragListener,
+        HubCreateFragment.HubCreateFragListener, HubListFragment.HubListFragListener,
         HubContentsFragment.HubContentsFragListener{
 
     private CustomViewPager hubViewPager;

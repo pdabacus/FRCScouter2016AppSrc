@@ -17,7 +17,6 @@ import org.ncfrcteams.frcscoutinghub2016.matchdata.Obstacle;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Match;
 
 public class HubContentsFragment extends Fragment implements View.OnClickListener {
-    private int matchId = 0;
     private boolean isSaved = true;
     private Match match;
     private HubContentsFragListener mListener;
@@ -55,6 +54,7 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
         View view = inflater.inflate(R.layout.h_frag_contents, container, false);
 
         title = (TextView) view.findViewById(R.id.contentsTitle);
+        Log.d("asdfasdfasdf", "OnCreate called" + title.toString());
 
         int id;
         String name;
@@ -117,7 +117,9 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
     }
 
     public void reset(Match match) {
+        Log.d("asdfasdfasdf", "reset called");
         isSaved = false;
+        Log.d("asdfasdfasdf...title", title.toString());
         title.setText(match.getTitle());
         int[] nums = match.getTeams();
 

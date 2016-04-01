@@ -125,8 +125,8 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
 
     @Override
     public void smsReceived(String number, String message) { //launched from smsReceiver
-        Toast.makeText(this, "sms from "+ number + ":\n\n" + message, Toast.LENGTH_LONG).show();
-        //TODO call hublistfrag.myschedule.addsms( message )
+        String result =((HubListFragment) myPageAdapter.fragments.get(1)).mySchedule.addSMS(message);
+        Toast.makeText(this, number + " updated " + result, Toast.LENGTH_LONG).show();
     }
 
     @Override

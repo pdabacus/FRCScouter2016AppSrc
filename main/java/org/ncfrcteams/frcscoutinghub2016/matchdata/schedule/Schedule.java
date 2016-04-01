@@ -66,12 +66,15 @@ public class Schedule {
         String[] head = pair[0].split(","); // { "<frc:D" , "Q22" , "4828" }
 
         Match match = getMatch(Integer.parseInt(head[1].substring(1)),head[1].charAt(0) == 'Q');
+        if(match == null)
+            return "";
 
-        if(head[0].charAt(5) == 'D') {
-            match.addData(Integer.parseInt(head[2]),pair[1]);
-        } else {
-            match.addComment(Integer.parseInt(head[2]),pair[1]);
+        if(head[0].charAt(5) == 'D')
+            match.addData(Integer.parseInt(head[2]), pair[1]);
+        else {
+            match.addComment(Integer.parseInt(head[2]), pair[1]);
         }
+        
         return match.getTitle() + " has been updated";
     }
 

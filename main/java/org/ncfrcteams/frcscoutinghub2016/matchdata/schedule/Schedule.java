@@ -75,7 +75,7 @@ public class Schedule {
             match.addComment(Integer.parseInt(head[2]), pair[1]);
         }
         
-        return match.getTitle() + " has been updated";
+        return match.getTitle();
     }
 
     private Match getMatch(int matchNum, boolean isQual) {

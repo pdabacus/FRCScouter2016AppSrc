@@ -11,7 +11,8 @@ public class Match {
     private int matchStatus;
     private boolean isQual;
     private MatchDescriptor matchDescriptor;
-    private String[][] matchRecords = new String[6][2];
+    private String[] data = new String[6];
+    private String[] comments = new String[6];
 
     public Match(int matchNum, int matchStatus, boolean isQual, MatchDescriptor matchDescriptor){
         this.matchNum = matchNum;
@@ -49,20 +50,30 @@ public class Match {
         }
     }
 
-    public Object[] parseMessage(String message) {
-        String[] pair = message.substring(7).split(">"); // { "<frc:D,Q22,4828" , "0,0,0,0..." }
-        String[] head = pair[0].split(","); // { "<frc:D" , "Q22" , "4828" }
+    public void addComment(int teamNum, String comment) {
+        int[] teamNums = matchDescriptor.getTeams();
 
-        Object[] result = new Object[5];
-        result[0] = head[1].charAt(0) == 'Q'; //boolean isQual
-        result[1] = Integer.parseInt(head[1].substring(1)); //int matchNum
-        result[2] = Integer.parseInt(head[2]); //int teamNum
-        result[3] = (head[0].charAt(5) == 'D'); //boolean isRecord
-        result[4] = pair[1]; //String contents
+        for(int i=0; i<teamNums.length; i++) {
+            if(teamNums[i] == teamNum) {
+                this.comments[i] = comment;
+            }
+        }
 
-        return result;
+        return;
     }
 
+    public void addData(int teamNum, String data) {
+        int[] teamNums = matchDescriptor.getTeams();
+
+        for(int i=0; i<teamNums.length; i++) {
+            if(teamNums[i] == teamNum) {
+                this.data[i] = data;
+            }
+        }
+
+        return;
+    }
+    
     public int[] getTeams() {
         return matchDescriptor.getTeams();
     }

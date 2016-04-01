@@ -22,7 +22,7 @@ public class HubCreateDialog{
 
     private static final String POSITIVE_TEXT = "Create";
     private static final String NEGATIVE_TEXT = "Cancel";
-    private String[] matchtitles;
+    private ArrayList<String> matchtitles;
     private Dialog dialog;
     private View view;
 
@@ -34,7 +34,7 @@ public class HubCreateDialog{
         view = LayoutInflater.from(context).inflate(R.layout.h_dialog_create, null);
         alert.setView(view);
 
-        thisDialog.matchtitles = (String[]) matchtitles.toArray();
+        thisDialog.matchtitles = matchtitles;
         String phonenum = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getLine1Number();
         ((EditText) view.findViewById(R.id.phonenum)).setText(phonenum);
 
@@ -98,7 +98,7 @@ public class HubCreateDialog{
                 return false;
             }
 
-            private boolean arrayContains(String[] array, String item){
+            private boolean arrayContains(ArrayList<String> array, String item){
                 for (String val : array) {
                     if(val == item){
                         return true;

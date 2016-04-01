@@ -117,7 +117,7 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
 
     @Override
     public void autopush() {
-        Toast.makeText(this, "autopush?", Toast.LENGTH_SHORT).show(); //TODO push to server
+        Toast.makeText(this, "autopush", Toast.LENGTH_SHORT).show(); //TODO auto push to server
     }
 
     @Override

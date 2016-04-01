@@ -19,6 +19,7 @@ import org.ncfrcteams.frcscoutinghub2016.ui.DatabaseAdapter;
 public class HubListFragment extends Fragment implements AdapterView.OnItemClickListener,
         AdapterView.OnItemLongClickListener, DatabaseAdapter.DatabaseListener {
 
+    private boolean theTimeIsRight;
     private HubListFragListener mListener;
     public static Schedule mySchedule;
     public DatabaseAdapter myListAdapter;
@@ -37,6 +38,7 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
         myListAdapter = new DatabaseAdapter(getContext(), this);
         mySchedule = new Schedule();
         mySchedule.setScheduleChangeListener(myListAdapter);
+        theTimeIsRight = false;
     }
 
     @Override
@@ -83,8 +85,10 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
     }
 
     @Override
-    public void onListChange() {
-        mListener.autopush();
+    public void onListChange() { //called 2x every time schedule is changed
+        if(theTimeIsRight) {
+            mListener.autopush();
+        }
     }
 
     public Match getMatchFromId(int matchId) {

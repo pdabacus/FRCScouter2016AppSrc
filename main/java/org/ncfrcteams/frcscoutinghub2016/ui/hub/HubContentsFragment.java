@@ -75,17 +75,19 @@ public class HubContentsFragment extends Fragment {
         mListener = null;
     }
 
-    public void reset(Match match){
+    public void reset(Match match) {
         hubfrag1.setText(match.getText());
         //TODO Make this entire fragment. Load views based on match.
     }
 
-    public void setMatchId(int newMatchId){
+    public void setMatchId(int newMatchId) {
         matchId = newMatchId;
         match = mListener.getMatchFromId(matchId);
+        reset(match);
     }
 
     public interface HubContentsFragListener {
         Match getMatchFromId(int matchId);
     }
+
 }

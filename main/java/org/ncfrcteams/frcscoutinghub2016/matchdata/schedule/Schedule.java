@@ -58,7 +58,7 @@ public class Schedule {
     }
 
     public String addSMS(String message) {
-        if(!message.substring(0,3).equals("<frc")) {
+        if(!message.split(":")[0].equals("<frc")) {
             return "";
         }
 

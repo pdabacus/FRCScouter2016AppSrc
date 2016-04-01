@@ -62,7 +62,7 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
             name = "edit" + ((i<3)?"Red":"Blue") + i;
             id = getResources().getIdentifier(name, "id", getActivity().getPackageName());
 
-            teamNumbers[i] = (EditText) view.findViewById(id);
+            teamNumbers[i-1] = (EditText) view.findViewById(id);
         }
 
         selectors = new ImageView[8];
@@ -71,14 +71,14 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
             name = "barrierView" + i;
             id = getResources().getIdentifier(name, "id", getActivity().getPackageName());
 
-            selectors[i] = (ImageView) view.findViewById(id);
-            selectors[i].setOnClickListener(this);
+            selectors[i-1] = (ImageView) view.findViewById(id);
+            selectors[i-1].setOnClickListener(this);
         }
 
-        positions = new ImageView[10];
+        positions = new ImageView[8];
 
-        for(int i=1; i<9; i++) {
-            name = "barrier" + i;
+        for(int i=0; i < 8; i++) {
+            name = "barrier" + i+1;
             id = getResources().getIdentifier(name, "id", getActivity().getPackageName());
 
             positions[i] = (ImageView) view.findViewById(id);

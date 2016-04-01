@@ -48,7 +48,7 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
         listFragment = HubListFragment.newInstance();
 
         fragments.add(createFragment);
-        fragments.add(contentsFragment);
+        fragments.add(listFragment);
         fragments.add(contentsFragment);
 
         ArrayList<String> fragTitles = new ArrayList<>();

@@ -36,6 +36,14 @@ public class MatchDescriptor implements Serializable, Comparable {
         returnAddress = tMgr.getLine1Number();
     }
 
+    public MatchDescriptor(Context context, int matchNum, int[] teams, boolean isQual, String phoneNum) {
+        this.matchNum = matchNum;
+        this.teams = teams;
+        this.isQual = isQual;
+
+        returnAddress = phoneNum;
+    }
+
     public static MatchDescriptor fromString(Context context, String s) {
         String[] parts = s.split(",");
         int matchNum = Integer.parseInt(parts[0]);

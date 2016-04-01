@@ -29,7 +29,7 @@ public class HubCreateFragment extends Fragment implements View.OnClickListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.h_frag_create, container, false);
 
-        view.findViewById(R.id.createClickMe).setOnClickListener(this);
+        view.findViewById(R.id.createMatch).setOnClickListener(this);
 
         return view;
     }
@@ -54,7 +54,7 @@ public class HubCreateFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onClick(View view){
         switch(view.getId()){
-            case R.id.createClickMe:
+            case R.id.createMatch:
                 new HubCreateDialog(getContext(), this).show();
                 break;
             default:

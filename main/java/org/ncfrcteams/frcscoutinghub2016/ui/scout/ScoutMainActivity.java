@@ -109,7 +109,8 @@ public class ScoutMainActivity extends AppCompatActivity implements ScoutFragLef
         if(state == 1){
             String phonenum = myMatchRecord.getPhoneNum();
             String data = myMatchRecord.getData();
-            String unique = myMatchRecord.get("Match Number") + "," + myMatchRecord.get("Team Number");
+            String unique = (myMatchRecord.get("isQual") == 1 ? "Q" : "E") + myMatchRecord.get("Match Number") +
+                    "," + myMatchRecord.get("Team Number");
 
             Toast.makeText(getApplicationContext(), "Sending Data to " + phonenum, Toast.LENGTH_LONG).show();
             SendSms.send(phonenum, data, comment, unique);

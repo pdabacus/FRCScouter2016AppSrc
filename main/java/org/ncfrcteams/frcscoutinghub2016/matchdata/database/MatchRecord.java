@@ -12,30 +12,32 @@ public class MatchRecord extends SuperMap<String, Integer>{
     private int mode;
     private int color;
     private int orientation;
+    private int isQual;
     private int[] barriers = {0,0,0,0,0,0,0,0,0,0};
     private String phonenum;
 
     public static MatchRecord createMatchRecord(String data, int orientation){
         String[] parts = data.split(",");
-        if(parts.length != 12)
+        if(parts.length != 13)
             return null;
 
         MatchRecord newMatchRecord = new MatchRecord();
 
         try {
-            newMatchRecord.put("Match Number", Integer.parseInt(parts[1]));
-            newMatchRecord.put("Team Number", Integer.parseInt(parts[2]));
+            newMatchRecord.put("Match Number", Integer.parseInt(parts[2]));
+            newMatchRecord.put("Team Number", Integer.parseInt(parts[3]));
             newMatchRecord.put("Teleop Active", 0);
 
-            for(int i = 1; i < 9; i++) {
+            for(int i = 2; i < 10; i++) {
                 newMatchRecord.barriers[i] = Integer.parseInt(parts[i+2]);
             }
 
             newMatchRecord.activeButton = "None";
             newMatchRecord.orientation = orientation;
             newMatchRecord.color = (parts[0].equals("R") ? 1 : 2);
+            newMatchRecord.isQual = (parts[1].equals("Q") ? 1 : 0);
             newMatchRecord.mode = (orientation == newMatchRecord.color ? 1 : 2);
-            newMatchRecord.phonenum = parts[11];
+            newMatchRecord.phonenum = parts[12];
 
             newMatchRecord.put("Shoot High Auto",0);
             newMatchRecord.put("Shoot High Auto Total",0);
@@ -95,6 +97,8 @@ public class MatchRecord extends SuperMap<String, Integer>{
                 return color;
             case "Orientation":
                 return orientation;
+            case "isQual":
+                return isQual;
             case "None":
                 return 0;
             default:
@@ -114,6 +118,8 @@ public class MatchRecord extends SuperMap<String, Integer>{
                 color = i;
             case "Orientation":
                 orientation = i;
+            case "isQual":
+                isQual = i;
             default:
                 super.put(s, i);
         }

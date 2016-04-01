@@ -34,7 +34,9 @@ public class HubContentsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             matchId = getArguments().getInt(ARG_PARAM1);
-            match = mListener.getMatchFromId(matchId); //I checked, and OnAttach happens before OnCreate
+            if (matchId != -1) {
+                match = mListener.getMatchFromId(matchId); //I checked, and OnAttach happens before OnCreate
+            }
         }
     }
 
@@ -42,8 +44,14 @@ public class HubContentsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.h_frag_contents, container, false);
         hubfrag1 = (TextView) view.findViewById(R.id.hubfrag1);
-        hubfrag1.setText(matchId);
-        //TODO Make this entire fragment
+        hubfrag1.setText("Match " + matchId);
+
+        if (matchId != -1) {
+
+            //TODO Make this entire fragment
+
+        }
+
         return view;
     }
 

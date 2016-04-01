@@ -40,6 +40,7 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(HubCreateFragment.newInstance());
         fragments.add(HubListFragment.newInstance());
+        fragments.add(HubContentsFragment.newInstance(-1));
 
         ArrayList<String> fragTitles = new ArrayList<>();
         fragTitles.add("Create");
@@ -101,7 +102,6 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
             inDetailFrag = false;
             hubViewPager.setCurrentItem(1);
             ((HubContentsFragment) myPageAdapter.fragments.get(2)).killMe();
-            myPageAdapter.fragments.remove(2);
             myPageAdapter.notifyDataSetChanged();
         } else {
             super.onBackPressed();
@@ -126,7 +126,7 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
     @Override
     public void switchToDetails(int matchId){
         inDetailFrag = true;
-        myPageAdapter.fragments.add(2, HubContentsFragment.newInstance(matchId));
+        myPageAdapter.fragments.set(2, HubContentsFragment.newInstance(matchId));
         myPageAdapter.notifyDataSetChanged();
         hubViewPager.setCurrentItem(2);
     }

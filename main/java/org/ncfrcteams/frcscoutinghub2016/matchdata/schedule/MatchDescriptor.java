@@ -105,7 +105,10 @@ public class MatchDescriptor implements Serializable, Comparable {
     public int compareTo(Object another) {
         MatchDescriptor other = (MatchDescriptor) another;
         if(this.isQual() == other.isQual()) {
-            return Integer.compare(this.getMatchNum(),other.getMatchNum());
+            int a = this.getMatchNum();
+            int b = other.getMatchNum();
+            return (a < b ? 1 : -1);
+            //return Integer.compare(this.getMatchNum(), other.getMatchNum());
         } else {
             if(this.isQual()) {
                 return 1;

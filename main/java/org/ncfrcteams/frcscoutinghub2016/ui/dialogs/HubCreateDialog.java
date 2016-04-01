@@ -24,7 +24,7 @@ public class HubCreateDialog{
     private Dialog dialog;
     private View view;
 
-    public HubCreateDialog(final Context context, final HubCreateDialogListener listener) { //TODO get matchnums array
+    public HubCreateDialog(final Context context, final HubCreateDialogListener listener) {
 
         final AlertDialog.Builder alert = new AlertDialog.Builder(context);
         final HubCreateDialog thisDialog = this;
@@ -32,6 +32,8 @@ public class HubCreateDialog{
         view = LayoutInflater.from(context).inflate(R.layout.h_dialog_create, null);
         alert.setView(view);
 
+        //TODO get matchnums array
+        thisDialog.matchenums = new int[1];
         String phonenum = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getLine1Number();
         ((EditText) view.findViewById(R.id.phonenum)).setText(phonenum);
 

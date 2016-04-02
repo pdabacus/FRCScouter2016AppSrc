@@ -1,6 +1,7 @@
 package org.ncfrcteams.frcscoutinghub2016.ui;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -33,7 +34,7 @@ public class SelectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection);
         Bundle intentData = getIntent().getExtras();
-        if(intentData.containsKey("Data")) {
+        if((intentData != null) && intentData.containsKey("Data")) {
             messages = intentData.getStringArray("Data");
             Button invisibleButton = (Button) findViewById(R.id.invisibleButton);
             invisibleButton.setVisibility(View.VISIBLE);
@@ -93,12 +94,31 @@ public class SelectionActivity extends AppCompatActivity {
     }
 
     public void launchScouter(View view) {
-        boolean otherapp = false; //TODO detect if qrdroid app available
-        if(otherapp) {
-            //TODO launch qrdroid app intent -- http://qrdroid.com/android-developers/
+        boolean QrDroidInstalled;
+        PackageManager pm = getApplicationContext().getPackageManager();
+        try {
+            pm.getPackageInfo("la.droid.qr", PackageManager.GET_ACTIVITIES);
+            QrDroidInstalled = true;
+        } catch (PackageManager.NameNotFoundException e) {
+            QrDroidInstalled = false;
+        }
+
+        if(QrDroidInstalled) {
+            // run qrdroid intent
+            try {
+                Intent qrDroid = new Intent("la.droid.qr.scan");
+                startActivityForResult(qrDroid, 222);
+            } catch (Exception e){
+                e.printStackTrace();
+            }
         } else{
-            IntentIntegrator integrator = new IntentIntegrator(this);
-            integrator.initiateScan();
+            // run barcode scanner intent
+            try {
+                IntentIntegrator integrator = new IntentIntegrator(this);
+                integrator.initiateScan();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -117,7 +137,10 @@ public class SelectionActivity extends AppCompatActivity {
             matchdata = brscanResult.getContents();
         }
 
-        //TODO get result from another app
+        //result from barcode scanner app
+        if(requestCode == 222 && null != data && data.getExtras() != null) {
+            matchdata = data.getExtras().getString("la.droid.qr.result");
+        }
 
         if(matchdata.split(",").length == 13){
             Intent intent = new Intent(this, ScoutMainActivity.class);

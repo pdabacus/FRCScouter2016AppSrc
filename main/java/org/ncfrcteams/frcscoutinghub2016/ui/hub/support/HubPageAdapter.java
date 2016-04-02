@@ -82,7 +82,7 @@ public class HubPageAdapter extends FragmentPagerAdapter implements POST.POSTLis
         Toast.makeText(context, "autopush", Toast.LENGTH_SHORT).show();
     }
 
-    //*********************************** sms Methods ************************************
+    //*********************************** sms Methods **********************************************
 
     public void addSMStoSchedule(String number, String message){
         String result = listView.mySchedule.addSMS(message);
@@ -91,15 +91,11 @@ public class HubPageAdapter extends FragmentPagerAdapter implements POST.POSTLis
         }
     }
 
+    //*********************************** POST Listener **********************************************
+
     @Override
     public void POSTResult(String returnAddress, String result) {
-        switch (returnAddress){
-            case "uploadsssss":
-                break;
-            default:
-                Toast.makeText(context, returnAddress + " " + result, Toast.LENGTH_SHORT).show();
-                break;
-        }
+        listView.POSTResult(returnAddress, result);
     }
 
     //**********************************************************************************************

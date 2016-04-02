@@ -114,6 +114,16 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
         new MultiQRDialog(getContext(), qrtexts).show();
     }
 
+    public void POSTResult(String returnAddress, String result){
+        switch (returnAddress){
+            case "upload":
+                break;
+            default:
+                Toast.makeText(getContext(), returnAddress + " " + result, Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
     public interface HubListFragListener {
         void autopush();
         void switchToDetails(Match match);

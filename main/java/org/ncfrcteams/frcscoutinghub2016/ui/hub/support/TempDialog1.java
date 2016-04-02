@@ -68,7 +68,7 @@ public class TempDialog1 {
 
                 int[] barriers = new int[8];
                 for (int i = 0; i < barriersStrings.length; i++) {
-                    if (barriersStrings[i].equals("")){
+                    if (barriersStrings[i].equals("") || barriersStrings[i].equals("9")){
                         barriers[i] = 0;
                     } else{
                         barriers[i] = Integer.parseInt(barriersStrings[i]);

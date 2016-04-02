@@ -48,36 +48,23 @@
                     android:onClick="orientation2Selected"
                     android:alpha="0.6"/>
 
-                <LinearLayout
-                    android:orientation="horizontal"
+                <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Scan QR Code"
-                        android:layout_margin="20dp"
-                        android:onClick="launchScouter"/>
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Launch Hub"
-                        android:layout_margin="20dp"
-                        android:onClick="launchHub"/>
-
-                </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:text="Scout A Match"
+                    android:layout_marginTop="20dp"
+                    android:onClick="launchScouter" />
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Show Previous Match Data"
+                    android:text="Last Match's Data"
                     android:id="@+id/invisibleButton"
+                    android:layout_marginTop="5dp"
                     android:onClick="showQRs"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
-            </LinearLayout>
+        </LinearLayout>
 
     </ScrollView>
 

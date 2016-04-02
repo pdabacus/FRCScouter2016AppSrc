@@ -63,12 +63,10 @@ public class SelectionActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            //TODO add settings
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        Intent intent = new Intent(this, HubActivity.class);
+        startActivity(intent);
+        finish();
+        return true;
     }
 
     @Override
@@ -161,9 +159,4 @@ public class SelectionActivity extends AppCompatActivity {
         }
     }
 
-    public void launchHub(View view){
-        Intent intent = new Intent(this, HubActivity.class);
-        startActivity(intent);
-        finish();
-    }
 }

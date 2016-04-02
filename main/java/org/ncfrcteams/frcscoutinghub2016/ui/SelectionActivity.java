@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
+import org.ncfrcteams.frcscoutinghub2016.communication.qr.MultiQRDialog;
 import org.ncfrcteams.frcscoutinghub2016.ui.hub.HubActivity;
 import org.ncfrcteams.frcscoutinghub2016.ui.scout.ScoutMainActivity;
 
@@ -23,12 +25,19 @@ public class SelectionActivity extends AppCompatActivity {
     private int orientation;
     private ImageView orientation1;
     private ImageView orientation2;
+    private String[] messages;
     private boolean backpress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.s_activity_prematch);
+        setContentView(R.layout.activity_selection);
+        Bundle intentData = getIntent().getExtras();
+        if(intentData.containsKey("Data")) {
+            messages = intentData.getStringArray("Data");
+            Button invisibleButton = (Button) findViewById(R.id.invisibleButton);
+            invisibleButton.setVisibility(View.VISIBLE);
+        }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         orientation = 1;
@@ -36,6 +45,8 @@ public class SelectionActivity extends AppCompatActivity {
         orientation2 = (ImageView) findViewById(R.id.orientation2);
         backpress = false;
     }
+
+
 
     @Override
     protected void onResume() {
@@ -89,6 +100,10 @@ public class SelectionActivity extends AppCompatActivity {
             IntentIntegrator integrator = new IntentIntegrator(this);
             integrator.initiateScan();
         }
+    }
+
+    public void showQRs(View view){
+        new MultiQRDialog(this, messages).show();
     }
 
     @Override

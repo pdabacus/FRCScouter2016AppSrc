@@ -111,9 +111,6 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
             a = (i < 3 ? "R," : "B,") + (isQual ? "Q," : "E,") + String.valueOf(matchNum) + "," + teams[i];
             qrtexts[i] = a + "," + b + phoneNum;
         }
-
-        Toast.makeText(getContext(), qrtexts[2] + qrtexts[3] , Toast.LENGTH_LONG).show();
-
         new MultiQRDialog(getContext(), qrtexts).show();
     }
 

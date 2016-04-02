@@ -115,6 +115,7 @@ public class ScoutMainActivity extends AppCompatActivity implements ScoutFragLef
             finish();
             Intent intent = new Intent(this, SelectionActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.putExtra("Data", messages);
             startActivity(intent);
         }
     }

@@ -29,8 +29,8 @@ public class MatchRecord extends SuperMap<String, Integer>{
             newMatchRecord.put("Team Number", Integer.parseInt(parts[3]));
             newMatchRecord.put("Teleop Active", 0);
 
-            for(int i = 2; i < 10; i++) {
-                newMatchRecord.barriers[i] = Integer.parseInt(parts[i+2]);
+            for(int i = 1; i < 9; i++) {
+                newMatchRecord.barriers[i] = Integer.parseInt(parts[i+3]);
             }
 
             newMatchRecord.activeButton = "None";

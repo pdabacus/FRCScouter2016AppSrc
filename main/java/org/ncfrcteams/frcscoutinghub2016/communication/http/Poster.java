@@ -68,7 +68,7 @@ public class Poster {
 
     public void createDatabase() {
         String[][] POSTs = {{"team", user}, {"pass", pass}};
-        String[][] FILES = {{}};
+        String[][] FILES = { {"NONONO", "NONONO"} };
         sendPostRequest(context, url + CREATE, POSTs, FILES, pretty, "create");
     }
 
@@ -80,19 +80,19 @@ public class Poster {
 
     public void appendToDatabase(String database) {
         String[][] POSTs = {{"team", user}, {"pass", pass}, {"matchrec", database}};
-        String[][] FILES = {{}};
+        String[][] FILES = { {"NONONO", "NONONO"} };
         sendPostRequest(context, url + APPEND, POSTs, FILES, pretty, "append");
     }
 
     public void downloadDatabase() {
         String[][] POSTs = {{"team", user}, {"pass", pass}};
-        String[][] FILES = {{}};
+        String[][] FILES = { {"NONONO", "NONONO"} };
         sendPostRequest(context, url + DELETE, POSTs, FILES, pretty, "download");
     }
 
     public void deleteDatabase() {
         String[][] POSTs = {{"team", user}, {"pass", pass}};
-        String[][] FILES = {{}};
+        String[][] FILES = { {"NONONO", "NONONO"} };
         sendPostRequest(context, url + DELETE, POSTs, FILES, pretty, "delete");
     }
 

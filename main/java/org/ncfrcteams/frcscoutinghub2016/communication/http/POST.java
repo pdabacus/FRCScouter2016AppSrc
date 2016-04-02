@@ -90,7 +90,9 @@ public class POST extends AsyncTask<String, Void, Void> {
                 addPOST(writer, pair[0], pair[1]);
             }
             for(String[] pair : FILES) {
-                addFILE(writer, pair[0], pair[1]);
+                if ( ! (pair[0].equals("NONONO") || pair[1].equals("NONONO"))){
+                    addFILE(writer, pair[0], pair[1]);
+                }
             }
 
             //close writer

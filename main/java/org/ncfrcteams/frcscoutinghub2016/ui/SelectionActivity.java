@@ -145,12 +145,17 @@ public class SelectionActivity extends AppCompatActivity {
             matchdata = data.getExtras().getString("la.droid.qr.result");
         }
 
-        if((matchdata != null) && matchdata.split(",").length == 13){
-            Intent intent = new Intent(this, ScoutMainActivity.class);
-            intent.putExtra("Match Setup", matchdata);
-            intent.putExtra("Orientation", orientation);
-            startActivity(intent);
-            finish();
+        if((matchdata != null)){
+            String[] matchDataArray = matchdata.split(",");
+            if(matchDataArray.length == 13) {
+                Intent intent = new Intent(this, ScoutMainActivity.class);
+                intent.putExtra("Match Setup", matchdata);
+                intent.putExtra("Orientation", orientation);
+                startActivity(intent);
+                finish();
+            } else {
+                Toast.makeText(this, "Invalid Match Setup", Toast.LENGTH_SHORT).show();
+            }
         } else {
             Toast.makeText(this, "Failed Scan", Toast.LENGTH_SHORT).show();
         }

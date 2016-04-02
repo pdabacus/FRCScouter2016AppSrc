@@ -42,14 +42,14 @@ public class TempDialog1 {
 
         int[] barriers = match.getBarriers();
 
-        ((EditText) view.findViewById(R.id.bar1)).setText(barriers[0]);
-        ((EditText) view.findViewById(R.id.bar2)).setText(barriers[1]);
-        ((EditText) view.findViewById(R.id.bar3)).setText(barriers[2]);
-        ((EditText) view.findViewById(R.id.bar4)).setText(barriers[3]);
-        ((EditText) view.findViewById(R.id.bar5)).setText(barriers[4]);
-        ((EditText) view.findViewById(R.id.bar6)).setText(barriers[5]);
-        ((EditText) view.findViewById(R.id.bar7)).setText(barriers[6]);
-        ((EditText) view.findViewById(R.id.bar8)).setText(barriers[7]);
+        ((EditText) view.findViewById(R.id.bar1)).setText(String.valueOf(barriers[0]));
+        ((EditText) view.findViewById(R.id.bar2)).setText(String.valueOf(barriers[1]));
+        ((EditText) view.findViewById(R.id.bar3)).setText(String.valueOf(barriers[2]));
+        ((EditText) view.findViewById(R.id.bar4)).setText(String.valueOf(barriers[3]));
+        ((EditText) view.findViewById(R.id.bar5)).setText(String.valueOf(barriers[4]));
+        ((EditText) view.findViewById(R.id.bar6)).setText(String.valueOf(barriers[5]));
+        ((EditText) view.findViewById(R.id.bar7)).setText(String.valueOf(barriers[6]));
+        ((EditText) view.findViewById(R.id.bar8)).setText(String.valueOf(barriers[7]));
 
         final TempDialog1Listener dialogListener = listener;
 

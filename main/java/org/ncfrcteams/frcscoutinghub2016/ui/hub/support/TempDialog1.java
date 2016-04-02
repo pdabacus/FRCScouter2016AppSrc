@@ -29,7 +29,7 @@ public class TempDialog1 {
     private Dialog dialog;
     private View view;
 
-    public TempDialog1(final Context context, final TempDialog1Listener listener, Match match) {
+    public TempDialog1(final Context context, final TempDialog1Listener listener, Obstacle[] obstacles) {
 
         final AlertDialog.Builder alert = new AlertDialog.Builder(context);
         final TempDialog1 thisDialog = this;
@@ -37,8 +37,7 @@ public class TempDialog1 {
         view = LayoutInflater.from(context).inflate(R.layout.h_dialog_temp1, null);
         alert.setView(view);
 
-        thisDialog.match = match;
-        thisDialog.obstacles = match.getObstacles();
+        thisDialog.obstacles = obstacles;
 
         ((EditText) view.findViewById(R.id.bar1)).setText(obstacles[0].getValue());
         ((EditText) view.findViewById(R.id.bar2)).setText(obstacles[1].getValue());

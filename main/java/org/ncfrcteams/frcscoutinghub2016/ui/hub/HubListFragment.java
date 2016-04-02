@@ -11,13 +11,15 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
+import org.ncfrcteams.frcscoutinghub2016.matchdata.Obstacle;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Match;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.MatchDescriptor;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Schedule;
 import org.ncfrcteams.frcscoutinghub2016.ui.hub.support.DatabaseAdapter;
+import org.ncfrcteams.frcscoutinghub2016.ui.hub.support.TempDialog1;
 
 public class HubListFragment extends Fragment implements AdapterView.OnItemClickListener,
-        AdapterView.OnItemLongClickListener, DatabaseAdapter.DatabaseListener {
+        AdapterView.OnItemLongClickListener, DatabaseAdapter.DatabaseListener, TempDialog1.TempDialog1Listener {
 
     private boolean theTimeIsRight;
     private HubListFragListener mListener;
@@ -57,6 +59,7 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
         String item = myListAdapter.getItem(position).getTitle();
+        new TempDialog1(getContext(), this, myListAdapter.getItem(position).getObstacles()).show();
         //Toast.makeText(getActivity(), item, Toast.LENGTH_SHORT).show();
         //mListener.switchToDetails(myListAdapter.getItem(position));
     }
@@ -95,8 +98,9 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
         mySchedule.add(new MatchDescriptor(getContext(), matchnum, teams, isQual, phonenum));
     }
 
-    public String getDatabase() {
-        return "asdfasdfasdf"; //TODO generate csv string from mySchedule
+    @Override
+    public void onTempDialog1(int matchNum, boolean isQual, int[] teams, Obstacle[] barriers, String phoneNum) {
+        Toast.makeText(getContext(), isQual?"Q":"E" + matchNum + barriers.toString(), Toast.LENGTH_LONG).show();
     }
 
     public interface HubListFragListener {

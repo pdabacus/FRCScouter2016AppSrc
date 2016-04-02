@@ -13,8 +13,7 @@ public class Match {
     public MatchDescriptor matchDescriptor;
     public String[] data = new String[6];
     public String[] comments = new String[6];
-    public int[] teams = new int[6];
-    public int[] barriers = new int[8];
+    public int[] barriers = new int[8];    // TODO - TEMPORARY VARIABLE BECAUSE OBSTACLES DOESNT WORK
 
     public Match(int matchNum, int matchStatus, boolean isQual, MatchDescriptor matchDescriptor){
         this.matchNum = matchNum;
@@ -97,4 +96,15 @@ public class Match {
     public String getPhoneNum() {
         return matchDescriptor.getPhoneNum();
     }
+
+    // TODO - TEMPORARY METHODS BECAUSE OBSTACLES DOESNT WORK
+
+    public int[] getBarriers() {
+        return barriers;
+    }
+
+    public void setBarriers(int[] barriers) {
+        this.barriers = barriers;
+    }
+
 }

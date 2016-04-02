@@ -69,7 +69,7 @@ public class HubPageAdapter extends FragmentPagerAdapter implements POST.POSTLis
     }
 
     public boolean isValidUser(){
-        return poster.getUser().equals("test");
+        return poster.isValidUser();
     }
 
     public void setAlternativeUser(){

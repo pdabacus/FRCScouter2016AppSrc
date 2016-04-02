@@ -42,6 +42,10 @@ public class Poster {
         this.pretty = pretty;
     }
 
+    public boolean isValidUser(){
+        return user.equals("test"); //TODO better check based on results
+    }
+
     public String getUser(){
         return this.user;
     }
@@ -87,7 +91,7 @@ public class Poster {
     public void downloadDatabase() {
         String[][] POSTs = {{"team", user}, {"pass", pass}};
         String[][] FILES = { {"NONONO", "NONONO"} };
-        sendPostRequest(context, url + DELETE, POSTs, FILES, pretty, "download");
+        sendPostRequest(context, url + DOWNLOAD, POSTs, FILES, pretty, "download");
     }
 
     public void deleteDatabase() {

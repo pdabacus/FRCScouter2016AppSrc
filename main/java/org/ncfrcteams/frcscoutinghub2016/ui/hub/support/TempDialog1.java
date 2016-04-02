@@ -19,35 +19,37 @@ import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Match;
  */
 public class TempDialog1 {
 
-    private static final String POSITIVE_TEXT = "Make QRs";
+    private static final String POSITIVE_TEXT = "Generate QRs";
     private static final String NEGATIVE_TEXT = "Cancel";
-    private Match match;
+
     private Dialog dialog;
+    private Context context;
     private View view;
+    private Match match;
 
     public TempDialog1(final Context context, final TempDialog1Listener listener, Match match) {
 
         final AlertDialog.Builder alert = new AlertDialog.Builder(context);
         final TempDialog1 thisDialog = this;
 
-        view = LayoutInflater.from(context).inflate(R.layout.h_dialog_temp1, null);
-        alert.setView(view);
-
+        thisDialog.context = context;
+        thisDialog.view = LayoutInflater.from(context).inflate(R.layout.h_dialog_temp1, null);
         thisDialog.match = match;
+
+        alert.setView(view);
 
         ((TextView) view.findViewById(R.id.tempMatch)).setText(thisDialog.match.getTitle());
 
-        /*
-        ((EditText) view.findViewById(R.id.bar1)).setText(0);
-        ((EditText) view.findViewById(R.id.bar2)).setText(0);
-        ((EditText) view.findViewById(R.id.bar3)).setText(0);
-        ((EditText) view.findViewById(R.id.bar4)).setText(0);
+        int[] barriers = match.getBarriers();
 
-        ((EditText) view.findViewById(R.id.bar5)).setText(0);
-        ((EditText) view.findViewById(R.id.bar6)).setText(0);
-        ((EditText) view.findViewById(R.id.bar7)).setText(0);
-        ((EditText) view.findViewById(R.id.bar8)).setText(0);
-        */
+        ((EditText) view.findViewById(R.id.bar1)).setText(barriers[0]);
+        ((EditText) view.findViewById(R.id.bar2)).setText(barriers[1]);
+        ((EditText) view.findViewById(R.id.bar3)).setText(barriers[2]);
+        ((EditText) view.findViewById(R.id.bar4)).setText(barriers[3]);
+        ((EditText) view.findViewById(R.id.bar5)).setText(barriers[4]);
+        ((EditText) view.findViewById(R.id.bar6)).setText(barriers[5]);
+        ((EditText) view.findViewById(R.id.bar7)).setText(barriers[6]);
+        ((EditText) view.findViewById(R.id.bar8)).setText(barriers[7]);
 
         final TempDialog1Listener dialogListener = listener;
 
@@ -74,7 +76,7 @@ public class TempDialog1 {
                 }
                 
                 if(arrayContains(barriers, 0)){
-                    Toast.makeText(context, "Invalid Match Setup", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(thisDialog.context, "Invalid Match Setup", Toast.LENGTH_SHORT).show();
                 } else{
                     int[] teams = thisDialog.match.getTeams();
                     int matchNum = thisDialog.match.getMatchNum();
@@ -84,6 +86,9 @@ public class TempDialog1 {
                     dialogListener.onTempDialog1(matchNum, isQual, teams, barriers, phoneNum);
                     Toast.makeText(context, "Generating QR Codes", Toast.LENGTH_SHORT).show();
                 }
+
+                thisDialog.match.setBarriers(barriers);
+
             }
 
             private boolean arrayContains(int[] array, int item){

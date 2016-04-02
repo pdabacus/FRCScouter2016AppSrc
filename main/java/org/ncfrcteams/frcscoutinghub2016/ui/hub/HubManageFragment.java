@@ -28,7 +28,7 @@ public class HubManageFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.h_frag_manage, container, false);
 
-        view.findViewById(R.id.createMatch).setOnClickListener(this);
+        view.findViewById(R.id.uploadDatabase).setOnClickListener(this);
         view.findViewById(R.id.downloadDatabase).setOnClickListener(this);
 
         return view;

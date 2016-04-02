@@ -12,8 +12,6 @@ import android.widget.Toast;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
 import org.ncfrcteams.frcscoutinghub2016.communication.qr.MultiQRDialog;
-import org.ncfrcteams.frcscoutinghub2016.matchdata.Obstacle;
-import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Match;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.MatchDescriptor;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Schedule;
 import org.ncfrcteams.frcscoutinghub2016.ui.hub.support.DatabaseAdapter;
@@ -58,20 +56,6 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-        new TempDialog1(getContext(), this, myListAdapter.getItem(position)).show();
-        //Toast.makeText(getActivity(), myListAdapter.getItem(position).getTitle(), Toast.LENGTH_SHORT).show();
-        //mListener.switchToDetails(myListAdapter.getItem(position));
-    }
-
-    @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        String item = myListAdapter.getItem(position).getTitle();
-        Toast.makeText(getActivity(), item + " long", Toast.LENGTH_SHORT).show();
-        return true;
-    }
-
-    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof HubListFragListener) {
@@ -87,6 +71,24 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
         mListener = null;
     }
 
+    //****************************** HubListFragment OnClick Listener ******************************
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+        new TempDialog1(getContext(), this, myListAdapter.getItem(position)).show();
+        //Toast.makeText(getActivity(), myListAdapter.getItem(position).getTitle(), Toast.LENGTH_SHORT).show();
+        //mListener.switchToDetails(myListAdapter.getItem(position));
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        String item = myListAdapter.getItem(position).getTitle();
+        Toast.makeText(getActivity(), item + " long", Toast.LENGTH_SHORT).show();
+        return true;
+    }
+
+    //********************************** DatabaseAdapter Listener **********************************
+
     @Override
     public void onListChange() { //called 2x every time schedule is changed
         if(theTimeIsRight) {
@@ -94,9 +96,7 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
         }
     }
 
-    public void addNewMatch(int[] teams, int matchnum, boolean isQual, String phonenum){
-        mySchedule.add(new MatchDescriptor(getContext(), matchnum, teams, isQual, phonenum));
-    }
+    //************************************ TempDialog1 Listener ************************************
 
     @Override
     public void onTempDialog1(int matchNum, boolean isQual, int[] teams, int[] barriers, String phoneNum) {
@@ -111,18 +111,29 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
             a = (i < 3 ? "R," : "B,") + (isQual ? "Q," : "E,") + String.valueOf(matchNum) + "," + teams[i];
             qrtexts[i] = a + "," + b + phoneNum;
         }
+
         new MultiQRDialog(getContext(), qrtexts).show();
     }
 
+    //****************************** HubPageFragment.addNewMatch() Call ****************************
+
+    public void addNewMatch(int[] teams, int matchnum, boolean isQual, String phonenum){
+        mySchedule.add(new MatchDescriptor(getContext(), matchnum, teams, isQual, phonenum));
+    }
+
+    //****************************** HubPageFragment.POSTResult() Call *****************************
+
     public void POSTResult(String returnAddress, String result){
         switch (returnAddress){
-            case "upload":
+            case "uploadasdfasdfasdf":
                 break;
             default:
                 Toast.makeText(getContext(), returnAddress + " " + result, Toast.LENGTH_SHORT).show();
                 break;
         }
     }
+
+    //**********************************************************************************************
 
     public interface HubListFragListener {
         void autopush();

@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.widget.Toast;
 
+import org.ncfrcteams.frcscoutinghub2016.communication.http.POST;
 import org.ncfrcteams.frcscoutinghub2016.communication.http.Poster;
 import org.ncfrcteams.frcscoutinghub2016.ui.hub.HubContentsFragment;
 import org.ncfrcteams.frcscoutinghub2016.ui.hub.HubCreateFragment;
@@ -16,7 +17,7 @@ import org.ncfrcteams.frcscoutinghub2016.ui.hub.HubListFragment;
  * Created by Pavan Dayal on 3/18/2016.
  */
 
-public class HubPageAdapter extends FragmentPagerAdapter{
+public class HubPageAdapter extends FragmentPagerAdapter implements POST.POSTListener{
 
     public Context context;
     public HubCreateFragment create;
@@ -30,7 +31,7 @@ public class HubPageAdapter extends FragmentPagerAdapter{
         this.create = HubCreateFragment.newInstance();
         this.listView = HubListFragment.newInstance();
         this.content = HubContentsFragment.newInstance();
-        this.poster = new Poster(context, "http://localhost/frc/database/", "test", "test", true);
+        this.poster = new Poster(context, "http://localhost/frc/database/", "test", "test", true, this);
     }
 
     //*********************************** HubPageAdapter Methods ***********************************
@@ -58,15 +59,14 @@ public class HubPageAdapter extends FragmentPagerAdapter{
         poster.uploadDatabase(listView.mySchedule.getDatabase());
     }
 
-    public String downloadDatabase(String user, String pass){
+    public void downloadDatabase(String user, String pass){
         String prevUser = poster.getUser();
         String prevPass = poster.getPass();
         poster.setUser(user);
         poster.setPass(pass);
-        String ret = poster.downloadDatabase();
+        poster.downloadDatabase();
         poster.setUser(prevUser);
         poster.setPass(prevPass);
-        return ret;
     }
 
     public boolean isDefaultUser(){
@@ -88,6 +88,17 @@ public class HubPageAdapter extends FragmentPagerAdapter{
         String result = listView.mySchedule.addSMS(message);
         if (! result.equals("")) {
             Toast.makeText(context, number + " updated " + result, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void POSTResult(String returnAddress, String result) {
+        switch (returnAddress){
+            case "uploadsssss":
+                break;
+            default:
+                Toast.makeText(context, returnAddress + " " + result, Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 

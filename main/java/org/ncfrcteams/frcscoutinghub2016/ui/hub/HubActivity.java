@@ -124,8 +124,8 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
     }
 
     @Override
-    public String downloadDatabase(String user, String pass) {
-        return hubPageAdapter.downloadDatabase(user, pass);
+    public void downloadDatabase(String user, String pass) {
+        hubPageAdapter.downloadDatabase(user, pass);
     }
 
     //******************************** HubListViewFragment Listener ********************************

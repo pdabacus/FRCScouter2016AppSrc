@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
 import org.ncfrcteams.frcscoutinghub2016.ui.hub.support.HubCreateDialog;
@@ -34,6 +33,7 @@ public class HubCreateFragment extends Fragment implements View.OnClickListener,
         View view = inflater.inflate(R.layout.h_frag_create, container, false);
 
         view.findViewById(R.id.createMatch).setOnClickListener(this);
+        view.findViewById(R.id.downloadDatabase).setOnClickListener(this);
 
         return view;
     }
@@ -63,7 +63,7 @@ public class HubCreateFragment extends Fragment implements View.OnClickListener,
                 new HubCreateDialog(getContext(), this, matchTitles).show();
                 break;
             case R.id.downloadDatabase:
-                Toast.makeText(getContext(), mListener.downloadDatabase("schedule", "schedule"), Toast.LENGTH_SHORT).show();
+                mListener.downloadDatabase("schedule", "schedule");
             default:
                 break;
         }
@@ -77,6 +77,6 @@ public class HubCreateFragment extends Fragment implements View.OnClickListener,
     public interface HubCreateFragListener {
         void addNewMatch(int[] teams, int matchnum, boolean isQual, String phonenum);
         ArrayList<String> getMatchTitles();
-        String downloadDatabase(String user, String pass);
+        void downloadDatabase(String user, String pass);
     }
 }

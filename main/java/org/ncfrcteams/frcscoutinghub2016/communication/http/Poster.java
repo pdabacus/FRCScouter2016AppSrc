@@ -1,9 +1,6 @@
 package org.ncfrcteams.frcscoutinghub2016.communication.http;
 
 import android.content.Context;
-import android.support.v7.app.AlertDialog;
-import android.view.View;
-import android.widget.TextView;
 
 /**
  * Created by pavan on 4/1/16.
@@ -20,20 +17,22 @@ public class Poster {
     private String user;
     private String pass;
     private boolean pretty;
+    private POST.POSTListener listener;
 
 
-    public Poster(Context context, String url, String user, String pass, boolean pretty){
+    public Poster(Context context, String url, String user, String pass, boolean pretty, POST.POSTListener listener){
         this.context = context;
         this.url = url;
         this.user = user;
         this.pass = pass;
         this.pretty = pretty;
+        this.listener = listener;
     }
 
-    private String sendPostRequest(Context context, String url, String[][] POSTs, String[][] data, boolean pretty) {
-        TextView view = new TextView(context);
-        new POST(context, url, POSTs, data, pretty, view).execute();
-        return view.getText().toString();
+    private void sendPostRequest(Context context, String url, String[][] POSTs, String[][] data,
+                                   boolean pretty, String returnAddress) {
+
+        new POST(context, url, POSTs, data, pretty, listener, returnAddress).execute();
     }
 
     public void reset(String url, String user, String pass, boolean pretty){
@@ -69,32 +68,32 @@ public class Poster {
 
     public void createDatabase() {
         String[][] POSTs = {{"team", user}, {"pass", pass}};
-        String[][] FILES = null;
-        sendPostRequest(context, url + CREATE, POSTs, FILES, pretty);
+        String[][] FILES = {{}};
+        sendPostRequest(context, url + CREATE, POSTs, FILES, pretty, "create");
     }
 
     public void uploadDatabase(String database) {
         String[][] POSTs = {{"team", user}, {"pass", pass}};
         String[][] FILES = {{"file", database}};
-        sendPostRequest(context, url + UPLOAD, POSTs, FILES, pretty);
+        sendPostRequest(context, url + UPLOAD, POSTs, FILES, pretty, "upload");
     }
 
     public void appendToDatabase(String database) {
         String[][] POSTs = {{"team", user}, {"pass", pass}, {"matchrec", database}};
-        String[][] FILES = null;
-        sendPostRequest(context, url + APPEND, POSTs, FILES, pretty);
+        String[][] FILES = {{}};
+        sendPostRequest(context, url + APPEND, POSTs, FILES, pretty, "append");
     }
 
-    public String downloadDatabase() {
+    public void downloadDatabase() {
         String[][] POSTs = {{"team", user}, {"pass", pass}};
-        String[][] FILES = null;
-        return sendPostRequest(context, url + DOWNLOAD, POSTs, FILES, pretty);
+        String[][] FILES = {{}};
+        sendPostRequest(context, url + DELETE, POSTs, FILES, pretty, "download");
     }
 
     public void deleteDatabase() {
         String[][] POSTs = {{"team", user}, {"pass", pass}};
-        String[][] FILES = null;
-        sendPostRequest(context, url + DELETE, POSTs, FILES, pretty);
+        String[][] FILES = {{}};
+        sendPostRequest(context, url + DELETE, POSTs, FILES, pretty, "delete");
     }
 
 }

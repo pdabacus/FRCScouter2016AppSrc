@@ -4,19 +4,15 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
-import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
-import org.ncfrcteams.frcscoutinghub2016.matchdata.Obstacle;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Match;
 
-import java.util.ArrayList;
 
 /**
  * Created by pavan on 4/1/16.
@@ -58,16 +54,14 @@ public class TempDialog1 {
         DialogInterface.OnClickListener positiveListener = new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 String[] barriersStrings = {
-                        ((EditText) view.findViewById(R.id.bar1)).getText().toString(), //blue top = 1
-                        ((EditText) view.findViewById(R.id.bar2)).getText().toString(), //2
-                        ((EditText) view.findViewById(R.id.bar3)).getText().toString(), //3
-                        ((EditText) view.findViewById(R.id.bar4)).getText().toString(), //4
-                                                                                        //blue low = 0
-                                                                                        //red low = 9
-                        ((EditText) view.findViewById(R.id.bar5)).getText().toString(), //8
-                        ((EditText) view.findViewById(R.id.bar6)).getText().toString(), //7
-                        ((EditText) view.findViewById(R.id.bar7)).getText().toString(), //6
-                        ((EditText) view.findViewById(R.id.bar8)).getText().toString(), //red bottom = 5
+                        ((EditText) view.findViewById(R.id.bar1)).getText().toString(),
+                        ((EditText) view.findViewById(R.id.bar2)).getText().toString(),
+                        ((EditText) view.findViewById(R.id.bar3)).getText().toString(),
+                        ((EditText) view.findViewById(R.id.bar4)).getText().toString(),
+                        ((EditText) view.findViewById(R.id.bar5)).getText().toString(),
+                        ((EditText) view.findViewById(R.id.bar6)).getText().toString(),
+                        ((EditText) view.findViewById(R.id.bar7)).getText().toString(),
+                        ((EditText) view.findViewById(R.id.bar8)).getText().toString(),
                 };
 
                 int[] barriers = new int[8];
@@ -82,7 +76,7 @@ public class TempDialog1 {
                 if(arrayContains(barriers, 0)){
                     Toast.makeText(context, "Invalid Match Setup", Toast.LENGTH_SHORT).show();
                 } else{
-                    int teams[] = thisDialog.match.getTeams();
+                    int[] teams = thisDialog.match.getTeams();
                     int matchNum = thisDialog.match.getMatchNum();
                     boolean isQual = thisDialog.match.isQual();
                     String phoneNum = thisDialog.match.getPhoneNum();

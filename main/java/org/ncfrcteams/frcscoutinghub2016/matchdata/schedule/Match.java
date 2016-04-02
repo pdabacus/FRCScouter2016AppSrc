@@ -7,12 +7,14 @@ import org.ncfrcteams.frcscoutinghub2016.matchdata.Obstacle;
  */
 public class Match {
 
-    private int matchNum;
-    private int matchStatus;
-    private boolean isQual;
-    private MatchDescriptor matchDescriptor;
-    private String[] data = new String[6];
-    private String[] comments = new String[6];
+    public int matchNum;
+    public int matchStatus;
+    public boolean isQual;
+    public MatchDescriptor matchDescriptor;
+    public String[] data = new String[6];
+    public String[] comments = new String[6];
+    public int[] teams = new int[6];
+    public int[] barriers = new int[8];
 
     public Match(int matchNum, int matchStatus, boolean isQual, MatchDescriptor matchDescriptor){
         this.matchNum = matchNum;

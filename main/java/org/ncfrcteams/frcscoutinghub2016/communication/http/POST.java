@@ -128,7 +128,7 @@ public class POST extends AsyncTask<String, Void, Void> {
                 @Override
                 public void run() {
                     progress.dismiss();
-                    listener.POSTResult(output.toString(), returnAddress);
+                    listener.POSTResult(returnAddress, output.toString());
                     WebView webView = new WebView(context);
                     webView.loadData(output.toString(), "text/html; charset=UTF-8", null);
                     AlertDialog.Builder dialog = new AlertDialog.Builder(context);
@@ -147,7 +147,7 @@ public class POST extends AsyncTask<String, Void, Void> {
     }
 
     public interface POSTListener{
-        void POSTResult(String result, String returnAddress);
+        void POSTResult(String returnAddress, String result);
     }
 
 }

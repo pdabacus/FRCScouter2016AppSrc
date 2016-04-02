@@ -58,9 +58,8 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-        String item = myListAdapter.getItem(position).getTitle();
-        new TempDialog1(getContext(), this, myListAdapter.getItem(position).getObstacles()).show();
-        //Toast.makeText(getActivity(), item, Toast.LENGTH_SHORT).show();
+        new TempDialog1(getContext(), this, myListAdapter.getItem(position)).show();
+        //Toast.makeText(getActivity(), myListAdapter.getItem(position).getTitle(), Toast.LENGTH_SHORT).show();
         //mListener.switchToDetails(myListAdapter.getItem(position));
     }
 
@@ -99,8 +98,9 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
     }
 
     @Override
-    public void onTempDialog1(int matchNum, boolean isQual, int[] teams, Obstacle[] barriers, String phoneNum) {
+    public void onTempDialog1(int matchNum, boolean isQual, int[] teams, int[] barriers, String phoneNum) {
         Toast.makeText(getContext(), isQual?"Q":"E" + matchNum + barriers.toString(), Toast.LENGTH_LONG).show();
+
     }
 
     public interface HubListFragListener {

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
@@ -25,11 +26,10 @@ public class TempDialog1 {
     private static final String POSITIVE_TEXT = "Make QRs";
     private static final String NEGATIVE_TEXT = "Cancel";
     private Match match;
-    Obstacle[] obstacles;
     private Dialog dialog;
     private View view;
 
-    public TempDialog1(final Context context, final TempDialog1Listener listener, Obstacle[] obstacles) {
+    public TempDialog1(final Context context, final TempDialog1Listener listener, Match match) {
 
         final AlertDialog.Builder alert = new AlertDialog.Builder(context);
         final TempDialog1 thisDialog = this;
@@ -37,17 +37,21 @@ public class TempDialog1 {
         view = LayoutInflater.from(context).inflate(R.layout.h_dialog_temp1, null);
         alert.setView(view);
 
-        thisDialog.obstacles = obstacles;
+        thisDialog.match = match;
 
-        ((EditText) view.findViewById(R.id.bar1)).setText(obstacles[0].getValue());
-        ((EditText) view.findViewById(R.id.bar2)).setText(obstacles[1].getValue());
-        ((EditText) view.findViewById(R.id.bar3)).setText(obstacles[2].getValue());
-        ((EditText) view.findViewById(R.id.bar4)).setText(obstacles[3].getValue());
+        ((TextView) view.findViewById(R.id.tempMatch)).setText(thisDialog.match.getTitle());
 
-        ((EditText) view.findViewById(R.id.bar5)).setText(obstacles[5].getValue());
-        ((EditText) view.findViewById(R.id.bar6)).setText(obstacles[6].getValue());
-        ((EditText) view.findViewById(R.id.bar7)).setText(obstacles[7].getValue());
-        ((EditText) view.findViewById(R.id.bar8)).setText(obstacles[8].getValue());
+        /*
+        ((EditText) view.findViewById(R.id.bar1)).setText(0);
+        ((EditText) view.findViewById(R.id.bar2)).setText(0);
+        ((EditText) view.findViewById(R.id.bar3)).setText(0);
+        ((EditText) view.findViewById(R.id.bar4)).setText(0);
+
+        ((EditText) view.findViewById(R.id.bar5)).setText(0);
+        ((EditText) view.findViewById(R.id.bar6)).setText(0);
+        ((EditText) view.findViewById(R.id.bar7)).setText(0);
+        ((EditText) view.findViewById(R.id.bar8)).setText(0);
+        */
 
         final TempDialog1Listener dialogListener = listener;
 
@@ -66,16 +70,16 @@ public class TempDialog1 {
                         ((EditText) view.findViewById(R.id.bar8)).getText().toString(), //red bottom = 5
                 };
 
-                Obstacle[] barriers = new Obstacle[6];
+                int[] barriers = new int[8];
                 for (int i = 0; i < barriersStrings.length; i++) {
                     if (barriersStrings[i].equals("")){
-                        barriers[i] = Obstacle.LOW_BAR;
+                        barriers[i] = 0;
                     } else{
-                        barriers[i] = Obstacle.getObstacle(Integer.parseInt(barriersStrings[i]));
+                        barriers[i] = Integer.parseInt(barriersStrings[i]);
                     }
                 }
                 
-                if(arrayContains(barriers, Obstacle.LOW_BAR)){
+                if(arrayContains(barriers, 0)){
                     Toast.makeText(context, "Invalid Match Setup", Toast.LENGTH_SHORT).show();
                 } else{
                     int teams[] = thisDialog.match.getTeams();
@@ -88,8 +92,8 @@ public class TempDialog1 {
                 }
             }
 
-            private boolean arrayContains(Obstacle[] array, Obstacle item){
-                for (Obstacle val : array) {
+            private boolean arrayContains(int[] array, int item){
+                for (int val : array) {
                     if(val == item){
                         return true;
                     }
@@ -115,7 +119,7 @@ public class TempDialog1 {
     }
 
     public interface TempDialog1Listener{
-        void onTempDialog1(int matchNum, boolean isQual, int[] teams, Obstacle[] barriers, String phoneNum );
+        void onTempDialog1(int matchNum, boolean isQual, int[] teams, int[] barriers, String phoneNum );
     }
 
 }

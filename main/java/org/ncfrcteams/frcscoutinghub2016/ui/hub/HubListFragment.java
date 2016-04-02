@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
+import org.ncfrcteams.frcscoutinghub2016.communication.qr.MultiQRDialog;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.Obstacle;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Match;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.MatchDescriptor;
@@ -99,8 +100,21 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
 
     @Override
     public void onTempDialog1(int matchNum, boolean isQual, int[] teams, int[] barriers, String phoneNum) {
-        Toast.makeText(getContext(), isQual?"Q":"E" + matchNum + barriers.toString(), Toast.LENGTH_LONG).show();
+        String[] qrtexts = new String[6];
+        String b = "";
+        for (int barrier : barriers) {
+            b += barrier + ",";
+        }
 
+        String a;
+        for (int i = 0; i < 6; i++) {
+            a = (i < 3 ? "R," : "B,") + (isQual ? "Q," : "E,") + String.valueOf(matchNum) + "," + teams[i];
+            qrtexts[i] = a + "," + b + phoneNum;
+        }
+
+        Toast.makeText(getContext(), qrtexts[2] + qrtexts[3] , Toast.LENGTH_LONG).show();
+
+        new MultiQRDialog(getContext(), qrtexts).show();
     }
 
     public interface HubListFragListener {

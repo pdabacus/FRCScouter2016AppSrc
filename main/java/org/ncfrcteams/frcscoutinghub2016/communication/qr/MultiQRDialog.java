@@ -57,7 +57,7 @@ public class MultiQRDialog {
         @Override
         public Object instantiateItem(ViewGroup collection, int position) {
             LayoutInflater inflater = LayoutInflater.from(context);
-            View layout = inflater.inflate(R.layout.qr_dialog_page, collection, false);
+            View layout = inflater.inflate(R.layout.qr_dialog_view_template, collection, false);
 
             ImageView qrImageView = (ImageView) layout.findViewById(R.id.qrImageView);
             TextView qrTitle = (TextView) layout.findViewById(R.id.qrTitle);

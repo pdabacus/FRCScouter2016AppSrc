@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".hub.HubActivity" >
 
-    <item android:id="@+id/hubnew"
-        android:title="Create Matches"
+    <item android:id="@+id/hubpost"
+        android:title="Upload Database"
         android:icon="@drawable/hub_add"
         android:orderInCategory="1"
         app:showAsAction="ifRoom" />
@@ -15,9 +15,9 @@
         android:orderInCategory="2"
         app:showAsAction="ifRoom" />
 
-    <item android:id="@+id/hubpush"
-        android:title="Upload Database"
-        android:icon="@drawable/hub_upload"
+    <item android:id="@+id/hubnew"
+        android:title="Create Matches"
+        android:icon="@drawable/hub_add"
         android:orderInCategory="3"
         app:showAsAction="ifRoom" />
 

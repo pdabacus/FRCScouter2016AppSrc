@@ -8,19 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
-import org.ncfrcteams.frcscoutinghub2016.ui.hub.support.HubCreateDialog;
 
-import java.util.ArrayList;
-
-public class HubCreateFragment extends Fragment implements View.OnClickListener,
-        HubCreateDialog.HubCreateDialogListener{
+public class HubManageFragment extends Fragment implements View.OnClickListener{
 
     private HubCreateFragListener mListener;
-    public HubCreateFragment() {
+    public HubManageFragment() {
     }
 
-    public static HubCreateFragment newInstance() {
-        return new HubCreateFragment();
+    public static HubManageFragment newInstance() {
+        return new HubManageFragment();
     }
 
     @Override
@@ -30,7 +26,7 @@ public class HubCreateFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.h_frag_create, container, false);
+        View view = inflater.inflate(R.layout.h_frag_manage, container, false);
 
         view.findViewById(R.id.createMatch).setOnClickListener(this);
         view.findViewById(R.id.downloadDatabase).setOnClickListener(this);
@@ -59,8 +55,8 @@ public class HubCreateFragment extends Fragment implements View.OnClickListener,
     public void onClick(View view){
         switch(view.getId()){
             case R.id.createMatch:
-                ArrayList<String> matchTitles = mListener.getMatchTitles();
-                new HubCreateDialog(getContext(), this, matchTitles).show();
+                break;
+            case R.id.uploadDatabase:
                 break;
             case R.id.downloadDatabase:
                 mListener.downloadDatabase("schedule", "schedule");
@@ -69,14 +65,7 @@ public class HubCreateFragment extends Fragment implements View.OnClickListener,
         }
     }
 
-    @Override
-    public void onNewMatchCreate(int[] teams, int matchnum, boolean isQual, String phonenum) {
-        mListener.addNewMatch(teams, matchnum, isQual, phonenum);
-    }
-
     public interface HubCreateFragListener {
-        void addNewMatch(int[] teams, int matchnum, boolean isQual, String phonenum);
-        ArrayList<String> getMatchTitles();
         void downloadDatabase(String user, String pass);
     }
 }

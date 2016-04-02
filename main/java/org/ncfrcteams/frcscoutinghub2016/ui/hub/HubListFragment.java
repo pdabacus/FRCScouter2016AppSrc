@@ -126,7 +126,6 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
 
     public interface HubListFragListener {
         void autopush();
-        void switchToDetails(Match match);
     }
 
 }

@@ -9,7 +9,7 @@ import android.widget.Toast;
 import org.ncfrcteams.frcscoutinghub2016.communication.http.POST;
 import org.ncfrcteams.frcscoutinghub2016.communication.http.Poster;
 import org.ncfrcteams.frcscoutinghub2016.ui.hub.HubContentsFragment;
-import org.ncfrcteams.frcscoutinghub2016.ui.hub.HubCreateFragment;
+import org.ncfrcteams.frcscoutinghub2016.ui.hub.HubManageFragment;
 import org.ncfrcteams.frcscoutinghub2016.ui.hub.HubListFragment;
 
 
@@ -20,7 +20,7 @@ import org.ncfrcteams.frcscoutinghub2016.ui.hub.HubListFragment;
 public class HubPageAdapter extends FragmentPagerAdapter implements POST.POSTListener{
 
     public Context context;
-    public HubCreateFragment create;
+    public HubManageFragment create;
     public HubListFragment listView;
     public HubContentsFragment content;
     private Poster poster;
@@ -28,7 +28,7 @@ public class HubPageAdapter extends FragmentPagerAdapter implements POST.POSTLis
     public HubPageAdapter(Context context, FragmentManager fm) {
         super(fm);
         this.context = context;
-        this.create = HubCreateFragment.newInstance();
+        this.create = HubManageFragment.newInstance();
         this.listView = HubListFragment.newInstance();
         this.content = HubContentsFragment.newInstance();
         this.poster = new Poster(context, "http://localhost/frc/database/", "test", "test", true, this);

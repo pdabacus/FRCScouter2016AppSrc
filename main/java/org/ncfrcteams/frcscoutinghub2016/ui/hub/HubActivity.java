@@ -8,17 +8,16 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
-import org.ncfrcteams.frcscoutinghub2016.communication.http.POST;
 import org.ncfrcteams.frcscoutinghub2016.communication.sms_server.SmsReceiver;
-import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Match;
 import org.ncfrcteams.frcscoutinghub2016.ui.hub.support.CustomViewPager;
+import org.ncfrcteams.frcscoutinghub2016.ui.hub.support.HubCreateDialog;
 import org.ncfrcteams.frcscoutinghub2016.ui.hub.support.HubPageAdapter;
 
 import java.util.ArrayList;
 
 public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsListener,
-        HubCreateFragment.HubCreateFragListener, HubListFragment.HubListFragListener,
-        HubContentsFragment.HubContentsFragListener{
+        HubManageFragment.HubCreateFragListener, HubListFragment.HubListFragListener,
+        HubContentsFragment.HubContentsFragListener, HubCreateDialog.HubCreateDialogListener{
 
     private CustomViewPager hubViewPager;
     private HubPageAdapter hubPageAdapter;
@@ -87,19 +86,15 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.hubnew:
+            case R.id.hubpost:
                 switchAwayFromDetailFrag(0);
                 return true;
             case R.id.hubview:
                 switchAwayFromDetailFrag(1);
                 return true;
-            case R.id.hubpush:
-                if (hubPageAdapter.isDefaultUser()){
-                    hubPageAdapter.setAlternativeUser();
-                    return true;
-                }
-                hubPageAdapter.uploadDatabase();
-                return true;
+            case R.id.hubnew:
+                ArrayList<String> matchTitles = hubPageAdapter.listView.mySchedule.getMatchTitles();
+                new HubCreateDialog(this, this, matchTitles).show();
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -112,17 +107,7 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
         hubPageAdapter.addSMStoSchedule(number, message);
     }
 
-    //********************************* HubCreateFragment Listener *********************************
-
-    @Override
-    public void addNewMatch(int[] teams, int matchnum, boolean isQual, String phonenum) {
-        hubPageAdapter.listView.addNewMatch(teams, matchnum, isQual, phonenum);
-    }
-
-    @Override
-    public ArrayList<String> getMatchTitles() {
-        return hubPageAdapter.listView.mySchedule.getMatchTitles();
-    }
+    //********************************* HubManageFragment Listener *********************************
 
     @Override
     public void downloadDatabase(String user, String pass) {
@@ -136,26 +121,26 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
         hubPageAdapter.autopush();
     }
 
-    @Override
-    public void switchToDetails(Match match){
-        inDetailFrag = true;
-        hubPageAdapter.content.reset(match);
-        hubViewPager.setCurrentItem(2);
-    }
-
-    //******************************** hubContentsFragment Listener ********************************
+    //******************************** HubContentsFragment Listener ********************************
 
     @Override
     public void saveContents(int i) {
         switchAwayFromDetailFrag(i);
     }
 
-    //******************************** hubContentsFragment Save Call *******************************
+    //******************************* HubContentsFragment.save() Call ******************************
 
     public void switchAwayFromDetailFrag(int i){
         inDetailFrag = false;
         hubPageAdapter.content.save();
         hubViewPager.setCurrentItem(i);
+    }
+
+    //********************************** HubCreateDialog Listener **********************************
+
+    @Override
+    public void onNewMatchCreate(int[] teams, int matchnum, boolean isQual, String phonenum) {
+        hubPageAdapter.listView.addNewMatch(teams, matchnum, isQual, phonenum);
     }
 
     //**********************************************************************************************

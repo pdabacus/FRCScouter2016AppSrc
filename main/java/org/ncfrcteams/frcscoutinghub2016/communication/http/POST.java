@@ -122,11 +122,11 @@ public class POST extends AsyncTask<String, Void, Void> {
 
             //add output to webview
             output.append(responseOutput.toString());
-            listener.POSTResult(output.toString(), returnAddress);
             ((HubActivity) context).runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     progress.dismiss();
+                    listener.POSTResult(output.toString(), returnAddress);
                     WebView webView = new WebView(context);
                     webView.loadData(output.toString(), "text/html; charset=UTF-8", null);
                     AlertDialog.Builder dialog = new AlertDialog.Builder(context);

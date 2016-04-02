@@ -26,6 +26,7 @@ public class TempDialog1 {
     private Context context;
     private View view;
     private Match match;
+    private TempDialog1Listener listener;
 
     public TempDialog1(final Context context, final TempDialog1Listener listener, Match match) {
 
@@ -35,6 +36,7 @@ public class TempDialog1 {
         thisDialog.context = context;
         thisDialog.view = LayoutInflater.from(context).inflate(R.layout.h_dialog_temp1, null);
         thisDialog.match = match;
+        thisDialog.listener = listener;
 
         alert.setView(view);
 
@@ -42,16 +44,14 @@ public class TempDialog1 {
 
         int[] barriers = match.getBarriers();
 
-        ((EditText) view.findViewById(R.id.bar1)).setText(String.valueOf(barriers[0]));
-        ((EditText) view.findViewById(R.id.bar2)).setText(String.valueOf(barriers[1]));
-        ((EditText) view.findViewById(R.id.bar3)).setText(String.valueOf(barriers[2]));
-        ((EditText) view.findViewById(R.id.bar4)).setText(String.valueOf(barriers[3]));
-        ((EditText) view.findViewById(R.id.bar5)).setText(String.valueOf(barriers[4]));
-        ((EditText) view.findViewById(R.id.bar6)).setText(String.valueOf(barriers[5]));
-        ((EditText) view.findViewById(R.id.bar7)).setText(String.valueOf(barriers[6]));
-        ((EditText) view.findViewById(R.id.bar8)).setText(String.valueOf(barriers[7]));
-
-        final TempDialog1Listener dialogListener = listener;
+        ((EditText) view.findViewById(R.id.bar1)).setText(barriers[0] == 0 ? "" : String.valueOf(barriers[0]));
+        ((EditText) view.findViewById(R.id.bar1)).setText(barriers[1] == 0 ? "" : String.valueOf(barriers[1]));
+        ((EditText) view.findViewById(R.id.bar1)).setText(barriers[2] == 0 ? "" : String.valueOf(barriers[2]));
+        ((EditText) view.findViewById(R.id.bar1)).setText(barriers[3] == 0 ? "" : String.valueOf(barriers[3]));
+        ((EditText) view.findViewById(R.id.bar1)).setText(barriers[4] == 0 ? "" : String.valueOf(barriers[4]));
+        ((EditText) view.findViewById(R.id.bar1)).setText(barriers[5] == 0 ? "" : String.valueOf(barriers[5]));
+        ((EditText) view.findViewById(R.id.bar1)).setText(barriers[6] == 0 ? "" : String.valueOf(barriers[6]));
+        ((EditText) view.findViewById(R.id.bar1)).setText(barriers[7] == 0 ? "" : String.valueOf(barriers[7]));
 
         DialogInterface.OnClickListener positiveListener = new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -83,7 +83,7 @@ public class TempDialog1 {
                     boolean isQual = thisDialog.match.isQual();
                     String phoneNum = thisDialog.match.getPhoneNum();
 
-                    dialogListener.onTempDialog1(matchNum, isQual, teams, barriers, phoneNum);
+                    thisDialog.listener.onTempDialog1(matchNum, isQual, teams, barriers, phoneNum);
                     Toast.makeText(thisDialog.context, "Generating QR Codes", Toast.LENGTH_SHORT).show();
                 }
 
@@ -103,7 +103,7 @@ public class TempDialog1 {
 
         DialogInterface.OnClickListener negativeListener = new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                Toast.makeText(context, "Cancelled", Toast.LENGTH_SHORT).show();
+                Toast.makeText(thisDialog.context, "Cancelled", Toast.LENGTH_SHORT).show();
             }
         };
 

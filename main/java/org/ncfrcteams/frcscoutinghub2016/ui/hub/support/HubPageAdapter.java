@@ -58,6 +58,17 @@ public class HubPageAdapter extends FragmentPagerAdapter{
         poster.uploadDatabase(listView.mySchedule.getDatabase());
     }
 
+    public String downloadDatabase(String user, String pass){
+        String prevUser = poster.getUser();
+        String prevPass = poster.getPass();
+        poster.setUser(user);
+        poster.setPass(pass);
+        String ret = poster.downloadDatabase();
+        poster.setUser(prevUser);
+        poster.setPass(prevPass);
+        return ret;
+    }
+
     public boolean isDefaultUser(){
         return poster.getUser().equals("test");
     }

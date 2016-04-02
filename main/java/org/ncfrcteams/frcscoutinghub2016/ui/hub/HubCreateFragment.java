@@ -74,5 +74,6 @@ public class HubCreateFragment extends Fragment implements View.OnClickListener,
     public interface HubCreateFragListener {
         void addNewMatch(int[] teams, int matchnum, boolean isQual, String phonenum);
         ArrayList<String> getMatchTitles();
+        String downloadDatabase(String user, String pass);
     }
 }

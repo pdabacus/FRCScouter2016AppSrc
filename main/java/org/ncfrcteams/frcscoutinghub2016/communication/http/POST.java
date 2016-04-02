@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.webkit.WebView;
+import android.widget.TextView;
 
 import org.ncfrcteams.frcscoutinghub2016.ui.hub.HubActivity;
 
@@ -30,14 +31,17 @@ public class POST extends AsyncTask<String, Void, Void> {
     private boolean pretty;
     private String[][] POSTs;
     private String[][] FILES;
+    private TextView view;
     private String boundary = "===" + System.currentTimeMillis() + "===";
 
-    public POST(Context context, String urlstring, String[][] POSTs, String[][] FILES, boolean pretty){
+    public POST(Context context, String urlstring, String[][] POSTs, String[][] FILES,
+                boolean pretty, TextView view) {
         this.context = context;
         this.urlstring = urlstring;
         this.pretty = pretty;
         this.POSTs = POSTs;
         this.FILES = FILES;
+        this.view = view;
     }
 
     protected void onPreExecute(){
@@ -114,11 +118,12 @@ public class POST extends AsyncTask<String, Void, Void> {
             br.close();
             connection.disconnect();
 
-            //add output to textview string
+            //add output to webview
             output.append(responseOutput.toString());
             ((HubActivity) context).runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    view.setText(output.toString());
                     progress.dismiss();
                     WebView webView = new WebView(context);
                     webView.loadData(output.toString(), "text/html; charset=UTF-8", null);

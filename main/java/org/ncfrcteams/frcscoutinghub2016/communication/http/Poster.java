@@ -3,6 +3,7 @@ package org.ncfrcteams.frcscoutinghub2016.communication.http;
 import android.content.Context;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.TextView;
 
 /**
  * Created by pavan on 4/1/16.
@@ -29,8 +30,10 @@ public class Poster {
         this.pretty = pretty;
     }
 
-    private void sendPostRequest(Context context, String url, String[][] POSTs, String[][] data, boolean pretty) {
-        new POST(context, url, POSTs, data, pretty).execute();
+    private String sendPostRequest(Context context, String url, String[][] POSTs, String[][] data, boolean pretty) {
+        TextView view = new TextView(context);
+        new POST(context, url, POSTs, data, pretty, view).execute();
+        return view.getText().toString();
     }
 
     public void reset(String url, String user, String pass, boolean pretty){
@@ -42,6 +45,22 @@ public class Poster {
 
     public String getUser(){
         return this.user;
+    }
+
+    public String getPass(){
+        return this.pass;
+    }
+
+    public String getURL(){
+        return this.url;
+    }
+
+    public void setUser(String user){
+        this.user = user;
+    }
+
+    public void setPass(String pass){
+        this.pass = pass;
     }
 
     public void setURL(String url){
@@ -66,10 +85,10 @@ public class Poster {
         sendPostRequest(context, url + APPEND, POSTs, FILES, pretty);
     }
 
-    public void downloadDatabase() {
+    public String downloadDatabase() {
         String[][] POSTs = {{"team", user}, {"pass", pass}};
         String[][] FILES = null;
-        sendPostRequest(context, url + DOWNLOAD, POSTs, FILES, pretty);
+        return sendPostRequest(context, url + DOWNLOAD, POSTs, FILES, pretty);
     }
 
     public void deleteDatabase() {

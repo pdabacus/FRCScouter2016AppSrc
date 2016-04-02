@@ -123,6 +123,11 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
         return hubPageAdapter.listView.mySchedule.getMatchTitles();
     }
 
+    @Override
+    public String downloadDatabase(String user, String pass) {
+        return hubPageAdapter.downloadDatabase(user, pass);
+    }
+
     //******************************** HubListViewFragment Listener ********************************
 
     @Override

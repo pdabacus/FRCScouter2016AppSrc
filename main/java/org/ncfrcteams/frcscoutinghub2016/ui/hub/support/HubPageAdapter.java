@@ -55,21 +55,20 @@ public class HubPageAdapter extends FragmentPagerAdapter implements POST.POSTLis
 
     //*********************************** Poster Methods ************************************
 
-    public void uploadDatabase(){
-        poster.uploadDatabase(listView.mySchedule.getDatabase());
+    public void POSTRequest(String requestType){
+        switch(requestType){
+            case "upload":
+                poster.uploadDatabase(listView.mySchedule.getDatabase());
+                break;
+            case "download":
+                poster.downloadDatabase();
+                break;
+            default:
+                break;
+        }
     }
 
-    public void downloadDatabase(String user, String pass){
-        String prevUser = poster.getUser();
-        String prevPass = poster.getPass();
-        poster.setUser(user);
-        poster.setPass(pass);
-        poster.downloadDatabase();
-        poster.setUser(prevUser);
-        poster.setPass(prevPass);
-    }
-
-    public boolean isDefaultUser(){
+    public boolean isValidUser(){
         return poster.getUser().equals("test");
     }
 

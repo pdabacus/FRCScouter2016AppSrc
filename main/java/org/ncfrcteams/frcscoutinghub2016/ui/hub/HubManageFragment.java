@@ -54,18 +54,17 @@ public class HubManageFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View view){
         switch(view.getId()){
-            case R.id.createMatch:
-                break;
             case R.id.uploadDatabase:
+                mListener.POSTRequest("upload");
                 break;
             case R.id.downloadDatabase:
-                mListener.downloadDatabase("schedule", "schedule");
+                mListener.POSTRequest("download");
             default:
                 break;
         }
     }
 
     public interface HubCreateFragListener {
-        void downloadDatabase(String user, String pass);
+        void POSTRequest(String requestType);
     }
 }

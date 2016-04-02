@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
 import org.ncfrcteams.frcscoutinghub2016.ui.hub.support.HubCreateDialog;
@@ -61,6 +62,8 @@ public class HubCreateFragment extends Fragment implements View.OnClickListener,
                 ArrayList<String> matchTitles = mListener.getMatchTitles();
                 new HubCreateDialog(getContext(), this, matchTitles).show();
                 break;
+            case R.id.downloadDatabase:
+                Toast.makeText(getContext(), mListener.downloadDatabase("schedule", "schedule"), Toast.LENGTH_SHORT).show();
             default:
                 break;
         }

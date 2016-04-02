@@ -26,10 +26,27 @@ public class MultiQRDialog {
     private Dialog dialog;
 
     public MultiQRDialog(Context context, String[] contents) {
-        ViewPager view = new ViewPager(context);
-        ViewPager viewPager = view;
+        ViewPager view = new ViewPager(context) {
+            @Override
+            protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
-        viewPager.setAdapter(new QRPagerAdapter(context,contents));
+                int height = 0;
+                for(int i = 0; i < getChildCount(); i++) {
+                    View child = getChildAt(i);
+                    child.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+                    int h = child.getMeasuredHeight();
+                    if(h > height) height = h;
+                }
+
+                heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
+
+                super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+            }
+        };
+
+        //ViewPager viewPager = view;
+        //viewPager.setAdapter(new QRPagerAdapter(context,contents));
+        view.setAdapter(new QRPagerAdapter(context,contents));
 
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {}
@@ -38,7 +55,7 @@ public class MultiQRDialog {
         //***********************************Making The Dialog*****************************************
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setView(view);
-        alert.setTitle("QR Codes");
+        //alert.setTitle("QR Codes");
         alert.setPositiveButton("Done", listener);
         dialog = alert.create();
     }
@@ -100,7 +117,7 @@ public class MultiQRDialog {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return position+1 + "/" + getCount();
+            return "QR Code " + (position + 1) + "/" + getCount();
         }
     }
 

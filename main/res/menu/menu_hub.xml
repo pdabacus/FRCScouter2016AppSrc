@@ -5,7 +5,7 @@
 
     <item android:id="@+id/hubpost"
         android:title="Upload Database"
-        android:icon="@drawable/hub_add"
+        android:icon="@drawable/hub_upload"
         android:orderInCategory="1"
         app:showAsAction="ifRoom" />
 

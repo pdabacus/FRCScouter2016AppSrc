@@ -42,6 +42,11 @@ public class TempDialog1 {
 
         int[] barriers = match.getBarriers();
 
+        for (int barrier : barriers) {
+            Toast.makeText(context, "barrier : " + barrier, Toast.LENGTH_SHORT).show();
+        }
+
+        /*
         ((EditText) view.findViewById(R.id.bar1)).setText(barriers[0]);
         ((EditText) view.findViewById(R.id.bar2)).setText(barriers[1]);
         ((EditText) view.findViewById(R.id.bar3)).setText(barriers[2]);
@@ -50,6 +55,7 @@ public class TempDialog1 {
         ((EditText) view.findViewById(R.id.bar6)).setText(barriers[5]);
         ((EditText) view.findViewById(R.id.bar7)).setText(barriers[6]);
         ((EditText) view.findViewById(R.id.bar8)).setText(barriers[7]);
+        */
 
         final TempDialog1Listener dialogListener = listener;
 

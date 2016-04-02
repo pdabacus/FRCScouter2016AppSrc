@@ -84,7 +84,7 @@ public class TempDialog1 {
                     String phoneNum = thisDialog.match.getPhoneNum();
 
                     dialogListener.onTempDialog1(matchNum, isQual, teams, barriers, phoneNum);
-                    Toast.makeText(context, "Generating QR Codes", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(thisDialog.context, "Generating QR Codes", Toast.LENGTH_SHORT).show();
                 }
 
                 thisDialog.match.setBarriers(barriers);

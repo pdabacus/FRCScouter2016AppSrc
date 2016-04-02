@@ -107,7 +107,7 @@ public class SelectionActivity extends AppCompatActivity {
             // run qrdroid intent
             try {
                 Intent qrDroid = new Intent("la.droid.qr.scan");
-                startActivityForResult(qrDroid, 222);
+                startActivityForResult(qrDroid, 2);
             } catch (Exception e){
                 e.printStackTrace();
             }
@@ -129,20 +129,23 @@ public class SelectionActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        String matchdata = "no data";
+        String matchdata = null;
 
         //result from barcode scanner app
-        IntentResult brscanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if (brscanResult != null) {
-            matchdata = brscanResult.getContents();
+        try {
+            IntentResult brscanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+            if (brscanResult != null) {
+                matchdata = brscanResult.getContents();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
         //result from barcode scanner app
-        if(requestCode == 222 && null != data && data.getExtras() != null) {
+        if(requestCode == 2 && null != data && data.getExtras() != null) {
             matchdata = data.getExtras().getString("la.droid.qr.result");
         }
 
-        if(matchdata.split(",").length == 13){
+        if((matchdata != null) && matchdata.split(",").length == 13){
             Intent intent = new Intent(this, ScoutMainActivity.class);
             intent.putExtra("Match Setup", matchdata);
             intent.putExtra("Orientation", orientation);

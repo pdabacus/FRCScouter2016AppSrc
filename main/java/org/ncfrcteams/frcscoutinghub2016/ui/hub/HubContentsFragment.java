@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.Obstacle;
@@ -18,7 +17,7 @@ import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Match;
 
 public class HubContentsFragment extends Fragment implements View.OnClickListener {
     private boolean isSaved = true;
-    private Match match;
+    private Match match = Match.getBlank(30, true);
     private HubContentsFragListener mListener;
 
     private TextView title;
@@ -54,7 +53,6 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
         View view = inflater.inflate(R.layout.h_frag_contents, container, false);
 
         title = (TextView) view.findViewById(R.id.contentsTitle);
-        Log.d("asdfasdfasdf", "OnCreate called" + title.toString());
 
         int id;
         String name;
@@ -116,10 +114,9 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
         }
     }
 
-    public void reset(Match match) {
-        Log.d("asdfasdfasdf", "reset called");
+    public void reset(Match newmatch) {
         isSaved = false;
-        Log.d("asdfasdfasdf...title", title.toString());
+        //match = newmatch;
         title.setText(match.getTitle());
         int[] nums = match.getTeams();
 
@@ -144,7 +141,7 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
     public void save() {
         if(! isSaved) {
             int[] teams = match.getTeams();
-
+            isSaved = true;
             for (int i = 0; i < teamNumbers.length; i++) {
                 teams[i] = Integer.parseInt(teamNumbers[i].toString());
             }

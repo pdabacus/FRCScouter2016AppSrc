@@ -40,8 +40,7 @@ public class MatchDescriptor implements Serializable, Comparable {
         this.matchNum = matchNum;
         this.teams = teams;
         this.isQual = isQual;
-
-        returnAddress = phoneNum;
+        this.returnAddress = phoneNum;
     }
 
     public static MatchDescriptor fromString(Context context, String s) {
@@ -124,6 +123,10 @@ public class MatchDescriptor implements Serializable, Comparable {
 
     public int getMatchNum() {
         return matchNum;
+    }
+
+    public String getPhoneNum() {
+        return returnAddress;
     }
 
     public int getTeamNum(Team t) {

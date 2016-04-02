@@ -91,4 +91,8 @@ public class Match {
     public boolean isQual() {
         return isQual;
     }
+
+    public String getPhoneNum() {
+        return matchDescriptor.getPhoneNum();
+    }
 }

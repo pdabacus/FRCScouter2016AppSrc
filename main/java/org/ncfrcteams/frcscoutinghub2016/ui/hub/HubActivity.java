@@ -93,6 +93,7 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
                 switchAwayFromDetailFrag(1);
                 return true;
             case R.id.hubnew:
+                switchAwayFromDetailFrag(1);
                 ArrayList<String> matchTitles = hubPageAdapter.listView.mySchedule.getMatchTitles();
                 new HubCreateDialog(this, this, matchTitles).show();
             default:
@@ -137,7 +138,7 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
 
     public void switchAwayFromDetailFrag(int i){
         inDetailFrag = false;
-        hubPageAdapter.content.save();
+        //hubPageAdapter.content.save();
         hubViewPager.setCurrentItem(i);
     }
 

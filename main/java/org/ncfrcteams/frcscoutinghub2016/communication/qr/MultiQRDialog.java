@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,7 +67,6 @@ public class MultiQRDialog {
         public QRPagerAdapter(Context context, String[] contents) {
             this.context = context;
             this.contents = contents;
-            Log.d("QR","0");
         }
 
         @Override
@@ -91,7 +89,6 @@ public class MultiQRDialog {
             try {
                 Bitmap bitmap = qrCodeEncoder.encodeAsBitmap();
                 qrImageView.setImageBitmap(bitmap);
-                Log.d("QR", "4");
             } catch (WriterException e) {
                 e.printStackTrace();
             }

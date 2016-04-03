@@ -105,8 +105,8 @@ public class Schedule {
         boolean lastIsQual = ! matchDescriptorList.get(0).isQual();
         int currNum;
         boolean currIsQual;
-        boolean isRedo;
-        boolean addRedosEnabled = true; //TODO add as parameter in MatchDescriptor somehow
+        boolean addRedo;
+        boolean addRedosEnabled = false; //TODO add as parameter in MatchDescriptor somehow
 
         List<MatchDescriptor> replaceList = new ArrayList<>();
 
@@ -114,7 +114,7 @@ public class Schedule {
 
             currNum = matchDescriptor.getMatchNum();
             currIsQual = matchDescriptor.isQual();
-            isRedo = false;
+            addRedo = true;
 
             if(lastIsQual == currIsQual) {
                 //add blanks
@@ -126,8 +126,8 @@ public class Schedule {
                 }
 
                 //whether to add redo matches or not
-                if(lastNum == currNum && addRedosEnabled){
-                    isRedo = true;
+                if(lastNum == currNum && !addRedosEnabled){
+                    addRedo = false;
                 }
 
             } else {
@@ -143,7 +143,7 @@ public class Schedule {
             }
 
             //add the current match
-            if(! isRedo) {
+            if(addRedo) {
                 Log.d("asdf", String.valueOf(currNum) + " " + String.valueOf(currIsQual));
                 matches.add(Match.getFromDescriptor(matchDescriptor));
             }

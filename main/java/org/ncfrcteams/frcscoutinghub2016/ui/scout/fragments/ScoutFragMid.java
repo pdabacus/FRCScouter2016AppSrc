@@ -1,4 +1,4 @@
-package org.ncfrcteams.frcscoutinghub2016.ui.scout;
+package org.ncfrcteams.frcscoutinghub2016.ui.scout.fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -11,7 +11,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
-import org.ncfrcteams.frcscoutinghub2016.ui.scout.support.ScoutConfirmDialog;
+import org.ncfrcteams.frcscoutinghub2016.ui.scout.ScoutMainActivity;
+import org.ncfrcteams.frcscoutinghub2016.ui.scout.ScoutConfirmDialog;
 
 import java.util.ArrayList;
 import java.util.List;

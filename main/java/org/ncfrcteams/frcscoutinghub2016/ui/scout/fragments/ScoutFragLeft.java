@@ -1,4 +1,4 @@
-package org.ncfrcteams.frcscoutinghub2016.ui.scout;
+package org.ncfrcteams.frcscoutinghub2016.ui.scout.fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -11,44 +11,42 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
+import org.ncfrcteams.frcscoutinghub2016.ui.scout.ScoutMainActivity;
 
-
-public class ScoutFragRight extends Fragment implements View.OnClickListener{
+public class ScoutFragLeft extends Fragment implements View.OnClickListener{
 
     private int orientation;
     private OnFragListener mListener;
-    private Button rightHighGoal;
-    private Button rightLowGoal;
+    private Button leftHighGoal;
+    private Button leftLowGoal;
 
-    public ScoutFragRight() {
+    public ScoutFragLeft() {
     }
 
-    public static ScoutFragRight newInstance() {
-        return new ScoutFragRight();
+    public static ScoutFragLeft newInstance(){
+        return new ScoutFragLeft();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        orientation = ScoutMainActivity.myMatchRecord.get("Orientation");
+            orientation = ScoutMainActivity.myMatchRecord.get("Orientation");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.s_frag_right, container, false);
-        ImageView rightGoal = (ImageView) view.findViewById(R.id.rightGoal);
-        rightHighGoal = (Button) view.findViewById(R.id.rightHighGoal);
-        rightHighGoal.setOnClickListener(this);
-        rightLowGoal = (Button) view.findViewById(R.id.rightLowGoal);
-        rightLowGoal.setOnClickListener(this);
-        Button rightSuccess = (Button) view.findViewById(R.id.rightSuccess);
-        rightSuccess.setOnClickListener(this);
-        Button rightFailure = (Button) view.findViewById(R.id.rightFailure);
-        rightFailure.setOnClickListener(this);
+        View view = inflater.inflate(R.layout.s_frag_left, container, false);
+        ImageView leftGoal = (ImageView) view.findViewById(R.id.leftGoal);
+        leftHighGoal = (Button) view.findViewById(R.id.leftHighGoal);
+        leftHighGoal.setOnClickListener(this);
+        leftLowGoal = (Button) view.findViewById(R.id.leftLowGoal);
+        leftLowGoal.setOnClickListener(this);
+        view.findViewById(R.id.leftSuccess).setOnClickListener(this);
+        view.findViewById(R.id.leftFailure).setOnClickListener(this);
 
         if(orientation == 2){
-            rightGoal.setImageResource(R.drawable.goal_blue);
-            rightGoal.setRotation(180);
+            leftGoal.setImageResource(R.drawable.goal_red);
+            leftGoal.setRotation(180);
         }
         updateFragment();
 
@@ -75,18 +73,18 @@ public class ScoutFragRight extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View view){
         switch(view.getId()){
-            case R.id.rightHighGoal:
-                ScoutMainActivity.myMatchRecord.setActiveButton("Right High");
+            case R.id.leftHighGoal:
+                ScoutMainActivity.myMatchRecord.setActiveButton("Left High");
                 break;
-            case R.id.rightLowGoal:
-                ScoutMainActivity.myMatchRecord.setActiveButton("Right Low");
+            case R.id.leftLowGoal:
+                ScoutMainActivity.myMatchRecord.setActiveButton("Left Low");
                 break;
-            case R.id.rightSuccess:
+            case R.id.leftSuccess:
                 String button = ScoutMainActivity.myMatchRecord.getActiveButton();
                 ScoutMainActivity.myMatchRecord.increment(button, 1);
                 setButtonText(button);
                 break;
-            case R.id.rightFailure:
+            case R.id.leftFailure:
                 String mybutton = ScoutMainActivity.myMatchRecord.getActiveButton();
                 ScoutMainActivity.myMatchRecord.increment(mybutton, 0);
                 setButtonText(mybutton);
@@ -98,24 +96,27 @@ public class ScoutFragRight extends Fragment implements View.OnClickListener{
 
     private void setButtonText(String button){
         String text = ScoutMainActivity.myMatchRecord.getString(button, true);
-        switch(button){
-            case "Right High":
-                rightHighGoal.setText(text);
-                break;
-            case "Right Low":
-                rightLowGoal.setText(text);
-                break;
-            default:
-                break;
+        if(! button.equals("None")) {
+            switch (button) {
+                case "Left High":
+                    leftHighGoal.setText(text);
+                    break;
+                case "Left Low":
+                    leftLowGoal.setText(text);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
     public void updateFragment(){
-        setButtonText("Right High");
-        setButtonText("Right Low");
+        setButtonText("Left High");
+        setButtonText("Left Low");
     }
 
     public interface OnFragListener {
-        void onFrag3Interaction(Uri uri);
+        void onFrag1Interaction(Uri uri);
     }
+
 }

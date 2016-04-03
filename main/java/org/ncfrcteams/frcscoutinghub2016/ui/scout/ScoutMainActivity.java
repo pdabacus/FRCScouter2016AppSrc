@@ -17,8 +17,10 @@ import org.ncfrcteams.frcscoutinghub2016.R;
 import org.ncfrcteams.frcscoutinghub2016.communication.sms_server.SendSms;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.matchrecord.MatchRecord;
 import org.ncfrcteams.frcscoutinghub2016.ui.SelectionActivity;
+import org.ncfrcteams.frcscoutinghub2016.ui.scout.fragments.ScoutFragLeft;
+import org.ncfrcteams.frcscoutinghub2016.ui.scout.fragments.ScoutFragMid;
+import org.ncfrcteams.frcscoutinghub2016.ui.scout.fragments.ScoutFragRight;
 import org.ncfrcteams.frcscoutinghub2016.ui.scout.support.ScoutPageAdapter;
-import org.ncfrcteams.frcscoutinghub2016.ui.scout.support.ScoutPostMatchDialog;
 
 import java.util.ArrayList;
 

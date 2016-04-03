@@ -1,4 +1,4 @@
-package org.ncfrcteams.frcscoutinghub2016.ui.hub.support;
+package org.ncfrcteams.frcscoutinghub2016.ui.hub;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -17,7 +17,7 @@ import org.ncfrcteams.frcscoutinghub2016.matchdata.matchschedule.Match;
 /**
  * Created by pavan on 4/1/16.
  */
-public class TempDialog1 {
+public class HubEditBarriersDialog {
 
     private static final String POSITIVE_TEXT = "Generate QRs";
     private static final String NEGATIVE_TEXT = "Cancel";
@@ -28,10 +28,10 @@ public class TempDialog1 {
     private Match match;
     private TempDialog1Listener listener;
 
-    public TempDialog1(final Context context, final TempDialog1Listener listener, Match match) {
+    public HubEditBarriersDialog(final Context context, final TempDialog1Listener listener, Match match) {
 
         final AlertDialog.Builder alert = new AlertDialog.Builder(context);
-        final TempDialog1 thisDialog = this;
+        final HubEditBarriersDialog thisDialog = this;
 
         thisDialog.context = context;
         thisDialog.view = LayoutInflater.from(context).inflate(R.layout.h_dialog_temp1, null);

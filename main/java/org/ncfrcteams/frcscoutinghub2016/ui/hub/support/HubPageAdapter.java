@@ -8,9 +8,9 @@ import android.widget.Toast;
 
 import org.ncfrcteams.frcscoutinghub2016.communication.http.POST;
 import org.ncfrcteams.frcscoutinghub2016.communication.http.Poster;
-import org.ncfrcteams.frcscoutinghub2016.ui.hub.HubContentsFragment;
-import org.ncfrcteams.frcscoutinghub2016.ui.hub.HubManageFragment;
-import org.ncfrcteams.frcscoutinghub2016.ui.hub.HubListFragment;
+import org.ncfrcteams.frcscoutinghub2016.ui.hub.fragments.HubContentsFragment;
+import org.ncfrcteams.frcscoutinghub2016.ui.hub.fragments.HubManageFragment;
+import org.ncfrcteams.frcscoutinghub2016.ui.hub.fragments.HubListFragment;
 
 
 /**
@@ -41,16 +41,16 @@ public class HubPageAdapter extends FragmentPagerAdapter implements POST.POSTLis
         switch(position){
             case 0:
                 return create;
-            case 2:
-                return content;
-            default:
+            case 1:
                 return listView;
+            default:
+                return content;
         }
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return 2;
     }
 
     //*********************************** Poster Methods ************************************

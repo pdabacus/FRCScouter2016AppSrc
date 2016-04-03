@@ -1,4 +1,4 @@
-package org.ncfrcteams.frcscoutinghub2016.ui.scout.support;
+package org.ncfrcteams.frcscoutinghub2016.ui.scout;
 
 import android.app.Dialog;
 import android.content.Context;

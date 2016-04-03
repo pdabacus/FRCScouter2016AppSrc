@@ -9,15 +9,17 @@ import android.widget.Toast;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
 import org.ncfrcteams.frcscoutinghub2016.communication.sms_server.SmsReceiver;
+import org.ncfrcteams.frcscoutinghub2016.ui.hub.fragments.HubContentsFragment;
+import org.ncfrcteams.frcscoutinghub2016.ui.hub.fragments.HubListFragment;
+import org.ncfrcteams.frcscoutinghub2016.ui.hub.fragments.HubManageFragment;
 import org.ncfrcteams.frcscoutinghub2016.ui.hub.support.CustomViewPager;
-import org.ncfrcteams.frcscoutinghub2016.ui.hub.support.HubCreateDialog;
 import org.ncfrcteams.frcscoutinghub2016.ui.hub.support.HubPageAdapter;
 
 import java.util.ArrayList;
 
 public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsListener,
         HubManageFragment.HubCreateFragListener, HubListFragment.HubListFragListener,
-        HubContentsFragment.HubContentsFragListener, HubCreateDialog.HubCreateDialogListener{
+        HubContentsFragment.HubContentsFragListener, HubCreateMatchDialog.HubCreateDialogListener{
 
     private CustomViewPager hubViewPager;
     private HubPageAdapter hubPageAdapter;
@@ -95,7 +97,7 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
             case R.id.hubnew:
                 switchAwayFromDetailFrag(1);
                 ArrayList<String> matchTitles = hubPageAdapter.listView.mySchedule.getMatchTitles();
-                new HubCreateDialog(this, this, matchTitles).show();
+                new HubCreateMatchDialog(this, this, matchTitles).show();
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -142,7 +144,7 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
         hubViewPager.setCurrentItem(i);
     }
 
-    //********************************** HubCreateDialog Listener **********************************
+    //********************************** HubCreateMatchDialog Listener **********************************
 
     @Override
     public void onNewMatchCreate(int[] teams, int matchnum, boolean isQual, String phonenum) {

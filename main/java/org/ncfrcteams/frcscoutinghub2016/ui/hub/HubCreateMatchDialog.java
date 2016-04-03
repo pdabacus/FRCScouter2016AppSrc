@@ -1,11 +1,10 @@
-package org.ncfrcteams.frcscoutinghub2016.ui.hub.support;
+package org.ncfrcteams.frcscoutinghub2016.ui.hub;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 /**
  * Created by pavan on 3/31/16.
  */
-public class HubCreateDialog{
+public class HubCreateMatchDialog {
 
     private static final String POSITIVE_TEXT = "Create";
     private static final String NEGATIVE_TEXT = "Cancel";
@@ -27,10 +26,10 @@ public class HubCreateDialog{
     private Dialog dialog;
     private View view;
 
-    public HubCreateDialog(final Context context, final HubCreateDialogListener listener, ArrayList<String> matchtitles) {
+    public HubCreateMatchDialog(final Context context, final HubCreateDialogListener listener, ArrayList<String> matchtitles) {
 
         final AlertDialog.Builder alert = new AlertDialog.Builder(context);
-        final HubCreateDialog thisDialog = this;
+        final HubCreateMatchDialog thisDialog = this;
 
         view = LayoutInflater.from(context).inflate(R.layout.h_dialog_create, null);
         alert.setView(view);

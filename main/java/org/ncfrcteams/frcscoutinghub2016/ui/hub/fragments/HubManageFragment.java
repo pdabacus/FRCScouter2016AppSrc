@@ -1,4 +1,4 @@
-package org.ncfrcteams.frcscoutinghub2016.ui.hub;
+package org.ncfrcteams.frcscoutinghub2016.ui.hub.fragments;
 
 import android.content.Context;
 import android.os.Bundle;

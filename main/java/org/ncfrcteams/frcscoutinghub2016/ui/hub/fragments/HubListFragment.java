@@ -1,4 +1,4 @@
-package org.ncfrcteams.frcscoutinghub2016.ui.hub;
+package org.ncfrcteams.frcscoutinghub2016.ui.hub.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,11 +15,11 @@ import org.ncfrcteams.frcscoutinghub2016.ui.MultiQRDialog;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.matchschedule.Match;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.matchschedule.MatchDescriptor;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.matchschedule.Schedule;
+import org.ncfrcteams.frcscoutinghub2016.ui.hub.HubEditBarriersDialog;
 import org.ncfrcteams.frcscoutinghub2016.ui.hub.support.DatabaseAdapter;
-import org.ncfrcteams.frcscoutinghub2016.ui.hub.support.TempDialog1;
 
 public class HubListFragment extends Fragment implements AdapterView.OnItemClickListener,
-        AdapterView.OnItemLongClickListener, DatabaseAdapter.DatabaseListener, TempDialog1.TempDialog1Listener {
+        AdapterView.OnItemLongClickListener, DatabaseAdapter.DatabaseListener, HubEditBarriersDialog.TempDialog1Listener {
 
     private boolean theTimeIsRight;
     private HubListFragListener mListener;
@@ -76,7 +76,7 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-        new TempDialog1(getContext(), this, myListAdapter.getItem(position)).show();
+        new HubEditBarriersDialog(getContext(), this, myListAdapter.getItem(position)).show();
     }
 
     @Override
@@ -95,7 +95,7 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
         }
     }
 
-    //************************************ TempDialog1 Listener ************************************
+    //************************************ HubEditBarriersDialog Listener ************************************
 
     @Override
     public void generateQRs(Match match) {

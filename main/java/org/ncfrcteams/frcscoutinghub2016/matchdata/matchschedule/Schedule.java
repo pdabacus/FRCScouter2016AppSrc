@@ -106,7 +106,7 @@ public class Schedule {
         int currNum;
         boolean currIsQual;
         boolean addRedo;
-        boolean addRedosEnabled = false; //TODO add as parameter in MatchDescriptor somehow
+        boolean addRedosEnabled = false; //TODO add as parameter settings (this value used elsewhere)
 
         List<MatchDescriptor> replaceList = new ArrayList<>();
 

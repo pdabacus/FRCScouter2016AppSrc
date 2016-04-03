@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -71,7 +72,7 @@ public class HubCreateDialog{
 
                 if(repeatsIn(teams) ||
                     arrayContains(teams, 0) ||
-                    arrayContains(thisDialog.matchtitles, (isQual ? "Qual " : "Elim ") + matchnum) ||
+                    arrayContains(thisDialog.matchtitles, (isQual ? "Qual " : "Elim ") + String.valueOf(matchnum)) ||
                     matchnum == 0 ||
                     phonenum.equals("")
                     ){
@@ -84,7 +85,7 @@ public class HubCreateDialog{
 
             private boolean repeatsIn(int[] teams) {
                 for(int i = 0; i < teams.length; i++){
-                    for(int j = i + 1; j < teams.length; j++){
+                    for(int j = i; j < teams.length; j++){
                         if (i != j && teams[i] == teams[j]){
                             return true;
                         }
@@ -104,7 +105,7 @@ public class HubCreateDialog{
 
             private boolean arrayContains(String[] array, String item){
                 for (String val : array) {
-                    if(val == item){
+                    if(val.equals(item)){
                         return true;
                     }
                 }

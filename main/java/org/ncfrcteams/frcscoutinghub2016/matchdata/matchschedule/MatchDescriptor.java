@@ -136,12 +136,15 @@ public class MatchDescriptor implements Serializable, Comparable {
             //return Integer.compare(this.getMatchNum(), other.getMatchNum());
             int a = this.getMatchNum();
             int b = other.getMatchNum();
+
             if(a < b){
                 return 1;
-            } else if(a > b){
+            }
+            if(a > b){
                 return -1;
             }
             return 0;
+
         } else {
             if(this.isQual()) {
                 return -1;

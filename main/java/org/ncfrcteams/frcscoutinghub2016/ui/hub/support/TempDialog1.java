@@ -11,7 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
-import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Match;
+import org.ncfrcteams.frcscoutinghub2016.matchdata.matchschedule.Match;
 
 
 /**
@@ -83,7 +83,7 @@ public class TempDialog1 {
                     boolean isQual = thisDialog.match.isQual();
                     String phoneNum = thisDialog.match.getPhoneNum();
 
-                    thisDialog.listener.onTempDialog1(matchNum, isQual, teams, barriers, phoneNum);
+                    thisDialog.listener.generateQRs(matchNum, isQual, teams, barriers, phoneNum);
                     Toast.makeText(thisDialog.context, "Generating QR Codes", Toast.LENGTH_SHORT).show();
                 }
 
@@ -118,7 +118,7 @@ public class TempDialog1 {
     }
 
     public interface TempDialog1Listener{
-        void onTempDialog1(int matchNum, boolean isQual, int[] teams, int[] barriers, String phoneNum );
+        void generateQRs(int matchNum, boolean isQual, int[] teams, int[] barriers, String phoneNum );
     }
 
 }

@@ -1,6 +1,6 @@
 package org.ncfrcteams.frcscoutinghub2016.unused;
 
-import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.MatchDescriptor;
+import org.ncfrcteams.frcscoutinghub2016.matchdata.matchschedule.MatchDescriptor;
 
 import java.util.ArrayList;
 import java.util.Collections;

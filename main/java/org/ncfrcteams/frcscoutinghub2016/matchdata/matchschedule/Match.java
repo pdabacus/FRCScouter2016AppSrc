@@ -1,4 +1,4 @@
-package org.ncfrcteams.frcscoutinghub2016.matchdata.schedule;
+package org.ncfrcteams.frcscoutinghub2016.matchdata.matchschedule;
 
 import org.ncfrcteams.frcscoutinghub2016.matchdata.Obstacle;
 

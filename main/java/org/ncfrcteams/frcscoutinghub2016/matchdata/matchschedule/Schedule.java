@@ -1,6 +1,4 @@
-package org.ncfrcteams.frcscoutinghub2016.matchdata.schedule;
-
-import android.util.Log;
+package org.ncfrcteams.frcscoutinghub2016.matchdata.matchschedule;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -3,7 +3,6 @@ package org.ncfrcteams.frcscoutinghub2016.ui.hub;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import android.widget.TextView;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.Obstacle;
-import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Match;
+import org.ncfrcteams.frcscoutinghub2016.matchdata.matchschedule.Match;
 
 public class HubContentsFragment extends Fragment implements View.OnClickListener {
     private boolean isSaved = true;

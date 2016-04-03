@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
-import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Match;
-import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Schedule;
+import org.ncfrcteams.frcscoutinghub2016.matchdata.matchschedule.Match;
+import org.ncfrcteams.frcscoutinghub2016.matchdata.matchschedule.Schedule;
 
 import java.util.ArrayList;
 

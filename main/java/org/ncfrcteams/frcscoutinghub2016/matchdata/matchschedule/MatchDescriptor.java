@@ -1,4 +1,4 @@
-package org.ncfrcteams.frcscoutinghub2016.matchdata.schedule;
+package org.ncfrcteams.frcscoutinghub2016.matchdata.matchschedule;
 
 import android.content.Context;
 import android.telephony.TelephonyManager;
@@ -16,25 +16,9 @@ public class MatchDescriptor implements Serializable, Comparable {
     private int matchNum = 0;
     private int[] teams;
     private Obstacle[] obstacles = new Obstacle[8];
+    private int[] barriers = new int[8];
     private boolean isQual = true;
     private String returnAddress;
-
-    public MatchDescriptor(Context context, int matchNum, int[] teams) {
-        this.matchNum = matchNum;
-        this.teams = teams;
-
-        TelephonyManager tMgr = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
-        returnAddress = tMgr.getLine1Number();
-    }
-
-    public MatchDescriptor(Context context, int matchNum, int[] teams, boolean isQual) {
-        this.matchNum = matchNum;
-        this.teams = teams;
-        this.isQual = isQual;
-
-        TelephonyManager tMgr = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
-        returnAddress = tMgr.getLine1Number();
-    }
 
     public MatchDescriptor(Context context, int matchNum, int[] teams, boolean isQual, String phoneNum) {
         this.matchNum = matchNum;
@@ -44,26 +28,37 @@ public class MatchDescriptor implements Serializable, Comparable {
     }
 
     public static MatchDescriptor fromString(Context context, String s) {
-        String[] parts = s.split(",");
-        int matchNum = Integer.parseInt(parts[0]);
+
+        String[] parts = s.split(",");        // { Q22,1000,2000,3000,4000,5000,6000,919-000-1111 }
+
+        if(parts.length != 7 && parts.length != 8){
+            return null;
+        }
+
+        boolean isQual;
+        if(parts[0].trim().charAt(0) == 'E') {
+            isQual = false;
+        } else {
+            isQual = true;
+        }
+
+        int stringStartPosition = ((! isQual) || (parts[0].trim().charAt(0) == 'Q') ? 1 : 0);
+        int matchNum = Integer.parseInt(parts[0].trim().substring(stringStartPosition));
+
         int[] teams = new int[6];
-
-        for(int i=1; i < 7; i++) {
-            teams[i-1] = Integer.parseInt(parts[i]);
+        for(int i = 0; i < 6; i++) {
+            teams[i] = Integer.parseInt(parts[i + 1]);
         }
 
-        boolean isQual = true;
-
-        if(parts.length > 7) {
-            isQual = (Integer.parseInt(parts[7]) == 1);
-        }
-
-        if(parts.length > 8) {
-            String phonenum = parts[8];
-            return new MatchDescriptor(context, matchNum, teams, isQual, phonenum);
+        String phonenum;
+        if(parts.length == 8) {
+            phonenum = parts[7].trim();
         } else{
-            return new MatchDescriptor(context, matchNum, teams, isQual);
+            phonenum = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getLine1Number();
         }
+
+        return new MatchDescriptor(context, matchNum, teams, isQual, phonenum);
+
 
     }
 
@@ -78,10 +73,12 @@ public class MatchDescriptor implements Serializable, Comparable {
         s.append(",");
         s.append(teams[t.getValue()]);
 
+        /*
         for(Obstacle o : obstacles) {
             s.append(",");
             s.append(o.getValue());
         }
+        */
 
         s.append(",");
         s.append(returnAddress);

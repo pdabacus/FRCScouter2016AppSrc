@@ -108,7 +108,7 @@ public class Schedule {
 
         boolean isRematch;
 
-        //add Match 1 if it doesn't exist
+        //add Qual 1
         if(lastNum > 1){
             lastNum = 0;
         }
@@ -128,14 +128,18 @@ public class Schedule {
                 //set rematch status
                 if (lastNum == currNum) {
                     isRematch = true;
+                    //TODO make this new match be a REMATCH (optional, as only difference is the title in the app)
+                    matches.add(Match.getFromDescriptor(matchDescriptor));
+                }
+            } else {
+                //add Eval 1
+                if(lastNum > 1){
+                    lastNum = 0;
                 }
             }
 
             //add the current match (and rematch)
-            if (isRematch) {
-                //TODO make this new match be a REMATCH
-                matches.add(Match.getFromDescriptor(matchDescriptor));
-            } else {
+            if (! isRematch) {
                 matches.add(Match.getFromDescriptor(matchDescriptor));
             }
 

@@ -69,16 +69,18 @@ public class HubCreateMatchDialog {
                 boolean isQual = ((RadioButton) view.findViewById(R.id.qual)).isChecked();
                 String phonenum = ((EditText) view.findViewById(R.id.phonenum)).getText().toString();
 
-                if(repeatsIn(teams)
-                    || arrayContains(teams, 0)
-                    || arrayContains(thisDialog.matchtitles, (isQual ? "Qual " : "Elim ") + matchnum) && false
-                    || matchnum == 0
-                    || phonenum.equals("")
-                    ){
+                if(repeatsIn(teams) || arrayContains(teams, 0) || matchnum == 0 || phonenum.equals("")){
                     Toast.makeText(context, "Invalid Match Setup", Toast.LENGTH_SHORT).show();
                 } else{
-                    dialogListener.onNewMatchCreate(teams, matchnum, isQual, phonenum);
-                    Toast.makeText(context, (isQual ? "Qual " : "Elim ") + matchnum + " Created", Toast.LENGTH_SHORT).show();
+                    boolean isRedo = isRedo(thisDialog.matchtitles, (isQual ? "Qual " : "Elim ") + matchnum);
+                    boolean addRedosEnabled = false; //TODO add as parameter settings (this value used elsewhere)
+                    if(!isRedo || addRedosEnabled) {
+                        dialogListener.onNewMatchCreate(teams, matchnum, isQual, phonenum);
+                        Toast.makeText(context, (isQual ? "Qual " : "Elim ") + matchnum + (isRedo ? "Redo " : "")
+                                + " Created", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "Match Already Exists", Toast.LENGTH_LONG).show();;
+                    }
                 }
             }
 
@@ -102,7 +104,7 @@ public class HubCreateMatchDialog {
                 return false;
             }
 
-            private boolean arrayContains(String[] array, String item){
+            private boolean isRedo(String[] array, String item){
                 for (String val : array) {
                     if(val.equals(item)){
                         return true;

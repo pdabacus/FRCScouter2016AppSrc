@@ -1,6 +1,7 @@
 package org.ncfrcteams.frcscoutinghub2016.ui.hub;
 
 import android.app.Dialog;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
@@ -31,6 +32,7 @@ public class HubEditBarriersDialog {
     public HubEditBarriersDialog(final Context context, final TempDialog1Listener listener, Match match) {
 
         final AlertDialog.Builder alert = new AlertDialog.Builder(context);
+
         final HubEditBarriersDialog thisDialog = this;
 
         thisDialog.context = context;
@@ -95,11 +97,18 @@ public class HubEditBarriersDialog {
             }
         };
 
-        DialogInterface.OnClickListener negativeListener = new DialogInterface.OnClickListener() {
+        final DialogInterface.OnClickListener negativeListener = new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                Toast.makeText(thisDialog.context, "Cancelled", Toast.LENGTH_SHORT).show();
+                thisDialog.dialog.dismiss();
             }
         };
+
+        alert.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                Toast.makeText(context, "Cancelled", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         alert.setPositiveButton(POSITIVE_TEXT, positiveListener);
         alert.setNegativeButton(NEGATIVE_TEXT, negativeListener);

@@ -113,11 +113,19 @@ public class HubCreateMatchDialog {
 
         };
 
-        DialogInterface.OnClickListener negativeListener = new DialogInterface.OnClickListener() {
+        final DialogInterface.OnClickListener negativeListener = new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                Toast.makeText(context, "Cancelled Match Creation", Toast.LENGTH_SHORT).show();
+                thisDialog.dialog.dismiss();
             }
         };
+
+        alert.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                Toast.makeText(context, "Cancelled", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         alert.setPositiveButton(POSITIVE_TEXT, positiveListener);
         alert.setNegativeButton(NEGATIVE_TEXT, negativeListener);

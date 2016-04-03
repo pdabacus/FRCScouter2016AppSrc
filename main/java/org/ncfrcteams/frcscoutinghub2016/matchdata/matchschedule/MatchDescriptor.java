@@ -15,15 +15,17 @@ import java.io.Serializable;
 public class MatchDescriptor implements Serializable, Comparable {
     private int matchNum = 0;
     private int[] teams;
-    private Obstacle[] obstacles = new Obstacle[8];
+    //private Obstacle[] obstacles = new Obstacle[8];
     private int[] barriers = new int[8];
-    private boolean isQual = true;
+    private boolean isQual;
+    private boolean isBlank;
     private String returnAddress;
 
-    public MatchDescriptor(Context context, int matchNum, int[] teams, boolean isQual, String phoneNum) {
+    public MatchDescriptor(int matchNum, int[] teams, boolean isQual, boolean isBlank, String phoneNum) {
         this.matchNum = matchNum;
         this.teams = teams;
         this.isQual = isQual;
+        this.isBlank = isBlank;
         this.returnAddress = phoneNum;
     }
 
@@ -57,15 +59,14 @@ public class MatchDescriptor implements Serializable, Comparable {
             phonenum = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getLine1Number();
         }
 
-        return new MatchDescriptor(context, matchNum, teams, isQual, phonenum);
-
-
+        return new MatchDescriptor(matchNum, teams, isQual, false, phonenum);
     }
 
+    /*
     public String toString(Team t) {
         StringBuilder s = new StringBuilder();
 
-        s.append((t.getValue() > 2) ? "B" : "R");
+        s.append((t.getValue() < 3 ) ? "R" : "B");
         s.append(",");
         s.append(isQual ? "Q" : "E");
         s.append(",");
@@ -73,19 +74,46 @@ public class MatchDescriptor implements Serializable, Comparable {
         s.append(",");
         s.append(teams[t.getValue()]);
 
-        /*
         for(Obstacle o : obstacles) {
             s.append(",");
             s.append(o.getValue());
         }
-        */
+
+        for(int barrier : barriers) {
+            s.append(",");
+            s.append(barrier);
+        }
 
         s.append(",");
         s.append(returnAddress);
 
-        return s.toString();
+        return s.toString(); // " R, Q, 22, 4828, 1, 2, 3, 4, 5, 6, 7, 8, 919-000-1111 "
+    }
+    */
+
+    public String toString(int t) {
+        StringBuilder s = new StringBuilder();
+
+        s.append((t < 3 ) ? "R" : "B");
+        s.append(",");
+        s.append(isQual ? "Q" : "E");
+        s.append(",");
+        s.append(matchNum);
+        s.append(",");
+        s.append(teams[t]);
+
+        for(int barrier : barriers) {
+            s.append(",");
+            s.append(barrier);
+        }
+
+        s.append(",");
+        s.append(returnAddress);
+
+        return s.toString(); // " R, Q, 22, 4828, 1, 2, 3, 4, 5, 6, 7, 8, 919-000-1111 "
     }
 
+    /*
     public String[] getStrings() {
         return new String[] {
                 toString(Team.R1),
@@ -96,15 +124,28 @@ public class MatchDescriptor implements Serializable, Comparable {
                 toString(Team.B3)
         };
     }
+    */
+
+    public String[] getStrings() {
+        return new String[] {
+                toString(teams[0]), toString(teams[1]), toString(teams[2]),
+                toString(teams[3]), toString(teams[4]), toString(teams[5])
+        };
+    }
 
     @Override
     public int compareTo(Object another) {
         MatchDescriptor other = (MatchDescriptor) another;
         if(this.isQual() == other.isQual()) {
+            //return Integer.compare(this.getMatchNum(), other.getMatchNum());
             int a = this.getMatchNum();
             int b = other.getMatchNum();
-            return (a < b ? 1 : -1);
-            //return Integer.compare(this.getMatchNum(), other.getMatchNum());
+            if(a < b){
+                return 1;
+            } else if(a > b){
+                return -1;
+            }
+            return 0;
         } else {
             if(this.isQual()) {
                 return -1;
@@ -114,8 +155,18 @@ public class MatchDescriptor implements Serializable, Comparable {
         }
     }
 
+    //************************************** Getters and Setters ***********************************
+
     public boolean isQual() {
         return isQual;
+    }
+
+    public boolean getIsBlank() {
+        return isBlank;
+    }
+
+    public void setIsBlank(boolean b){
+        isBlank = b;
     }
 
     public int getMatchNum() {
@@ -126,16 +177,22 @@ public class MatchDescriptor implements Serializable, Comparable {
         return returnAddress;
     }
 
-    public int getTeamNum(Team t) {
-        return teams[t.getValue()];
+    /*
+    public synchronized Obstacle[] getObstacles() {
+        return obstacles.clone();
     }
 
     public synchronized void setObstacles(Obstacle[] o) {
         obstacles = o;
     }
+    */
 
-    public synchronized Obstacle[] getObstacles() {
-        return obstacles.clone();
+    public synchronized int[] getBarriers() {
+        return barriers;
+    }
+
+    public synchronized void setBarriers(int[] bs) {
+        barriers = bs;
     }
 
     public int[] getTeams() {

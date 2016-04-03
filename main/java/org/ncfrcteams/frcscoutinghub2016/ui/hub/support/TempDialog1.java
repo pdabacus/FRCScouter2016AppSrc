@@ -42,7 +42,7 @@ public class TempDialog1 {
 
         ((TextView) view.findViewById(R.id.tempMatch)).setText(thisDialog.match.getTitle());
 
-        int[] barriers = match.getBarriers();
+        int[] barriers = match.barriers();
 
         ((EditText) view.findViewById(R.id.bar1)).setText(barriers[0] == 0 ? "" : String.valueOf(barriers[0]));
         ((EditText) view.findViewById(R.id.bar2)).setText(barriers[1] == 0 ? "" : String.valueOf(barriers[1]));
@@ -78,10 +78,10 @@ public class TempDialog1 {
                 if(arrayContains(barriers, 0)){
                     Toast.makeText(thisDialog.context, "Invalid Match Setup", Toast.LENGTH_SHORT).show();
                 } else{
-                    int[] teams = thisDialog.match.getTeams();
-                    int matchNum = thisDialog.match.getMatchNum();
+                    int[] teams = thisDialog.match.teams();
+                    int matchNum = thisDialog.match.matchNum();
                     boolean isQual = thisDialog.match.isQual();
-                    String phoneNum = thisDialog.match.getPhoneNum();
+                    String phoneNum = thisDialog.match.phoneNum();
 
                     thisDialog.listener.generateQRs(matchNum, isQual, teams, barriers, phoneNum);
                     Toast.makeText(thisDialog.context, "Generating QR Codes", Toast.LENGTH_SHORT).show();

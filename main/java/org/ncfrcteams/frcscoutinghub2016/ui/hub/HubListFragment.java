@@ -118,7 +118,7 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
     //****************************** HubPageFragment.addNewMatch() Call ****************************
 
     public void addNewMatch(int[] teams, int matchnum, boolean isQual, String phonenum){
-        mySchedule.add(new MatchDescriptor(getContext(), matchnum, teams, isQual, phonenum));
+        mySchedule.add(new MatchDescriptor(matchnum, teams, isQual, false, phonenum));
     }
 
     //****************************** HubPageFragment.POSTResult() Call *****************************

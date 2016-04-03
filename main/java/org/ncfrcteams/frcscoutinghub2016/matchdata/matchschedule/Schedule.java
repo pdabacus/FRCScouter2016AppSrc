@@ -81,7 +81,7 @@ public class Schedule {
 
     public Match getMatch(int matchNum, boolean isQual) {
         for(Match match : matches) {
-            if(match.getMatchNum() == matchNum && match.isQual() == isQual)
+            if(match.matchNum() == matchNum && match.isQual() == isQual)
                 return match;
         }
         return null;

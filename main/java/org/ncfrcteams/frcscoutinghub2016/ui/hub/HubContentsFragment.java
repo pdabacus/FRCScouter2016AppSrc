@@ -92,7 +92,7 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
             mListener.saveContents(1);
         }
 
-        selection = match.getObstacles();
+        selection = match.obstacles();
 
         for(int i=0; i<selectors.length; i++) {
             if(id == selectors[i].getId()) {
@@ -117,13 +117,13 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
         isSaved = false;
         //match = newmatch;
         title.setText(match.getTitle());
-        int[] nums = match.getTeams();
+        int[] nums = match.teams();
 
         for(int i=0;i<teamNumbers.length;i++) {
             teamNumbers[i].setText(String.valueOf(nums[i]));
         }
 
-        Obstacle[] obstacles = match.getObstacles();
+        Obstacle[] obstacles = match.obstacles();
 
         String name;
         int id;
@@ -139,7 +139,7 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
 
     public void save() {
         if(! isSaved) {
-            int[] teams = match.getTeams();
+            int[] teams = match.teams();
             isSaved = true;
             for (int i = 0; i < teamNumbers.length; i++) {
                 teams[i] = Integer.parseInt(teamNumbers[i].toString());

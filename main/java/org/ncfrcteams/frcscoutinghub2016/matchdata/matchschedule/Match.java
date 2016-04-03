@@ -7,39 +7,28 @@ import org.ncfrcteams.frcscoutinghub2016.matchdata.Obstacle;
  */
 public class Match {
 
-    public int matchNum;
-    public int matchStatus;
-    public boolean isQual;
     public MatchDescriptor matchDescriptor;
     public String[] data = new String[6];
     public String[] comments = new String[6];
-    public int[] barriers = new int[8];    // TODO - TEMPORARY VARIABLE BECAUSE OBSTACLES DOESNT WORK
 
-    public Match(int matchNum, int matchStatus, boolean isQual, MatchDescriptor matchDescriptor){
-        this.matchNum = matchNum;
-        this.matchStatus = matchStatus;
-        this.isQual = isQual;
+    public Match(MatchDescriptor matchDescriptor){
         this.matchDescriptor = matchDescriptor;
     }
 
     public static Match getBlank(int matchNum, boolean isQual) {
-        return new Match(matchNum, 0, isQual, null);
+        return new Match(new MatchDescriptor(matchNum, new int[6], isQual, true, ""));
     }
 
     public static Match getFromDescriptor(MatchDescriptor matchDescriptor) {
-        return new Match(matchDescriptor.getMatchNum(), 0, matchDescriptor.isQual(), matchDescriptor);
-    }
-
-    public boolean isPlaceHolder() {
-        return matchDescriptor == null;
+        return new Match(matchDescriptor);
     }
 
     public String getTitle(){
-        return (isQual ? "Qual " : "Elim ") + matchNum;
+        return (isQual() ? "Qual " : "Elim ") + matchNum();
     }
 
     public int getColor(){
-        switch(matchStatus){
+        switch(getMatchStatus()){
             case 0:
                 return 0xffff0000; //red = incomplete
             case 1:
@@ -77,34 +66,44 @@ public class Match {
         return data;
     }
 
-    public synchronized int[] getTeams() {
+    public int getMatchStatus(){
+        return 0; //TODO - based off what's in data
+    }
+
+    //*********************************** MatchDescriptor References *******************************
+
+    public synchronized int[] teams() {
         return matchDescriptor.getTeams();
     }
 
-    public Obstacle[] getObstacles() {
+    /*
+    public Obstacle[] obstacles() {
         return matchDescriptor.getObstacles();
     }
+    */
 
-    public int getMatchNum() {
-        return matchNum;
-    }
-
-    public boolean isQual() {
-        return isQual;
-    }
-
-    public String getPhoneNum() {
-        return matchDescriptor.getPhoneNum();
-    }
-
-    // TODO - TEMPORARY METHODS BECAUSE OBSTACLES DOESNT WORK
-
-    public int[] getBarriers() {
-        return barriers;
+    public int[] barriers() {
+        return matchDescriptor.getBarriers();
     }
 
     public void setBarriers(int[] barriers) {
-        this.barriers = barriers;
+        matchDescriptor.setBarriers(barriers);
+    }
+
+    public int matchNum() {
+        return matchDescriptor.getMatchNum();
+    }
+
+    public boolean isQual() {
+        return matchDescriptor.isQual();
+    }
+
+    public boolean isBlank() {
+        return matchDescriptor.getIsBlank();
+    }
+
+    public String phoneNum() {
+        return matchDescriptor.getPhoneNum();
     }
 
 }

@@ -106,11 +106,6 @@ public class Schedule {
         int currNum;
         boolean currIsQual;
 
-        //add Qual 1
-       // if(lastNum > 1){
-       //     lastNum = 0;
-       // }
-
         for(MatchDescriptor matchDescriptor : matchDescriptorList) {
 
             currNum = matchDescriptor.getMatchNum();
@@ -125,7 +120,7 @@ public class Schedule {
                 //add Match 1+
                 if(currNum > 1){
                     for (int i = 1; i < currNum; i++) {
-                        matches.add(Match.getBlank(i, currIsQual));
+                        matches.add(Match.getBlank(i, currIsQual)); //comment out to disable auto adding Match 1
                     }
                 }
             }

@@ -137,7 +137,7 @@ public class Schedule {
 
             //add the current match
             Log.d("asdf", String.valueOf(currNum) + " " + String.valueOf(currIsQual));
-            //replaceList.add(matchDescriptor);///////////////////////////////////////////////////////
+            replaceList.add(matchDescriptor);
             matches.add(Match.getFromDescriptor(matchDescriptor));
 
             lastNum = currNum;

@@ -102,11 +102,12 @@ public class Schedule {
         matches.clear();
 
         int lastNum = matchDescriptorList.get(0).getMatchNum();
-        boolean lastIsQual = matchDescriptorList.get(0).isQual();
+        boolean lastIsQual = ! matchDescriptorList.get(0).isQual();
         int currNum;
         boolean currIsQual;
+        List<MatchDescriptor> replaceList = new ArrayList<>();
 
-        lastNum = (lastNum > 1 ? 0 : lastNum); //comment out to disable auto adding Match 1+
+        //lastNum = (lastNum > 1 ? 0 : lastNum); //comment out to disable auto adding Match 1+
 
         for(MatchDescriptor matchDescriptor : matchDescriptorList) {
 
@@ -117,7 +118,8 @@ public class Schedule {
                 //add blanks
                 for (int i = lastNum + 1; i < currNum; i++) {
                     MatchDescriptor md = new MatchDescriptor(i, new int[6], currIsQual, true, "");
-                    matchDescriptorList.add(md);
+                    //matchDescriptorList.add(md);////////////////////////////////////////////////////
+                    replaceList.add(md);
                     matches.add(new Match(md));
                 }
             } else {
@@ -126,7 +128,8 @@ public class Schedule {
                 if(currNum > 1){
                     for (int i = 1; i < currNum; i++) {
                         MatchDescriptor md = new MatchDescriptor(i, new int[6], currIsQual, true, "");
-                        matchDescriptorList.add(md);
+                        //matchDescriptorList.add(md);////////////////////////////////////////////////
+                        replaceList.add(md);
                         matches.add(new Match(md));
                     }
                 }
@@ -134,11 +137,14 @@ public class Schedule {
 
             //add the current match
             Log.d("asdf", String.valueOf(currNum) + " " + String.valueOf(currIsQual));
+            //replaceList.add(matchDescriptor);///////////////////////////////////////////////////////
             matches.add(Match.getFromDescriptor(matchDescriptor));
 
             lastNum = currNum;
             lastIsQual = currIsQual;
         }
+
+        matchDescriptorList = replaceList;
 
         if(scheduleChangeListener != null) {
             scheduleChangeListener.notifyScheduleChanges(getMatches());

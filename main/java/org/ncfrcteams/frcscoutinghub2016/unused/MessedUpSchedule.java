@@ -87,6 +87,7 @@ public class MessedUpSchedule {
             }
 
             newEntry = ScheduleEntry.getFromDescriptor(matchDescriptor);
+
             index = validEntries.indexOf(newEntry);
 
             if(index == -1) {

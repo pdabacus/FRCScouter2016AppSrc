@@ -69,11 +69,11 @@ public class HubCreateMatchDialog {
                 boolean isQual = ((RadioButton) view.findViewById(R.id.qual)).isChecked();
                 String phonenum = ((EditText) view.findViewById(R.id.phonenum)).getText().toString();
 
-                if(repeatsIn(teams) ||
-                    arrayContains(teams, 0) ||
-                    arrayContains(thisDialog.matchtitles, (isQual ? "Qual " : "Elim ") + String.valueOf(matchnum)) ||
-                    matchnum == 0 ||
-                    phonenum.equals("")
+                if(repeatsIn(teams)
+                    || arrayContains(teams, 0)
+                    || arrayContains(thisDialog.matchtitles, (isQual ? "Qual " : "Elim ") + matchnum) && false
+                    || matchnum == 0
+                    || phonenum.equals("")
                     ){
                     Toast.makeText(context, "Invalid Match Setup", Toast.LENGTH_SHORT).show();
                 } else{
@@ -125,7 +125,6 @@ public class HubCreateMatchDialog {
                 //Toast.makeText(context, "Cancelled", Toast.LENGTH_SHORT).show();
             }
         });
-
 
         alert.setPositiveButton(POSITIVE_TEXT, positiveListener);
         alert.setNegativeButton(NEGATIVE_TEXT, negativeListener);

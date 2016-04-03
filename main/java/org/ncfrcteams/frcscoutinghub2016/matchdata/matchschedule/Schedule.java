@@ -1,5 +1,7 @@
 package org.ncfrcteams.frcscoutinghub2016.matchdata.matchschedule;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -75,7 +77,7 @@ public class Schedule {
         } else {
             match.addComment(Integer.parseInt(head[2]), pair[1]);
         }
-        
+
         return match.getTitle();
     }
 
@@ -112,6 +114,7 @@ public class Schedule {
             }
 
             for(int i=lastNum; i<currNum; i++) {
+                Log.d("Blank Match" , String.valueOf(lastNum));
                 newMatch = Match.getBlank(i,matchDescriptor.isQual());
                 matches.add(newMatch);
             }
@@ -154,4 +157,5 @@ public class Schedule {
     public interface ScheduleChangeListener {
         void notifyScheduleChanges(ArrayList<Match> matches);
     }
+
 }

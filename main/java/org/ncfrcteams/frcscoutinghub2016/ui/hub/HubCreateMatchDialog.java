@@ -73,7 +73,7 @@ public class HubCreateMatchDialog {
                     Toast.makeText(context, "Invalid Match Setup", Toast.LENGTH_SHORT).show();
                 } else{
                     boolean isRedo = isRedo(thisDialog.matchtitles, (isQual ? "Qual " : "Elim ") + matchnum);
-                    boolean addRedosEnabled = false; //TODO add as parameter settings (this value used elsewhere)
+                    boolean addRedosEnabled = true; //TODO add as parameter settings (this value used elsewhere)
                     if(!isRedo || addRedosEnabled) {
                         dialogListener.onNewMatchCreate(teams, matchnum, isQual, phonenum);
                         Toast.makeText(context, (isQual ? "Qual " : "Elim ") + matchnum + (isRedo ? "Redo " : "")

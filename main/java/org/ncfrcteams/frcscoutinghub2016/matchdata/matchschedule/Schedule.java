@@ -119,10 +119,10 @@ public class Schedule {
             currIsQual = matchDescriptor.isQual();
             isRematch = false;
 
-            if(lastIsQual && currIsQual) {
+            if(lastIsQual == currIsQual) {
                 //add blanks
                 for (int i = lastNum + 1; i < currNum; i++) {
-                    matches.add(Match.getBlank(i, matchDescriptor.isQual()));
+                    matches.add(Match.getBlank(i, currIsQual));
                 }
 
                 //set rematch status
@@ -132,7 +132,7 @@ public class Schedule {
                     matches.add(Match.getFromDescriptor(matchDescriptor));
                 }
             } else {
-                //add Eval 1
+                //add Elim 1
                 if(lastNum > 1){
                     lastNum = 0;
                 }

@@ -91,9 +91,8 @@ public class MatchDescriptor implements Serializable, Comparable {
     }
     */
 
-    public String toString(int t) {
+    private String toString(int t) {
         StringBuilder s = new StringBuilder();
-
         s.append((t < 3 ) ? "R" : "B");
         s.append(",");
         s.append(isQual ? "Q" : "E");

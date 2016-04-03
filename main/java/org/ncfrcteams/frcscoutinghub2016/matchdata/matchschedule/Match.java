@@ -106,4 +106,8 @@ public class Match {
         return matchDescriptor.getPhoneNum();
     }
 
+    public String[] getStrings() {
+        return matchDescriptor.getStrings();
+    }
+
 }

@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
 import org.ncfrcteams.frcscoutinghub2016.communication.qr.MultiQRDialog;
+import org.ncfrcteams.frcscoutinghub2016.matchdata.matchschedule.Match;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.matchschedule.MatchDescriptor;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.matchschedule.Schedule;
 import org.ncfrcteams.frcscoutinghub2016.ui.hub.support.DatabaseAdapter;
@@ -99,20 +100,8 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
     //************************************ TempDialog1 Listener ************************************
 
     @Override
-    public void generateQRs(int matchNum, boolean isQual, int[] teams, int[] barriers, String phoneNum) {
-        String[] qrtexts = new String[6];
-        String b = "";
-        for (int barrier : barriers) {
-            b += barrier + ",";
-        }
-
-        String a;
-        for (int i = 0; i < 6; i++) {
-            a = (i < 3 ? "R," : "B,") + (isQual ? "Q," : "E,") + String.valueOf(matchNum) + "," + teams[i];
-            qrtexts[i] = a + "," + b + phoneNum;
-        }
-
-        new MultiQRDialog(getContext(), qrtexts).show();
+    public void generateQRs(Match match) {
+        new MultiQRDialog(getContext(), match.getStrings()).show();
     }
 
     //****************************** HubPageFragment.addNewMatch() Call ****************************

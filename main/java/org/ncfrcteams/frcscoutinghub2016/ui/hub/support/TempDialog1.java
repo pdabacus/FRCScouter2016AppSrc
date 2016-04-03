@@ -74,21 +74,15 @@ public class TempDialog1 {
                         barriers[i] = Integer.parseInt(barriersStrings[i]);
                     }
                 }
-                
-                if(arrayContains(barriers, 0)){
-                    Toast.makeText(thisDialog.context, "Invalid Match Setup", Toast.LENGTH_SHORT).show();
-                } else{
-                    int[] teams = thisDialog.match.teams();
-                    int matchNum = thisDialog.match.matchNum();
-                    boolean isQual = thisDialog.match.isQual();
-                    String phoneNum = thisDialog.match.phoneNum();
-
-                    thisDialog.listener.generateQRs(matchNum, isQual, teams, barriers, phoneNum);
-                    Toast.makeText(thisDialog.context, "Generating QR Codes", Toast.LENGTH_SHORT).show();
-                }
 
                 thisDialog.match.setBarriers(barriers);
 
+                if(arrayContains(barriers, 0)){
+                    Toast.makeText(thisDialog.context, "Invalid Match Setup", Toast.LENGTH_SHORT).show();
+                } else{
+                    thisDialog.listener.generateQRs(thisDialog.match);
+                    Toast.makeText(thisDialog.context, "Generating QR Codes", Toast.LENGTH_SHORT).show();
+                }
             }
 
             private boolean arrayContains(int[] array, int item){
@@ -118,7 +112,7 @@ public class TempDialog1 {
     }
 
     public interface TempDialog1Listener{
-        void generateQRs(int matchNum, boolean isQual, int[] teams, int[] barriers, String phoneNum );
+        void generateQRs(Match match);
     }
 
 }

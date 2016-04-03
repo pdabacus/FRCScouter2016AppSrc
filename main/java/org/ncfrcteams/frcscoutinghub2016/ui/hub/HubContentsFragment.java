@@ -92,7 +92,7 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
             mListener.saveContents(1);
         }
 
-        selection = match.obstacles();
+        //selection = match.obstacles();
 
         for(int i=0; i<selectors.length; i++) {
             if(id == selectors[i].getId()) {
@@ -123,15 +123,15 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
             teamNumbers[i].setText(String.valueOf(nums[i]));
         }
 
-        Obstacle[] obstacles = match.obstacles();
+        //Obstacle[] obstacles = match.obstacles();
 
         String name;
         int id;
         for(int i=0; i<positions.length; i++) {
-            name = "barrier" + obstacles[i].getValue();
-            id = getResources().getIdentifier(name, "drawable", getActivity().getPackageName());
+            //name = "barrier" + obstacles[i].getValue();
+            //id = getResources().getIdentifier(name, "drawable", getActivity().getPackageName());
 
-            positions[i].setImageResource(id);
+            //positions[i].setImageResource(id);
         }
 
         selected = null;

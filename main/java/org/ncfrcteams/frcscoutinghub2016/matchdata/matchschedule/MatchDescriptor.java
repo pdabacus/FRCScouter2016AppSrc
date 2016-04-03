@@ -91,15 +91,15 @@ public class MatchDescriptor implements Serializable, Comparable {
     }
     */
 
-    private String toString(int t) {
+    private String toString(int i) {
         StringBuilder s = new StringBuilder();
-        s.append((t < 3 ) ? "R" : "B");
+        s.append((i < 3 ) ? "R" : "B");
         s.append(",");
         s.append(isQual ? "Q" : "E");
         s.append(",");
         s.append(matchNum);
         s.append(",");
-        s.append(teams[t]);
+        s.append(teams[i]);
 
         for(int barrier : barriers) {
             s.append(",");
@@ -126,10 +126,7 @@ public class MatchDescriptor implements Serializable, Comparable {
     */
 
     public String[] getStrings() {
-        return new String[] {
-                toString(teams[0]), toString(teams[1]), toString(teams[2]),
-                toString(teams[3]), toString(teams[4]), toString(teams[5])
-        };
+        return new String[] {toString(0), toString(1), toString(2), toString(3), toString(4), toString(5)};
     }
 
     @Override

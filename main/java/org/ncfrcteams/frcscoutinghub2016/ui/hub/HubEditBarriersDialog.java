@@ -106,7 +106,7 @@ public class HubEditBarriersDialog {
         alert.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                Toast.makeText(context, "Cancelled", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "Cancelled", Toast.LENGTH_SHORT).show();
             }
         });
 

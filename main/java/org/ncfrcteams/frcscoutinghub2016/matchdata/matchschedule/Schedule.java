@@ -133,7 +133,7 @@ public class Schedule {
                 }
             } else {
                 //add Elim 1
-                if(lastNum > 1){
+                if(currNum > 1){
                     lastNum = 0;
                 }
             }

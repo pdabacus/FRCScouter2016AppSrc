@@ -105,14 +105,16 @@ public class Schedule {
         boolean lastIsQual = ! matchDescriptorList.get(0).isQual();
         int currNum;
         boolean currIsQual;
-        List<MatchDescriptor> replaceList = new ArrayList<>();
+        boolean isRedo;
+        boolean addRedosEnabled = true; //TODO add as parameter in MatchDescriptor somehow
 
-        //lastNum = (lastNum > 1 ? 0 : lastNum); //comment out to disable auto adding Match 1+
+        List<MatchDescriptor> replaceList = new ArrayList<>();
 
         for(MatchDescriptor matchDescriptor : matchDescriptorList) {
 
             currNum = matchDescriptor.getMatchNum();
             currIsQual = matchDescriptor.isQual();
+            isRedo = false;
 
             if(lastIsQual == currIsQual) {
                 //add blanks
@@ -122,9 +124,14 @@ public class Schedule {
                     replaceList.add(md);
                     matches.add(new Match(md));
                 }
+
+                //whether to add redo matches or not
+                if(lastNum == currNum && addRedosEnabled){
+                    isRedo = true;
+                }
+
             } else {
                 //add Match 1+
-                Log.d("asdf", "switch " + String.valueOf(currNum) + " " + String.valueOf(currIsQual));
                 if(currNum > 1){
                     for (int i = 1; i < currNum; i++) {
                         MatchDescriptor md = new MatchDescriptor(i, new int[6], currIsQual, true, "");
@@ -136,10 +143,12 @@ public class Schedule {
             }
 
             //add the current match
-            Log.d("asdf", String.valueOf(currNum) + " " + String.valueOf(currIsQual));
-            replaceList.add(matchDescriptor);
-            matches.add(Match.getFromDescriptor(matchDescriptor));
+            if(! isRedo) {
+                Log.d("asdf", String.valueOf(currNum) + " " + String.valueOf(currIsQual));
+                matches.add(Match.getFromDescriptor(matchDescriptor));
+            }
 
+            replaceList.add(matchDescriptor);
             lastNum = currNum;
             lastIsQual = currIsQual;
         }

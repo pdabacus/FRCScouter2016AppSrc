@@ -128,8 +128,10 @@ public class Schedule {
                 //set rematch status
                 if (lastNum == currNum) {
                     isRematch = true;
-                    //TODO make this new match be a REMATCH (optional, as only difference is the title in the app)
-                    matches.add(Match.getFromDescriptor(matchDescriptor));
+                    //TODO make this new match be a REMATCH
+                    //TODO or
+                    //TODO never call this and have REMATCH created elsewhere
+                    //matches.add(Match.getFromDescriptor(matchDescriptor));
                 }
             } else {
                 //add Elim 1

@@ -134,7 +134,9 @@ public class Schedule {
             } else {
                 //add Elim 1
                 if(currNum > 1){
-                    lastNum = 0;
+                    for (int i = 1; i < currNum; i++) {
+                        matches.add(Match.getBlank(i, currIsQual));
+                    }
                 }
             }
 

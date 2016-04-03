@@ -126,7 +126,7 @@ public class Schedule {
                 }
 
                 //whether to add redo matches or not
-                if(lastNum == currNum && !addRedosEnabled){
+                if(lastNum == currNum && addRedosEnabled){
                     addRedo = false;
                 }
 

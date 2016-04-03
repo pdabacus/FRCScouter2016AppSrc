@@ -102,9 +102,11 @@ public class Schedule {
         matches.clear();
 
         int lastNum = matchDescriptorList.get(0).getMatchNum();
-        boolean lastIsQual = ! matchDescriptorList.get(0).isQual();
+        boolean lastIsQual = matchDescriptorList.get(0).isQual();
         int currNum;
         boolean currIsQual;
+
+        lastNum = (lastNum > 1 ? 0 : lastNum); //comment out to disable auto adding Match 1+
 
         for(MatchDescriptor matchDescriptor : matchDescriptorList) {
 
@@ -120,12 +122,13 @@ public class Schedule {
                 //add Match 1+
                 if(currNum > 1){
                     for (int i = 1; i < currNum; i++) {
-                        matches.add(Match.getBlank(i, currIsQual)); //comment out to disable auto adding Match 1
+                        matches.add(Match.getBlank(i, currIsQual)); //comment out to disable auto adding Match 1+
                     }
                 }
             }
 
             //add the current match
+            Log.d("asdf", String.valueOf(currNum) + String.valueOf(currIsQual));
             matches.add(Match.getFromDescriptor(matchDescriptor));
 
             lastNum = currNum;

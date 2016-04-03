@@ -102,39 +102,27 @@ public class Schedule {
         matches.clear();
 
         int lastNum = matchDescriptorList.get(0).getMatchNum();
-        boolean lastIsQual = matchDescriptorList.get(0).isQual();
+        boolean lastIsQual = ! matchDescriptorList.get(0).isQual();
         int currNum;
         boolean currIsQual;
 
-        boolean isRematch;
-
         //add Qual 1
-        if(lastNum > 1){
-            lastNum = 0;
-        }
+       // if(lastNum > 1){
+       //     lastNum = 0;
+       // }
 
         for(MatchDescriptor matchDescriptor : matchDescriptorList) {
 
             currNum = matchDescriptor.getMatchNum();
             currIsQual = matchDescriptor.isQual();
-            isRematch = false;
 
             if(lastIsQual == currIsQual) {
                 //add blanks
                 for (int i = lastNum + 1; i < currNum; i++) {
                     matches.add(Match.getBlank(i, currIsQual));
                 }
-
-                //set rematch status
-                if (lastNum == currNum) {
-                    isRematch = true;
-                    //TODO make this new match be a REMATCH
-                    //TODO or
-                    //TODO never call this and have REMATCH created elsewhere
-                    //matches.add(Match.getFromDescriptor(matchDescriptor));
-                }
             } else {
-                //add Elim 1
+                //add Match 1+
                 if(currNum > 1){
                     for (int i = 1; i < currNum; i++) {
                         matches.add(Match.getBlank(i, currIsQual));
@@ -142,10 +130,8 @@ public class Schedule {
                 }
             }
 
-            //add the current match (and rematch)
-            if (! isRematch) {
-                matches.add(Match.getFromDescriptor(matchDescriptor));
-            }
+            //add the current match
+            matches.add(Match.getFromDescriptor(matchDescriptor));
 
             lastNum = currNum;
             lastIsQual = currIsQual;

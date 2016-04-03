@@ -138,10 +138,10 @@ public class MatchDescriptor implements Serializable, Comparable {
             int b = other.getMatchNum();
 
             if(a < b){
-                return 1;
+                return -1;
             }
             if(a > b){
-                return -1;
+                return 1;
             }
             return 0;
 

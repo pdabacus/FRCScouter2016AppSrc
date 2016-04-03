@@ -101,29 +101,41 @@ public class Schedule {
         Collections.sort(matchDescriptorList);
         matches.clear();
 
-        int lastNum = 1;
+        int lastNum = matchDescriptorList.get(0).getMatchNum();
         int currNum;
-        Match newMatch;
-        boolean lastMatchWasQual = matchDescriptorList.get(0).isQual();
+        boolean lastIsQual = matchDescriptorList.get(0).isQual();
+        boolean currIsQual;
+        boolean isRematch;
 
         for(MatchDescriptor matchDescriptor : matchDescriptorList) {
+
             currNum = matchDescriptor.getMatchNum();
+            currIsQual = matchDescriptor.isQual();
+            isRematch = false;
 
-            if(!matchDescriptor.isQual() && lastMatchWasQual) {
-                lastNum = 1;
+            if(lastIsQual && currIsQual) {
+                //add blanks
+                for (int i = lastNum + 1; i < currNum; i++) {
+                    matches.add(Match.getBlank(i, matchDescriptor.isQual()));
+                }
+
+                //add rematch
+                if (lastNum == currNum) {
+                    matches.add(Match.getBlank(lastNum, matchDescriptor.isQual()));
+                    isRematch = true;
+                }
             }
 
-            for(int i=lastNum; i<currNum; i++) {
-                Log.d("Blank Match" , String.valueOf(lastNum));
-                newMatch = Match.getBlank(i,matchDescriptor.isQual());
-                matches.add(newMatch);
+            //add the current match
+            if (isRematch) {
+                //TODO make this new match be a REMATCH
+                matches.add(Match.getFromDescriptor(matchDescriptor));
+            } else {
+                matches.add(Match.getFromDescriptor(matchDescriptor));
             }
-
-            newMatch = Match.getFromDescriptor(matchDescriptor);
-            matches.add(newMatch);
 
             lastNum = currNum;
-            lastMatchWasQual = matchDescriptor.isQual();
+            lastIsQual = currIsQual;
         }
 
         if(scheduleChangeListener != null) {

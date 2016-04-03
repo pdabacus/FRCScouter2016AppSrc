@@ -16,7 +16,6 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
-import org.ncfrcteams.frcscoutinghub2016.communication.qr.MultiQRDialog;
 import org.ncfrcteams.frcscoutinghub2016.ui.hub.HubActivity;
 import org.ncfrcteams.frcscoutinghub2016.ui.scout.ScoutMainActivity;
 

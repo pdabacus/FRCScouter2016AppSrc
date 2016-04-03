@@ -1,4 +1,4 @@
-package org.ncfrcteams.frcscoutinghub2016.communication.qr;
+package org.ncfrcteams.frcscoutinghub2016.ui;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -17,6 +17,8 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
+import org.ncfrcteams.frcscoutinghub2016.communication.qr.Contents;
+import org.ncfrcteams.frcscoutinghub2016.communication.qr.QRCodeEncoder;
 
 /**
  * Created by Kyle Brown on 3/20/2016.

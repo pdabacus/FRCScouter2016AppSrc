@@ -11,7 +11,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
-import org.ncfrcteams.frcscoutinghub2016.communication.qr.MultiQRDialog;
+import org.ncfrcteams.frcscoutinghub2016.ui.MultiQRDialog;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.matchschedule.Match;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.matchschedule.MatchDescriptor;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.matchschedule.Schedule;
@@ -77,8 +77,6 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
         new TempDialog1(getContext(), this, myListAdapter.getItem(position)).show();
-        //Toast.makeText(getActivity(), myListAdapter.getItem(position).getTitle(), Toast.LENGTH_SHORT).show();
-        //mListener.switchToDetails(myListAdapter.getItem(position));
     }
 
     @Override

@@ -81,7 +81,7 @@ public class HubPageAdapter extends FragmentPagerAdapter implements POST.POSTLis
         Toast.makeText(context, "autopush", Toast.LENGTH_SHORT).show();
     }
 
-    //*********************************** sms Methods **********************************************
+    //*********************************** SMS Methods **********************************************
 
     public void addSMStoSchedule(String number, String message){
         String result = listView.mySchedule.addSMS(message);

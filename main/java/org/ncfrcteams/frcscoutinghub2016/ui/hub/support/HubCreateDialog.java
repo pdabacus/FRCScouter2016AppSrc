@@ -36,8 +36,7 @@ public class HubCreateDialog{
 
         this.matchtitles = new String[matchtitles.size()];
         for(int i = 0; i < matchtitles.size(); i++) {
-            this.matchtitles[i] = matchtitles.get(i);
-            Toast.makeText(context, this.matchtitles[i], Toast.LENGTH_SHORT).show();
+            this.matchtitles[i] = matchtitles.get(i).trim();
         }
 
         String phonenum = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getLine1Number();

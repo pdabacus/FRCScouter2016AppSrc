@@ -116,19 +116,24 @@ public class Schedule {
             if(lastIsQual == currIsQual) {
                 //add blanks
                 for (int i = lastNum + 1; i < currNum; i++) {
-                    matches.add(Match.getBlank(i, currIsQual));
+                    MatchDescriptor md = new MatchDescriptor(i, new int[6], currIsQual, true, "");
+                    matchDescriptorList.add(md);
+                    matches.add(new Match(md));
                 }
             } else {
                 //add Match 1+
+                Log.d("asdf", "switch " + String.valueOf(currNum) + " " + String.valueOf(currIsQual));
                 if(currNum > 1){
                     for (int i = 1; i < currNum; i++) {
-                        matches.add(Match.getBlank(i, currIsQual)); //comment out to disable auto adding Match 1+
+                        MatchDescriptor md = new MatchDescriptor(i, new int[6], currIsQual, true, "");
+                        matchDescriptorList.add(md);
+                        matches.add(new Match(md));
                     }
                 }
             }
 
             //add the current match
-            Log.d("asdf", String.valueOf(currNum) + String.valueOf(currIsQual));
+            Log.d("asdf", String.valueOf(currNum) + " " + String.valueOf(currIsQual));
             matches.add(Match.getFromDescriptor(matchDescriptor));
 
             lastNum = currNum;

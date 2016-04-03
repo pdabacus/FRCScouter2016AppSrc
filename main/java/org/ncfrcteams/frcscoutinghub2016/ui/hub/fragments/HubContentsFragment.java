@@ -13,10 +13,11 @@ import android.widget.TextView;
 import org.ncfrcteams.frcscoutinghub2016.R;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.Obstacle;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.matchschedule.Match;
+import org.ncfrcteams.frcscoutinghub2016.matchdata.matchschedule.MatchDescriptor;
 
 public class HubContentsFragment extends Fragment implements View.OnClickListener {
     private boolean isSaved = true;
-    private Match match = Match.getBlank(30, true);
+    private Match match = new Match(new MatchDescriptor(30, new int[6], true, true, ""));
     private HubContentsFragListener mListener;
 
     private TextView title;

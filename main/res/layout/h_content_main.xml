@@ -8,7 +8,7 @@
     tools:context=".hub.HubActivity"
     tools:showIn="@layout/h_activity_main">
 
-    <org.ncfrcteams.frcscoutinghub2016.ui.CustomViewPager
+    <org.ncfrcteams.frcscoutinghub2016.ui.hub.support.CustomViewPager
         android:id="@+id/hubViewPager"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />

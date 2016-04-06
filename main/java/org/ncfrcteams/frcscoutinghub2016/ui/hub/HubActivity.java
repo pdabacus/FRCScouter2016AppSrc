@@ -1,7 +1,6 @@
 package org.ncfrcteams.frcscoutinghub2016.ui.hub;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -9,29 +8,24 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
-import org.ncfrcteams.frcscoutinghub2016.communication.http.PostClass;
 import org.ncfrcteams.frcscoutinghub2016.communication.sms_server.SmsReceiver;
-import org.ncfrcteams.frcscoutinghub2016.matchdata.schedule.Match;
-import org.ncfrcteams.frcscoutinghub2016.ui.CustomPageAdapter;
-import org.ncfrcteams.frcscoutinghub2016.ui.CustomViewPager;
+import org.ncfrcteams.frcscoutinghub2016.ui.hub.fragments.HubContentsFragment;
+import org.ncfrcteams.frcscoutinghub2016.ui.hub.fragments.HubListFragment;
+import org.ncfrcteams.frcscoutinghub2016.ui.hub.fragments.HubManageFragment;
+import org.ncfrcteams.frcscoutinghub2016.ui.hub.support.CustomViewPager;
+import org.ncfrcteams.frcscoutinghub2016.ui.hub.support.HubPageAdapter;
 
 import java.util.ArrayList;
 
 public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsListener,
-         HubCreateFragment.HubCreateFragListener, HubListFragment.HubListFragListener,
-        HubContentsFragment.HubContentsFragListener{
+        HubManageFragment.HubCreateFragListener, HubListFragment.HubListFragListener,
+        HubContentsFragment.HubContentsFragListener, HubCreateMatchDialog.HubCreateDialogListener {
 
     private CustomViewPager hubViewPager;
-    private CustomPageAdapter myPageAdapter;
-    private String user = "test";
-    private String pass = "test";
-    private boolean inDetailFrag = false;
+    private HubPageAdapter hubPageAdapter;
+    private boolean inDetailFrag;
     private boolean backpress;
     private SmsReceiver smsReceiver;
-
-    private HubCreateFragment createFragment;
-    private HubContentsFragment contentsFragment;
-    private HubListFragment listFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,30 +36,15 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
         hubViewPager.setPagingEnabled(false);
         setSupportActionBar(toolbar);
 
-        ArrayList<Fragment> fragments = new ArrayList<>();
-        createFragment = HubCreateFragment.newInstance();
-        contentsFragment = HubContentsFragment.newInstance();
-        listFragment = HubListFragment.newInstance();
-
-        fragments.add(createFragment);
-        fragments.add(listFragment);
-        fragments.add(contentsFragment);
-
-        ArrayList<String> fragTitles = new ArrayList<>();
-        fragTitles.add("Create");
-        fragTitles.add("Schedule");
-        fragTitles.add("Details");
-
-        myPageAdapter = new CustomPageAdapter(getSupportFragmentManager(), fragments, fragTitles);
-        hubViewPager.setAdapter(myPageAdapter);
-        hubViewPager.setCurrentItem(1);
-
         inDetailFrag = false;
+
+        hubPageAdapter = new HubPageAdapter(this, getSupportFragmentManager());
+        hubViewPager.setAdapter(hubPageAdapter);
+        hubViewPager.setCurrentItem(1);
 
         smsReceiver = new SmsReceiver(this);
         smsReceiver.register();
         smsReceiver.setSmsListener(this);
-        backpress = false;
     }
 
     @Override
@@ -79,10 +58,26 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
         super.onDestroy();
         try {
             smsReceiver.unregister();
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        if (inDetailFrag) {
+            switchAwayFromDetailFrag(1);
+        } else {
+            if (backpress) {
+                super.onBackPressed();
+            } else {
+                backpress = true;
+                Toast.makeText(this, "Press Back Again To Exit", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    //******************************** HubActivity OnClick Listener ********************************
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -93,81 +88,60 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.hubnew:
+            case R.id.hubpost:
                 switchAwayFromDetailFrag(0);
                 return true;
             case R.id.hubview:
                 switchAwayFromDetailFrag(1);
                 return true;
-            case R.id.hubpush:
-                if (user.equals("test")){
-                    //TODO prompt for user / pass
-                    user = "4828";
-                    pass = "RoboEagles4828";
-                }
-                sendPostRequest(user, pass, ((HubListFragment) myPageAdapter.fragments.get(1)).getDatabase());
-                return true;
+            case R.id.hubnew:
+                switchAwayFromDetailFrag(1);
+                ArrayList<String> matchTitles = hubPageAdapter.listView.mySchedule.getMatchTitles();
+                new HubCreateMatchDialog(this, this, matchTitles).show();
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    //************************************ SmsReceiver Listener ************************************
     @Override
-    public void onBackPressed() {
-        if(inDetailFrag){
-            switchAwayFromDetailFrag(1);
+    public void smsReceived(String number, String message) {
+        hubPageAdapter.addSMStoSchedule(number, message);
+    }
+
+    //********************************* HubManageFragment Listener *********************************
+    @Override
+    public void POSTRequest(String requestType) {
+        if (hubPageAdapter.isValidUser()){
+            hubPageAdapter.setAlternativeUser(); // go from (temp, temp) to (4828, RoboEagles4828)
+            Toast.makeText(this, "Login First", Toast.LENGTH_SHORT).show();
         } else {
-            if(backpress) {
-                super.onBackPressed();
-            } else{
-                backpress = true;
-                Toast.makeText(this, "Press Back Again To Exit", Toast.LENGTH_SHORT).show();
-            }
+            hubPageAdapter.POSTRequest(requestType);
         }
     }
 
-    public void sendPostRequest(String user, String pass, String data) {
-        String urlstring = "http://pavanec2.us.to/frc/database/update/view/index.php";
-        new PostClass(this, urlstring, user, pass, data, true).execute();
-    }
-
+    //******************************** HubListViewFragment Listener ********************************
     @Override
-    public void smsReceived(String number, String message) { //launched from smsReceiver
-        String result = listFragment.mySchedule.addSMS(message);
-        Toast.makeText(this, number + " updated " + result, Toast.LENGTH_LONG).show();
+    public void autopush() {
+        hubPageAdapter.autopush();
     }
 
+    //******************************** HubContentsFragment Listener ********************************
     @Override
-    public void autopush() { //launched from hubListFragment
-        Toast.makeText(this, "autopush", Toast.LENGTH_SHORT).show(); //TODO auto push to server
-    }
-
-    @Override
-    public void switchToDetails(int matchId){ //launched from hubListFragment
-        inDetailFrag = true;
-        contentsFragment.reset(listFragment.getMatchFromId(matchId));
-        hubViewPager.setCurrentItem(2);
-    }
-
-    @Override                                //launched from hubCreateFragment
-    public void addNewMatch(int[] teams, int matchnum, boolean isQual, String phonenum) {
-        listFragment.addNewMatch(teams, matchnum, isQual, phonenum);
-    }
-
-    @Override
-    public ArrayList<String> getMatchTitles() { //launched from hubCreateFragment
-        return listFragment.mySchedule.getMatchTitles();
-    }
-
-    @Override
-    public void saveContents(int i) { //launched from hubContentsFragment
+    public void saveContents(int i) {
         switchAwayFromDetailFrag(i);
     }
 
-    public void switchAwayFromDetailFrag(int i){ //called by saveContents(), back button, and viewpager
+    //******************************* HubContentsFragment.save() Call ******************************
+    public void switchAwayFromDetailFrag(int i){
         inDetailFrag = false;
-        contentsFragment.save();
+        //hubPageAdapter.content.save();
         hubViewPager.setCurrentItem(i);
     }
 
+    //********************************** HubCreateMatchDialog Listener **********************************
+    @Override
+    public void onNewMatchCreate(int[] teams, int matchnum, boolean isQual, String phonenum) {
+        hubPageAdapter.listView.addNewMatch(teams, matchnum, isQual, phonenum);
+    }
 }

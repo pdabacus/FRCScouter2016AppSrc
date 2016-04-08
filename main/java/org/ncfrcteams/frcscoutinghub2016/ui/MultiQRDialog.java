@@ -45,8 +45,6 @@ public class MultiQRDialog {
             }
         };
 
-        //ViewPager viewPager = view;
-        //viewPager.setAdapter(new QRPagerAdapter(context,contents));
         view.setAdapter(new QRPagerAdapter(context,contents));
 
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
@@ -56,7 +54,6 @@ public class MultiQRDialog {
         //***********************************Making The Dialog*****************************************
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setView(view);
-        //alert.setTitle("QR Codes");
         alert.setPositiveButton("Done", listener);
         dialog = alert.create();
     }

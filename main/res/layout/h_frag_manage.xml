@@ -54,6 +54,15 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Set Up Schedule"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/setupSchedule"
+                android:textSize="20sp"
+                android:padding="15dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Sign In"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textSize="20sp"

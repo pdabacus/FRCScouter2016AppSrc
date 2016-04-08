@@ -8,8 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.ncfrcteams.frcscoutinghub2016.R;
+import org.ncfrcteams.frcscoutinghub2016.matchdata.bluealliance.EventSelectorDialog;
 
-public class HubManageFragment extends Fragment implements View.OnClickListener{
+public class HubManageFragment extends Fragment implements View.OnClickListener, EventSelectorDialog.EventScheduleListener {
 
     private HubCreateFragListener mListener;
     public HubManageFragment() {
@@ -22,6 +23,8 @@ public class HubManageFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        EventSelectorDialog eventSelectorDialog = new EventSelectorDialog(getContext(),null);
     }
 
     @Override
@@ -30,6 +33,7 @@ public class HubManageFragment extends Fragment implements View.OnClickListener{
 
         view.findViewById(R.id.uploadDatabase).setOnClickListener(this);
         view.findViewById(R.id.downloadDatabase).setOnClickListener(this);
+        view.findViewById(R.id.setupSchedule).setOnClickListener(this);
 
         return view;
     }
@@ -58,12 +62,20 @@ public class HubManageFragment extends Fragment implements View.OnClickListener{
                 break;
             case R.id.downloadDatabase:
                 mListener.POSTRequest("download");
+            case R.id.setupSchedule:
+                EventSelectorDialog dialog = new EventSelectorDialog(getContext(),this);
             default:
                 break;
         }
     }
 
+    @Override
+    public void scheduleListener(String schedule) {
+        mListener.uploadSchedule(schedule);
+    }
+
     public interface HubCreateFragListener {
         void POSTRequest(String requestType);
+        void uploadSchedule(String schedule);
     }
 }

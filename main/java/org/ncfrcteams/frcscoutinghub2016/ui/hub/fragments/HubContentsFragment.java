@@ -85,39 +85,6 @@ public class HubContentsFragment extends Fragment implements View.OnClickListene
         return view;
     }
 
-<<<<<<< HEAD:main/java/org/ncfrcteams/frcscoutinghub2016/ui/hub/HubContentsFragment.java
-//    public void setMatchId(int newMatchId) {
-//        isSaved = false;
-//        matchId = newMatchId;
-//        match = mListener.getMatchFromId(matchId);
-//        reset(match);
-//    }
-
-    public void reset(Match match) {
-        title.setText(match.getTitle());
-
-        int[] nums = match.getTeams();
-
-        for(int i=0;i<teamNumbers.length;i++) {
-            teamNumbers[i].setText(String.valueOf(nums[i]));
-        }
-
-        Obstacle[] obstacles = match.getObstacles();
-
-        String name;
-        int id;
-        for(int i=0; i<positions.length; i++) {
-            name = "barrier" + obstacles[i].getValue();
-            id = getResources().getIdentifier(name, "drawable", getActivity().getPackageName());
-
-            positions[i].setImageResource(id);
-        }
-
-        selected = null;
-    }
-
-=======
->>>>>>> eb1e8565c019f159e4735b26cb6371d53529fc76:main/java/org/ncfrcteams/frcscoutinghub2016/ui/hub/fragments/HubContentsFragment.java
     @Override
     public void onClick(View v) {
         int id = v.getId();

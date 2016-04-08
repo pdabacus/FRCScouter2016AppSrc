@@ -78,7 +78,6 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
     }
 
     //******************************** HubActivity OnClick Listener ********************************
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_hub, menu);
@@ -118,6 +117,11 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
         } else {
             hubPageAdapter.POSTRequest(requestType);
         }
+    }
+
+    @Override
+    public void uploadSchedule(String schedule) {
+
     }
 
     //******************************** HubListViewFragment Listener ********************************

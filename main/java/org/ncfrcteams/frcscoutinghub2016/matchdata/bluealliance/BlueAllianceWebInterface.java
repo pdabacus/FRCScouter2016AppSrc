@@ -50,11 +50,10 @@ public class BlueAllianceWebInterface {
                     JPList2 list2 = object2.getAsType(JPList2.class);
                 }
 
-                JPObject json = JsonParser.getObject(reader);
-                if(json == null) {
-                    Log.d("JP", "json is null");
-                    return null;
-                }
+//                JPObject2 object2 = JsonParser2.getObject(reader);
+//                if(object2 != null) {
+//                    JPList2 list2 = object2.getAsType(JPList2.class);
+//                }
 
                 Log.d("JP", "type = " + json.getType());
                 JPList list = ((JPList) json.getAsType(JPList.class));

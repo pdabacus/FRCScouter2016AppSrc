@@ -1,13 +1,24 @@
 package org.ncfrcteams.frcscoutinghub2016.matchdata.bluealliance.jsonparse;
 
 
+import org.ncfrcteams.frcscoutinghub2016.matchdata.Obstacle;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * Created by Kyle Brown on 4/7/2016.
  */
-public class JPObject {
+public class JPObject<T> {
+    private T t;
+
+    public JPObject(T t) {
+        this.t = t;
+    }
 
     public <V> V getAsType(Class<V> v) {
-        Object o = this;
+        Object o = t;
         if(v.isInstance(o)) {
             return (V) o;
         } else {
@@ -15,9 +26,7 @@ public class JPObject {
         }
     }
 
-//    public <U> U getAs
-
     public Class getType() {
-        return JPObject.class;
+        return t.getClass();
     }
 }

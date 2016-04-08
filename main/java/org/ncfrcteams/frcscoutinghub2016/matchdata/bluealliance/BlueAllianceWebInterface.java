@@ -7,8 +7,10 @@ import android.util.Log;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.bluealliance.jsonparse.JPList;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.bluealliance.jsonparse.JPMap;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.bluealliance.jsonparse.JPObject;
-import org.ncfrcteams.frcscoutinghub2016.matchdata.bluealliance.jsonparse.JPString;
 import org.ncfrcteams.frcscoutinghub2016.matchdata.bluealliance.jsonparse.JsonParser;
+import org.ncfrcteams.frcscoutinghub2016.matchdata.bluealliance.jsonparse2.JPList2;
+import org.ncfrcteams.frcscoutinghub2016.matchdata.bluealliance.jsonparse2.JPObject2;
+import org.ncfrcteams.frcscoutinghub2016.matchdata.bluealliance.jsonparse2.JsonParser2;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -24,7 +26,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 /**
  * Created by Kyle Brown on 4/6/2016.
@@ -40,14 +41,14 @@ public class BlueAllianceWebInterface {
             URL eventUrl = new URL("https://www.thebluealliance.com/api/v2/events/" + Integer.toString(year));
             Log.d("JP","URL String = " + eventUrl.toString());
 
-            String shortName = "";
-            String startDate = "";
-            String key = "";
-            boolean working;
-
             try(InputStream is = getInputStream(eventUrl)) {
 
                 JsonReader reader = new JsonReader(new InputStreamReader(is));
+
+                JPObject2 object2 = JsonParser2.getObject(reader);
+                if(object2 != null) {
+                    JPList2 list2 = object2.getAsType(JPList2.class);
+                }
 
                 JPObject json = JsonParser.getObject(reader);
                 if(json == null) {
@@ -56,46 +57,37 @@ public class BlueAllianceWebInterface {
                 }
 
                 Log.d("JP", "type = " + json.getType());
-                JPList jpList = json.getAsType(JPList.class);
-                List<JPObject> list;
+                JPList list = ((JPList) json.getAsType(JPList.class));
 
-                JPMap jpMap;
-                Map<String,JPObject> map;
+                JPMap map;
 
-                JPString shortNameObj;
-                JPString startDateObj;
-                JPString keyObj;
+                String shortName = "";
+                String startDate = "";
+                String key = "";
 
-                if(jpList != null) {
-                    list = jpList.getList();
+                boolean working;
+
+                if(list != null) {
 
                     for(JPObject jpObject : list) {
                         working = true;
 
-                        jpMap = jpObject.getAsType(JPMap.class);
+                        map = ((JPMap) jpObject.getAsType(JPMap.class));
 
-                        if(jpMap != null) {
-                            map = jpMap.getMap();
-
+                        if(map != null) {
                             //**********************************************************************
-                            shortNameObj = map.get("short_name").getAsType(JPString.class);
-                            if(shortNameObj != null)
-                                shortName = shortNameObj.getString();
-                            else
+                            shortName = ((String) map.get("short_name").getAsType(String.class));
+                            if(shortName == null)
                                 working = false;
 
                             //**********************************************************************
-                            startDateObj = map.get("start_date").getAsType(JPString.class);
-                            if(startDateObj != null)
-                                startDate = startDateObj.getString();
-                            else
+                            startDate = ((String) map.get("start_date").getAsType(String.class));
+                            if(startDate == null)
                                 working = false;
 
                             //**********************************************************************
-                            keyObj = map.get("key").getAsType(JPString.class);
-                            if(keyObj != null)
-                                key = keyObj.getString();
-                            else
+                            key = ((String) map.get("key").getAsType(String.class));
+                            if(key == null)
                                 working = false;
                         }
 
@@ -137,23 +129,17 @@ public class BlueAllianceWebInterface {
                     return null;
                 }
 
-                JPList jpList = json.getAsType(JPList.class);
-                List<JPObject> list;
+                JPList list = ((JPList) json.getAsType(JPList.class));
+                JPMap map;
 
-                JPMap jpMap;
-                Map<String,JPObject> map;
-
-                JPString compLevelObj;
-                JPString matchNumObj;
+                String compLevel;
+                String matchNumText;
 
                 JPMap allianceMap;
                 JPList blueAllianceList;
                 JPList redAllianceList;
 
-                if(jpList != null) {
-                    list = jpList.getList();
-
-                    String compLevel = "";
+                if(list != null) {
                     int matchNumber = 0;
                     int[] teams;
                     boolean working;
@@ -162,51 +148,48 @@ public class BlueAllianceWebInterface {
                         working = true;
                         teams = new int[6];
 
-                        jpMap = jpObject.getAsType(JPMap.class);
+                        map = ((JPMap) jpObject.getAsType(JPMap.class));
 
-                        if(jpMap != null) {
-                            map = jpMap.getMap();
+                        if(map != null) {
 
                             //**********************************************************************
-                            compLevelObj = map.get("comp_level").getAsType(JPString.class);
-                            if(compLevelObj != null)
-                                compLevel = compLevelObj.getString();
+                            compLevel = ((String) map.get("comp_level").getAsType(String.class));
+                            if(compLevel == null)
+                                working = false;
+
+                            //**********************************************************************
+                            matchNumText = ((String) map.get("match_number").getAsType(String.class));
+                            if(matchNumText != null)
+                                matchNumber = Integer.parseInt(matchNumText);
                             else
                                 working = false;
 
                             //**********************************************************************
-                            matchNumObj = map.get("match_number").getAsType(JPString.class);
-                            if(matchNumObj != null)
-                                matchNumber = Integer.parseInt(matchNumObj.getString());
-                            else
-                                working = false;
-
-                            //**********************************************************************
-                            allianceMap = map.get("alliances").getAsType(JPMap.class);
+                            allianceMap = ((JPMap) map.get("alliances").getAsType(JPMap.class));
                             if(allianceMap != null) {
                                 //***
-                                redAllianceList = allianceMap.getMap().get("red").getAsType(JPMap.class).get("teams").getAsType(JPList.class);
+                                redAllianceList = ((JPList) ((JPMap) allianceMap.get("red").getAsType(JPMap.class)).get("teams").getAsType(JPList.class));
                                 if(redAllianceList != null) {
                                     for(int i=0; i<3; i++)
-                                        teams[i] = getTeamNumFromID(redAllianceList.getList().get(i).getAsType(JPString.class).getString());
+                                        teams[i] = getTeamNumFromID(((String) redAllianceList.get(i).getAsType(String.class)));
                                 } else {
                                     working = false;
                                 }
                                 //***
-                                blueAllianceList = allianceMap.getMap().get("blue").getAsType(JPMap.class).get("teams").getAsType(JPList.class);
+                                blueAllianceList = ((JPList) ((JPMap) allianceMap.get("blue").getAsType(JPMap.class)).get("teams").getAsType(JPList.class));
                                 if(blueAllianceList != null) {
                                     for(int i=0; i<3; i++)
-                                        teams[i+3] = getTeamNumFromID(blueAllianceList.getList().get(i).getAsType(JPString.class).getString());
+                                        teams[i+3] = getTeamNumFromID(((String) blueAllianceList.get(i).getAsType(String.class)));
                                 } else {
                                     working = false;
                                 }
                             } else {
                                 working = false;
                             }
-                        }
 
-                        if(working) {
-                            scheduleRows.add(new ScheduleRow(compLevel,matchNumber,teams));
+                            if(working) {
+                                scheduleRows.add(new ScheduleRow(compLevel,matchNumber,teams));
+                            }
                         }
                     }
                 }
@@ -296,6 +279,7 @@ public class BlueAllianceWebInterface {
 
             StringBuilder out = new StringBuilder();
 
+            out.append("Q");
             out.append(matchNum);
             out.append(",");
             for(int teamNum : teams) {

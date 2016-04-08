@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,7 +28,7 @@ import java.util.List;
 /**
  * Created by Kyle Brown on 4/6/2016.
  */
-public class EventSelectorDialog implements android.view.View.OnClickListener, ListView.OnItemClickListener {
+public class EventSelectorDialog implements android.view.View.OnTouchListener, ListView.OnItemClickListener {
     private Context context;
 
     private Dialog dialog;
@@ -59,8 +60,8 @@ public class EventSelectorDialog implements android.view.View.OnClickListener, L
 
         startDateView.setText(dateToString(startDate));
         endDateView.setText(dateToString(endDate));
-        startDateView.setOnClickListener(this);
-        endDateView.setOnClickListener(this);
+        startDateView.setOnTouchListener(this);
+        endDateView.setOnTouchListener(this);
 
         adapter = new ArrayAdapter<>(context,android.R.layout.simple_list_item_1, new ArrayList<String>());
         eventListView.setAdapter(adapter);
@@ -80,14 +81,14 @@ public class EventSelectorDialog implements android.view.View.OnClickListener, L
     }
 
     @Override
-    public void onClick(View v) {
-        if(v.getId() == startDateView.getId() || v.getId() == endDateView.getId()) {
-            startDate = stringToDate(startDateView.getText().toString());
-            endDate = stringToDate(endDateView.getText().toString());
+    public boolean onTouch(View v, MotionEvent m) {
+        startDate = stringToDate(startDateView.getText().toString());
+        endDate = stringToDate(endDateView.getText().toString());
 
-            EventListUpdateTask listViewTask = new EventListUpdateTask(this,adapter);
-            listViewTask.execute(startDate,endDate);
-        }
+        EventListUpdateTask listViewTask = new EventListUpdateTask(this,adapter);
+        listViewTask.execute(startDate,endDate);
+
+        return false;
     }
 
     @Override

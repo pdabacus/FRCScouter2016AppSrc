@@ -1,7 +1,8 @@
-package org.ncfrcteams.frcscoutinghub2016.matchdata.bluealliance.jsonparse;
+package org.ncfrcteams.frcscoutinghub2016.matchdata.bluealliance.jsonparse2;
 
 import android.util.JsonReader;
 import android.util.JsonToken;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,13 +13,13 @@ import java.util.Map;
 /**
  * Created by Kyle Brown on 4/7/2016.
  */
-public class JsonParser {
+public class JsonParser2 {
 
-    public static JPObject getObject(JsonReader reader) {
+    public static JPObject2 getObject(JsonReader reader) {
         try {
             switch (reader.peek()) {
                 case BEGIN_OBJECT:
-                    JPMap map = new JPMap();
+                    Map<String, JPObject2> map = new HashMap<>();
 
                     reader.beginObject();
                     while (reader.peek() != JsonToken.END_OBJECT) {
@@ -26,10 +27,10 @@ public class JsonParser {
                     }
                     reader.endObject();
 
-                    return new JPObject<>(map);
+                    return new JPMap2(map);
 
                 case BEGIN_ARRAY:
-                    JPList list = new JPList();
+                    List<JPObject2> list = new ArrayList<>();
 
                     reader.beginArray();
                     while (reader.peek() != JsonToken.END_ARRAY) {
@@ -37,11 +38,11 @@ public class JsonParser {
                     }
                     reader.endArray();
 
-                    return new JPObject<>(list);
+                    return new JPList2(list);
 
                 case NUMBER:
                 case STRING:
-                    return new JPObject<>(reader.nextString());
+                    return new JPString2(reader.nextString());
 
                 default:
                     reader.skipValue();

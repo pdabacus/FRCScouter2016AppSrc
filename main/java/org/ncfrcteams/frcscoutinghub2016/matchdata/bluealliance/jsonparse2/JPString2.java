@@ -1,14 +1,12 @@
-package org.ncfrcteams.frcscoutinghub2016.matchdata.bluealliance.jsonparse;
-
-import java.util.Map;
+package org.ncfrcteams.frcscoutinghub2016.matchdata.bluealliance.jsonparse2;
 
 /**
  * Created by Kyle Brown on 4/7/2016.
  */
-public class JPString extends JPObject {
+public class JPString2 extends JPObject2 {
     private String string;
 
-    public JPString(String string) {
+    public JPString2(String string) {
         this.string = string;
     }
 
@@ -17,6 +15,6 @@ public class JPString extends JPObject {
     }
 
     public Class getType() {
-        return JPString.class;
+        return JPString2.class;
     }
 }

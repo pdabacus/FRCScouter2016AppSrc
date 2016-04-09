@@ -32,6 +32,7 @@ public class HubManageFragment extends Fragment implements View.OnClickListener,
         view.findViewById(R.id.uploadDatabase).setOnClickListener(this);
         view.findViewById(R.id.downloadDatabase).setOnClickListener(this);
         view.findViewById(R.id.setupSchedule).setOnClickListener(this);
+        view.findViewById(R.id.signin).setOnClickListener(this);
 
         return view;
     }
@@ -60,8 +61,13 @@ public class HubManageFragment extends Fragment implements View.OnClickListener,
                 break;
             case R.id.downloadDatabase:
                 mListener.POSTRequest("download", "extra");
+                break;
             case R.id.setupSchedule:
                 //EventSelectorDialog dialog = new EventSelectorDialog(getContext(),this);
+                break;
+            case R.id.signin:
+                mListener.signin();
+                break;
             default:
                 break;
         }
@@ -74,5 +80,6 @@ public class HubManageFragment extends Fragment implements View.OnClickListener,
 
     public interface HubCreateFragListener {
         void POSTRequest(String requestType, String extra);
+        void signin();
     }
 }

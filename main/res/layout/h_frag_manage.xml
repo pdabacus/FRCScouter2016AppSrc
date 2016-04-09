@@ -65,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:text="Sign In"
                 android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/signin"
                 android:textSize="20sp"
                 android:padding="15dp" />
 

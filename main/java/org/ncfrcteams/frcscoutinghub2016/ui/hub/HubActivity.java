@@ -114,6 +114,11 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
         hubPageAdapter.POSTRequest(requestType, extra);
     }
 
+    @Override
+    public void signin() {
+        hubPageAdapter.signin();
+    }
+
     //******************************** HubListViewFragment Listener ********************************
     @Override
     public void autopush() {

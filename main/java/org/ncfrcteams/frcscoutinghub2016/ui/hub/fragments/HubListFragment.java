@@ -112,11 +112,11 @@ public class HubListFragment extends Fragment implements AdapterView.OnItemClick
 
     public void POSTResult(String returnAddress, String result){
         switch (returnAddress){
-            case "downloads":
-                //ask what to do
+            case "download":
+                Toast.makeText(getContext(), "Downloaded Database", Toast.LENGTH_SHORT).show();
+                //TODO ask what to do with downloaded data
                 break;
             default:
-                Toast.makeText(getContext(), returnAddress + ": " + result, Toast.LENGTH_SHORT).show();
                 break;
         }
     }

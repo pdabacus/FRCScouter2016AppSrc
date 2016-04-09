@@ -48,7 +48,7 @@ public class POST extends AsyncTask<String, Void, Void> {
 
     protected void onPreExecute(){
         progress = new ProgressDialog(this.context);
-        progress.setMessage("Uploading Data...");
+        progress.setMessage(Character.toUpperCase(this.returnAddress.charAt(0)) + this.returnAddress.substring(1) + "ing Data...");
         progress.setIndeterminate(true);
         progress.show();
     }

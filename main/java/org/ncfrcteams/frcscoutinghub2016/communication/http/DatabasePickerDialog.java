@@ -43,7 +43,7 @@ public class DatabasePickerDialog{
         thisDialog.view = new ListView(context);
         thisDialog.adapter = new ArrayAdapter<>(context,android.R.layout.simple_list_item_1, new ArrayList<String>());
         alert.setView(thisDialog.view);
-        alert.setTitle("Pick Database");
+        alert.setTitle("Pick Database:");
         thisDialog.view.setAdapter(thisDialog.adapter);
         thisDialog.view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -6,7 +6,7 @@ import android.util.Log;
 /**
  * Created by pavan on 4/1/16.
  */
-public class Poster implements DatabasePickerDialog.DatabasePickerListener{
+public class Poster implements DatabasePickerDialog.DatabasePickerListener, SignInDialog.SignInDialogListener{
 
     private static final String UPLOAD = "manage/auth/upload/index.php";
     private static final String DOWNLOAD = "manage/auth/download/index.php";
@@ -34,39 +34,8 @@ public class Poster implements DatabasePickerDialog.DatabasePickerListener{
         new POST(context, url, POSTs, data, pretty, listener, returnAddress).execute();
     }
 
-    public void reset(String url, String user, String pass, boolean pretty){
-        this.url = url;
-        this.user = user;
-        this.pass = pass;
-        this.pretty = pretty;
-    }
-
-    public boolean isValidUser(){
-        return user.equals("test"); //TODO better check based on results
-    }
-
-    public String getUser(){
-        return this.user;
-    }
-
-    public String getPass(){
-        return this.pass;
-    }
-
-    public String getURL(){
-        return this.url;
-    }
-
-    public void setUser(String user){
-        this.user = user;
-    }
-
-    public void setPass(String pass){
-        this.pass = pass;
-    }
-
-    public void setURL(String url){
-        this.url =  url;
+    public void signin(){
+        new SignInDialog(context, this, user, pass, url).show();
     }
 
     public void uploadDatabase(String database) {
@@ -87,5 +56,12 @@ public class Poster implements DatabasePickerDialog.DatabasePickerListener{
 
         POSTs[2] = new String[] {"filename", filename};
         sendPostRequest(context, url, POSTs, FILES, pretty, returnAddress);
+    }
+
+    @Override
+    public void onSignIn(String user, String pass, String url) {
+        this.user = user;
+        this.pass = pass;
+        this.url = url;
     }
 }

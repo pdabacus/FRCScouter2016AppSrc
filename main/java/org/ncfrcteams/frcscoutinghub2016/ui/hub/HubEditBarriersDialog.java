@@ -1,7 +1,6 @@
 package org.ncfrcteams.frcscoutinghub2016.ui.hub;
 
 import android.app.Dialog;
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
@@ -36,7 +35,7 @@ public class HubEditBarriersDialog {
         final HubEditBarriersDialog thisDialog = this;
 
         thisDialog.context = context;
-        thisDialog.view = LayoutInflater.from(context).inflate(R.layout.h_dialog_temp1, null);
+        thisDialog.view = LayoutInflater.from(context).inflate(R.layout.h_dialog_barriers, null);
         thisDialog.match = match;
         thisDialog.listener = listener;
 

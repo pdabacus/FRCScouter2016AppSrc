@@ -64,12 +64,16 @@ public class HubPageAdapter extends FragmentPagerAdapter implements POST.POSTLis
                 poster.downloadDatabase();
                 break;
             case "database":
-                //TODO download then merge then upload again
+                //TODO download then merge then upload
                 poster.uploadDatabase(listView.mySchedule.getDatabase());
                 break;
             default:
                 break;
         }
+    }
+
+    public void signin(){
+        poster.signin();
     }
 
     public void autopush(){

@@ -31,7 +31,7 @@ public class HubPageAdapter extends FragmentPagerAdapter implements POST.POSTLis
         this.create = HubManageFragment.newInstance();
         this.listView = HubListFragment.newInstance();
         this.content = HubContentsFragment.newInstance();
-        this.poster = new Poster(context, "http://localhost/frc/database/", "test", "test", true, this);
+        this.poster = new Poster(context, "http://pavanec2.us.to/frc/database/", "test", "test", true, this);
     }
 
     //*********************************** HubPageAdapter Methods ***********************************
@@ -55,7 +55,7 @@ public class HubPageAdapter extends FragmentPagerAdapter implements POST.POSTLis
 
     //*********************************** Poster Methods ************************************
 
-    public void POSTRequest(String requestType){
+    public void POSTRequest(String requestType, String extra){
         switch(requestType){
             case "upload":
                 poster.uploadDatabase(listView.mySchedule.getDatabase());
@@ -63,17 +63,12 @@ public class HubPageAdapter extends FragmentPagerAdapter implements POST.POSTLis
             case "download":
                 poster.downloadDatabase();
                 break;
+            case "schedule":
+                poster.uploadSchedule(extra);
+                break;
             default:
                 break;
         }
-    }
-
-    public boolean isValidUser(){
-        return poster.isValidUser();
-    }
-
-    public void setAlternativeUser(){
-        poster.reset("http://pavanec2.us.to/frc/database/", "4828", "RoboEagles4828", true);
     }
 
     public void autopush(){

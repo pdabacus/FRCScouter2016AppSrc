@@ -7,11 +7,8 @@ import android.content.Context;
  */
 public class Poster {
 
-    private static final String CREATE = "create/view/index.php";
-    private static final String UPLOAD = "upload/view/index.php";
-    private static final String APPEND = "append/view/index.php";
-    private static final String DOWNLOAD = "download/view/index.php";
-    private static final String DELETE = "delete/view/index.php";
+    private static final String UPLOAD = "manage/auth/upload/index.php";
+    private static final String DOWNLOAD = "manage/auth/download/index.php";
     private Context context;
     private String url;
     private String user;
@@ -70,34 +67,22 @@ public class Poster {
         this.url =  url;
     }
 
-    public void createDatabase() {
-        String[][] POSTs = {{"team", user}, {"pass", pass}};
-        String[][] FILES = { {"NONONO", "NONONO"} };
-        sendPostRequest(context, url + CREATE, POSTs, FILES, pretty, "create");
-    }
-
     public void uploadDatabase(String database) {
-        String[][] POSTs = {{"team", user}, {"pass", pass}};
+        String[][] POSTs = {{"user", user}, {"pass", pass}, {"filename", "data.csv"}};
         String[][] FILES = {{"file", database}};
         sendPostRequest(context, url + UPLOAD, POSTs, FILES, pretty, "upload");
     }
 
-    public void appendToDatabase(String database) {
-        String[][] POSTs = {{"team", user}, {"pass", pass}, {"matchrec", database}};
-        String[][] FILES = { {"NONONO", "NONONO"} };
-        sendPostRequest(context, url + APPEND, POSTs, FILES, pretty, "append");
-    }
-
     public void downloadDatabase() {
-        String[][] POSTs = {{"team", user}, {"pass", pass}};
+        String[][] POSTs = {{"user", user}, {"pass", pass}, {"filename", "data.csv"}};
         String[][] FILES = { {"NONONO", "NONONO"} };
         sendPostRequest(context, url + DOWNLOAD, POSTs, FILES, pretty, "download");
     }
 
-    public void deleteDatabase() {
-        String[][] POSTs = {{"team", user}, {"pass", pass}};
-        String[][] FILES = { {"NONONO", "NONONO"} };
-        sendPostRequest(context, url + DELETE, POSTs, FILES, pretty, "delete");
+    public void uploadSchedule(String schedule) {
+        String[][] POSTs = {{"user", user}, {"pass", pass}, {"filename", "schedule.csv"}};
+        String[][] FILES = { {"file", schedule} };
+        sendPostRequest(context, url + UPLOAD, POSTs, FILES, pretty, "upload");
     }
 
 }

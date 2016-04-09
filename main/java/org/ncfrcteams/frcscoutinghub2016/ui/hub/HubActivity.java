@@ -110,18 +110,8 @@ public class HubActivity extends AppCompatActivity implements SmsReceiver.SmsLis
 
     //********************************* HubManageFragment Listener *********************************
     @Override
-    public void POSTRequest(String requestType) {
-        if (hubPageAdapter.isValidUser()){
-            hubPageAdapter.setAlternativeUser(); // go from (temp, temp) to (4828, RoboEagles4828)
-            Toast.makeText(this, "Login First", Toast.LENGTH_SHORT).show();
-        } else {
-            hubPageAdapter.POSTRequest(requestType);
-        }
-    }
-
-    @Override
-    public void uploadSchedule(String schedule) {
-
+    public void POSTRequest(String requestType, String extra) {
+        hubPageAdapter.POSTRequest(requestType, extra);
     }
 
     //******************************** HubListViewFragment Listener ********************************

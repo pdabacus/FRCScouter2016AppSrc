@@ -56,10 +56,10 @@ public class HubManageFragment extends Fragment implements View.OnClickListener,
     public void onClick(View view){
         switch(view.getId()){
             case R.id.uploadDatabase:
-                mListener.POSTRequest("upload");
+                mListener.POSTRequest("upload", "extra");
                 break;
             case R.id.downloadDatabase:
-                mListener.POSTRequest("download");
+                mListener.POSTRequest("download", "extra");
             case R.id.setupSchedule:
                 EventSelectorDialog dialog = new EventSelectorDialog(getContext(),this);
             default:
@@ -69,11 +69,10 @@ public class HubManageFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void scheduleListener(String schedule) {
-        mListener.uploadSchedule(schedule);
+        mListener.POSTRequest("schedule", schedule);
     }
 
     public interface HubCreateFragListener {
-        void POSTRequest(String requestType);
-        void uploadSchedule(String schedule);
+        void POSTRequest(String requestType, String extra);
     }
 }

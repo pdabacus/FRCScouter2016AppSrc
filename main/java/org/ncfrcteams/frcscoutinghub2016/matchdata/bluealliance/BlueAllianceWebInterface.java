@@ -55,8 +55,8 @@ public class BlueAllianceWebInterface {
 //                    JPList2 list2 = object2.getAsType(JPList2.class);
 //                }
 
-                Log.d("JP", "type = " + json.getType());
-                JPList list = ((JPList) json.getAsType(JPList.class));
+                Log.d("JP", "type = " + object2.getType());
+                JPList list = ((JPList) object2.getAsType(JPList.class));
 
                 JPMap map;
 

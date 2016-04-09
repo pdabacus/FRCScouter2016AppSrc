@@ -58,13 +58,14 @@ public class HubPageAdapter extends FragmentPagerAdapter implements POST.POSTLis
     public void POSTRequest(String requestType, String extra){
         switch(requestType){
             case "upload":
-                poster.uploadDatabase(listView.mySchedule.getDatabase());
+                poster.uploadDatabase(extra);
                 break;
             case "download":
                 poster.downloadDatabase();
                 break;
-            case "schedule":
-                poster.uploadSchedule(extra);
+            case "database":
+                //TODO download then merge then upload again
+                poster.uploadDatabase(listView.mySchedule.getDatabase());
                 break;
             default:
                 break;

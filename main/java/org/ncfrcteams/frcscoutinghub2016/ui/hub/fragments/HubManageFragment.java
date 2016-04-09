@@ -56,7 +56,7 @@ public class HubManageFragment extends Fragment implements View.OnClickListener,
     public void onClick(View view){
         switch(view.getId()){
             case R.id.uploadDatabase:
-                mListener.POSTRequest("upload", "extra");
+                mListener.POSTRequest("database", "extra");
                 break;
             case R.id.downloadDatabase:
                 mListener.POSTRequest("download", "extra");
@@ -69,7 +69,7 @@ public class HubManageFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void scheduleListener(String schedule) {
-        mListener.POSTRequest("schedule", schedule);
+        mListener.POSTRequest("upload", schedule);
     }
 
     public interface HubCreateFragListener {

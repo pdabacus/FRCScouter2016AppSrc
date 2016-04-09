@@ -1,14 +1,16 @@
 package org.ncfrcteams.frcscoutinghub2016.communication.http;
 
 import android.content.Context;
+import android.util.Log;
 
 /**
  * Created by pavan on 4/1/16.
  */
-public class Poster {
+public class Poster implements DatabasePickerDialog.DatabasePickerListener{
 
     private static final String UPLOAD = "manage/auth/upload/index.php";
     private static final String DOWNLOAD = "manage/auth/download/index.php";
+    private static final String GETFILES = "manage/auth/index.php";
     private Context context;
     private String url;
     private String user;
@@ -70,19 +72,20 @@ public class Poster {
     public void uploadDatabase(String database) {
         String[][] POSTs = {{"user", user}, {"pass", pass}, {"filename", "data.csv"}};
         String[][] FILES = {{"file", database}};
-        sendPostRequest(context, url + UPLOAD, POSTs, FILES, pretty, "upload");
+        new DatabasePickerDialog(context, this, user, pass, url, UPLOAD, POSTs, FILES, pretty, "upload").show();
     }
 
     public void downloadDatabase() {
         String[][] POSTs = {{"user", user}, {"pass", pass}, {"filename", "data.csv"}};
-        String[][] FILES = { {"NONONO", "NONONO"} };
-        sendPostRequest(context, url + DOWNLOAD, POSTs, FILES, false, "download");
+        String[][] FILES = {{"NONONO", "NONONO"}};
+        new DatabasePickerDialog(context, this, user, pass, url, DOWNLOAD, POSTs, FILES, false, "download").show();
     }
 
-    public void uploadSchedule(String schedule) {
-        String[][] POSTs = {{"user", user}, {"pass", pass}, {"filename", "schedule.csv"}};
-        String[][] FILES = { {"file", schedule} };
-        sendPostRequest(context, url + UPLOAD, POSTs, FILES, pretty, "upload");
-    }
+    @Override
+    public void onPickedDatabase(String url, String[][] POSTs, String[][] FILES, boolean pretty,
+                                 String returnAddress, String filename) {
 
+        POSTs[2] = new String[] {"filename", filename};
+        sendPostRequest(context, url, POSTs, FILES, pretty, returnAddress);
+    }
 }

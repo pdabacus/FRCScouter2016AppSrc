@@ -104,7 +104,7 @@ public class POST extends AsyncTask<String, Void, Void> {
 
             //format output meta data for textview
             final StringBuilder output = new StringBuilder();
-            if(!pretty){
+            if(false){
                 output.append(" Request URL: ").append(url);
                 //output.append("\n Request Parameters: " + urlParameters);
                 output.append("\n Response Code: ").append(responseCode);
@@ -129,12 +129,14 @@ public class POST extends AsyncTask<String, Void, Void> {
                 public void run() {
                     progress.dismiss();
                     listener.POSTResult(returnAddress, output.toString());
-                    WebView webView = new WebView(context);
-                    webView.loadData(output.toString(), "text/html; charset=UTF-8", null);
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-                    dialog.setView(webView);
-                    dialog.setPositiveButton("Okay", null);
-                    dialog.show();
+                    if(pretty) {
+                        WebView webView = new WebView(context);
+                        webView.loadData(output.toString(), "text/html; charset=UTF-8", null);
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+                        dialog.setView(webView);
+                        dialog.setPositiveButton("Okay", null);
+                        dialog.show();
+                    }
                 }
             });
 

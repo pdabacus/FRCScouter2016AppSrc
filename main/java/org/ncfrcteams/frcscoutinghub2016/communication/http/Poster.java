@@ -76,7 +76,7 @@ public class Poster {
     public void downloadDatabase() {
         String[][] POSTs = {{"user", user}, {"pass", pass}, {"filename", "data.csv"}};
         String[][] FILES = { {"NONONO", "NONONO"} };
-        sendPostRequest(context, url + DOWNLOAD, POSTs, FILES, pretty, "download");
+        sendPostRequest(context, url + DOWNLOAD, POSTs, FILES, false, "download");
     }
 
     public void uploadSchedule(String schedule) {

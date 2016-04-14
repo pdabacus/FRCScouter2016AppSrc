@@ -63,7 +63,8 @@ public class HubManageFragment extends Fragment implements View.OnClickListener,
                 mListener.POSTRequest("download", "extra");
                 break;
             case R.id.setupSchedule:
-                //EventSelectorDialog dialog = new EventSelectorDialog(getContext(),this);
+                EventSelectorDialog dialog = new EventSelectorDialog(getContext(),this);
+                dialog.show();
                 break;
             case R.id.signin:
                 mListener.signin();

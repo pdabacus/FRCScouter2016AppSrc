@@ -41,22 +41,27 @@ public class BlueAllianceWebInterface {
             URL eventUrl = new URL("https://www.thebluealliance.com/api/v2/events/" + Integer.toString(year));
             Log.d("JP","URL String = " + eventUrl.toString());
 
-            try(InputStream is = getInputStream(eventUrl)) {
-
+            try {
+                InputStream is = getInputStream(eventUrl);
                 JsonReader reader = new JsonReader(new InputStreamReader(is));
 
-                JPObject2 object2 = JsonParser2.getObject(reader);
-                if(object2 != null) {
-                    JPList2 list2 = object2.getAsType(JPList2.class);
-                }
+                JPObject json = JsonParser.getObject(reader);
+                if(json == null)
+                    return events;
+                //***********************************************************************
+                //Old VS New Code Test do not include in build
+//                if(object != null) {
+//                    JPList list = (JPList) object.getAsType(JPList2.class);
+//                }
 
 //                JPObject2 object2 = JsonParser2.getObject(reader);
 //                if(object2 != null) {
 //                    JPList2 list2 = object2.getAsType(JPList2.class);
 //                }
+                //***********************************************************************
 
-                Log.d("JP", "type = " + object2.getType());
-                JPList list = ((JPList) object2.getAsType(JPList.class));
+                Log.d("JP", "type = " + json.getType());
+                JPList list = ((JPList) json.getAsType(JPList.class));
 
                 JPMap map;
 
@@ -119,7 +124,8 @@ public class BlueAllianceWebInterface {
         try {
             URL url = new URL("https://www.thebluealliance.com/api/v2/event/" + key + "/matches");
 
-            try(InputStream is = getInputStream(url)) {
+            try {
+                InputStream is = getInputStream(url);
                 JsonReader reader = new JsonReader(new InputStreamReader(is));
 
                 JPObject json = JsonParser.getObject(reader);

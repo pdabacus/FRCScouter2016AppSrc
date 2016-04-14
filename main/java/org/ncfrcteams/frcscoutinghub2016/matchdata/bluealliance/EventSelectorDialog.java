@@ -77,7 +77,14 @@ public class EventSelectorDialog implements android.view.View.OnTouchListener, L
         android.support.v7.app.AlertDialog.Builder alert = new android.support.v7.app.AlertDialog.Builder(context);
         alert.setView(view);
         dialog = alert.create();
+    }
+
+    public void show() {
         dialog.show();
+    }
+
+    public void hide() {
+        dialog.hide();
     }
 
     @Override
@@ -131,7 +138,7 @@ public class EventSelectorDialog implements android.view.View.OnTouchListener, L
         }
     }
 
-    public static interface EventScheduleListener {
+    public interface EventScheduleListener {
         void scheduleListener(String schedule);
     }
 }
